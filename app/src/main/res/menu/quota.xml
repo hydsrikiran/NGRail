@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/gn"
+        app:showAsAction="never"
+        android:title="GN" />
+    <item android:id="@+id/ld"
+        app:showAsAction="never"
+        android:title="LD" />
+    <item android:id="@+id/lb"
+        app:showAsAction="never"
+        android:title="LB" />
+    <item android:id="@+id/ss"
+        app:showAsAction="never"
+        android:title="SS" />
+</menu>

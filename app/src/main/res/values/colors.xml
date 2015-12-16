@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#303F9F</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorPnrDate">#84C7DB</color>
+    <color name="colorPnrCnf">#88C725</color>
+    <color name="colorPnrWl">#FC5438</color>
+    <color name="colorPnrRac">#FFB812</color>
+    <color name="colorNewBorder">#F3BED2</color>
+</resources>

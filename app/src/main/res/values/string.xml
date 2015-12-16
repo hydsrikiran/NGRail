@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_registering">Registering On Server</string>
+    <string name="server_registered">Registration Success</string>
+    <string name="server_register_error">Registration Error</string>
+    <string name="server_unregistered">UnRegistration Success</string>
+    <string name="server_unregister_error">UnRegistration Error</string>
+    <string name="gcm_error">GCM rror</string>
+    <string name="gcm_recoverable_error">GCM Recovery Error</string>
+    <string name="gcm_deleted">GCM Deleted</string>
+    <string name="gcm_unregistered">GCM UnRegistered</string>
+</resources>

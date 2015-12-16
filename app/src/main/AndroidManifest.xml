@@ -1,0 +1,172 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="in.ngrail.NGRail">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- GCM connects to Internet Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Creates a custom permission so only this app can receive its messages. -->
+    <permission
+        android:name="in.ngrail.NGRail.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="in.ngrail.NGRail.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <uses-permission android:name="com.google.android.c2dm.intent.UNREGISTER" />
+
+    <!-- Network State Permissions to detect Internet status -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Permission to vibrate -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application android:allowBackup="true"
+        android:name="in.ngrail.NGRail.Controller"
+        android:icon="@mipmap/ngraillogo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+            android:name="in.ngrail.NGRail.RegisterActivity"
+            android:label="@string/app_name" >
+            <!-- intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.DELETE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="com.idrivecare.familypro" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGRail.MainScreen" />
+        </activity>
+            <activity android:name=".MainScreen"
+                android:label="@string/app_name">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+        <activity
+            android:name=".RegistrationActivity"
+            android:parentActivityName=".MainScreen"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGRail.MainScreen" />
+        </activity>
+        <activity
+            android:name=".HomeScreenActivity"
+            android:parentActivityName=".MainScreen"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGRail.MainScreen" />
+        </activity>
+        <activity
+            android:name=".PnrActivity"
+            android:parentActivityName=".HomeScreenActivity"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGRail.HomeScreenActivity" />
+        </activity>
+        <activity
+            android:name=".TrainsBetweenTwoStations"
+            android:parentActivityName=".HomeScreenActivity"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGRail.HomeScreenActivity" />
+        </activity>
+        <activity
+            android:name=".TrainsBetweenTwoStationsList"
+            android:parentActivityName=".TrainsBetweenTwoStations"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGRail.TrainsBetweenTwoStations" />
+        </activity>
+        <activity
+            android:name=".AdvSeatAvail"
+            android:parentActivityName=".TrainsBetweenTwoStationsList"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGRail.TrainsBetweenTwoStationsList" />
+        </activity>
+        <activity
+            android:name=".SpotTrainMainActivity"
+            android:parentActivityName=".TrainsBetweenTwoStationsList"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGRail.HomeScreenActivity" />
+        </activity>
+        <!-- This meta-data tag is required to use Google Play Services. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!-- Include the AdActivity configChanges and theme. -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <activity
+            android:name="com.rzlts.appinbox.InboxActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.rzlts.appinbox.SettingActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.rzlts.appinbox.NotificationActivity">
+        </activity>
+
+
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.androidexample.gcm" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="in.ngrail.NGRail.GCMIntentService" />
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+    </application>
+</manifest>

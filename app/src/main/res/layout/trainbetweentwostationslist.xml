@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:background="@drawable/layout_masterbg1"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:layout_above="@+id/relt"
+        android:layout_margin="7dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorNewBorder"
+            android:textAlignment="gravity"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="12dp"
+            android:layout_marginBottom="5dp"
+            android:text=""
+            android:id="@+id/trheader"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="7dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/goleft"
+                android:src="@drawable/leftarrowpnr"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ScrollView01"
+                android:textColor="@color/colorAccent"
+                android:textSize="15dp"
+                android:text=""
+                android:id="@+id/trheader1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/goright"
+                android:src="@drawable/rightarrowpnr"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/relt">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/layout_masterbg"
+        android:layout_margin="7dp">
+        <RelativeLayout
+            android:id="@+id/RelativeLayout01"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:id="@+id/pnrstatusnum">
+
+
+
+        </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/addpnr"
+            android:text="0"
+            android:visibility="invisible"/>
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:background="#33303F9F"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/imageView111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/loader"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Searching..."
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
