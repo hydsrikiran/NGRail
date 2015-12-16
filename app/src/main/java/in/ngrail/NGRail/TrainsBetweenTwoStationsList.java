@@ -21,6 +21,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -100,7 +104,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             //myToolbar.setSubtitle("One Stop Train Enquiry Hub");
             myToolbar.setLogo(R.mipmap.ngrailsmlogo);
             myToolbar.inflateMenu(R.menu.main);
-
+            LinearLayout chat = (LinearLayout) findViewById(R.id.pnrstatusnum);
+            //chat.setVisibility(View.INVISIBLE);
 
             try {
                 JSONObject jsonobj = new JSONObject(jsonvalue);
@@ -119,6 +124,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                     params.rightMargin=5;
                     params.topMargin=5;
                     params.bottomMargin=5;
+                    Animation slideL = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+                    Animation slideR = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
                     ImageView[] img1= new ImageView[totlcount];
                     ImageView[] img2= new ImageView[totlcount];
                     ImageView[] img3= new ImageView[totlcount];
@@ -129,12 +136,13 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                     TextView[] tv5= new TextView[totlcount];
                     TextView[] tv6= new TextView[totlcount];
                     TextView[] tv7= new TextView[totlcount];
+                    LinearLayout[] ll = new LinearLayout[jaray.length()];
                     for(int i=0; i<jaray.length(); i++) {
-                        LinearLayout ll = new LinearLayout(getApplicationContext());
-                        ll.setOrientation(LinearLayout.VERTICAL);
-                        ll.setPadding(3, 3, 3, 3);
-                        ll.setId(((i + 1) * 10000) + 1);
-                        ll.setBackgroundResource(R.drawable.pnrdiv);
+                        ll[i] = new LinearLayout(getApplicationContext());
+                        ll[i].setOrientation(LinearLayout.VERTICAL);
+                        ll[i].setPadding(3, 3, 3, 3);
+                        ll[i].setId(((i + 1) * 10000) + 1);
+                        ll[i].setBackgroundResource(R.drawable.pnrdiv);
 
 
                         //table lay out 1
@@ -160,9 +168,9 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                 "</body>";
                         tv1[i].setText(Html.fromHtml(htmlText, null, null));
                         tv1[i].setId(((i + 1) * 1000) + 1);
-                        tableRow.addView(tv1[i],tableRowParams);
+                        tableRow.addView(tv1[i], tableRowParams);
                         tableLayout.addView(tableRow, tableRowParams);
-                        ll.addView(tableLayout, tableLayoutParams);
+                        ll[i].addView(tableLayout, tableLayoutParams);
 
 
 
@@ -173,7 +181,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         tableLayout2.setColumnStretchable(1, true);
                         TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableRow tableRow2 = new TableRow(getApplicationContext());
-                        tableRow2.setPadding(10,0,0,0);
+                        tableRow2.setPadding(10, 0, 0, 0);
 
                         tv4[i] = new TextView(getApplicationContext());
                         tv4[i].setTextSize(15);
@@ -206,7 +214,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         tableRow2.addView(img3[i], tableRowParams7);
 
                         tableLayout2.addView(tableRow2, tableRowParams3);
-                        ll.addView(tableLayout2, tableLayoutParams2);
+                        ll[i].addView(tableLayout2, tableLayoutParams2);
 
 
 
@@ -255,19 +263,35 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         tv5[i] = new TextView(getApplicationContext());
                         String idstr = jaray.getJSONObject(i).getString("tnumber")+"#"+jaray.getJSONObject(i).getString("source")+"#"+jaray.getJSONObject(i).getString("destination")+"#"+jaray.getJSONObject(i).getString("classes")+"#"+jsonobj.getString("doj");
                         tv5[i].setText(idstr);
-                        tv5[i].setVisibility(View.INVISIBLE);
                         tv5[i].setId(((i + 1) * 1000) + 4);
                         tableRow3.addView(tv5[i], tableRowParams4);
 
 
                         tableLayout3.addView(tableRow3, tableRowParams4);
-                        ll.addView(tableLayout3, tableLayoutParams3);
+                        ll[i].addView(tableLayout3, tableLayoutParams3);
 
 
 
-                        LinearLayout chat = (LinearLayout) findViewById(R.id.pnrstatusnum);
-                        chat.addView(ll, params);
+                        chat = (LinearLayout) findViewById(R.id.pnrstatusnum);
+                        chat.addView(ll[i], params);
+                        ll[i].setVisibility(View.INVISIBLE);
                     }
+                    /*if(chat.getVisibility() == View.INVISIBLE)
+                    {
+                        chat.startAnimation(slideL);
+                        chat.setVisibility(View.VISIBLE);
+                    }
+                    chat.startAnimation(slideR);*/
+                    for(int i=0; i<jaray.length(); i++)
+                    {
+                        if(ll[i].getVisibility()==View.INVISIBLE){
+
+                            ll[i].startAnimation(slideL);
+                            ll[i].setVisibility(View.VISIBLE);
+                        }
+                        ll[i].startAnimation(slideR);
+                    }
+
                 }
             }catch (JSONException e){
                 Context context = getApplicationContext();
@@ -641,14 +665,211 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                 try{
                     JSONObject jsonobj = new JSONObject(result);
                     if(jsonobj.getString("responsecode").equals("200")) {
-                        Intent i = new Intent(TrainsBetweenTwoStationsList.this, TrainsBetweenTwoStationsList.class);
+                        /*Intent i = new Intent(TrainsBetweenTwoStationsList.this, TrainsBetweenTwoStationsList.class);
                         i.putExtra("anim id in", R.anim.fragment_slide_left_exit);
                         i.putExtra("anim id out", R.anim.fragment_slide_right_enter);
                         TrainsBetweenTwoStationsList.this.finish();
                         i.putExtra("jsonvalue", result);
                         i.putExtra("dateval", dateval);
 
-                        TrainsBetweenTwoStationsList.this.startActivity(i);
+                        TrainsBetweenTwoStationsList.this.startActivity(i);*/
+                        LinearLayout chat = (LinearLayout) findViewById(R.id.pnrstatusnum);
+                        //chat.setVisibility(View.INVISIBLE);
+
+                        try {
+                            //JSONObject jsonobj = new JSONObject(jsonvalue);
+                            if(jsonobj.getString("responsecode").equals("200"))
+                            {
+                                chat.removeAllViewsInLayout();
+                                TextView trheader = (TextView)findViewById(R.id.trheader);
+                                trheader.setText(jsonobj.getString("from")+" > "+jsonobj.getString("to"));
+
+                                TextView trheader1 = (TextView)findViewById(R.id.trheader1);
+                                trheader1.setText("Date Of Journey : "+jsonobj.getString("doj"));
+                                JSONArray jaray = jsonobj.getJSONArray("details");
+                                int totlcount = jaray.length();
+                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                        ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                params.leftMargin=5;
+                                params.rightMargin=5;
+                                params.topMargin=5;
+                                params.bottomMargin=5;
+                                Animation slideL = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+                                Animation slideR = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
+                                ImageView[] img1= new ImageView[totlcount];
+                                ImageView[] img2= new ImageView[totlcount];
+                                ImageView[] img3= new ImageView[totlcount];
+                                TextView[] tv1= new TextView[totlcount];
+                                TextView[] tv2= new TextView[totlcount];
+                                TextView[] tv3= new TextView[totlcount];
+                                TextView[] tv4= new TextView[totlcount];
+                                TextView[] tv5= new TextView[totlcount];
+                                TextView[] tv6= new TextView[totlcount];
+                                TextView[] tv7= new TextView[totlcount];
+                                LinearLayout[] ll = new LinearLayout[jaray.length()];
+                                for(int i=0; i<jaray.length(); i++) {
+                                    ll[i] = new LinearLayout(getApplicationContext());
+                                    ll[i].setOrientation(LinearLayout.VERTICAL);
+                                    ll[i].setPadding(3, 3, 3, 3);
+                                    ll[i].setId(((i + 1) * 10000) + 1);
+                                    ll[i].setBackgroundResource(R.drawable.pnrdiv);
+
+
+                                    //table lay out 1
+                                    TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    tableLayoutParams.setMargins(0, 0, 0, 10);
+                                    TableLayout tableLayout = new TableLayout(getApplicationContext());
+                                    TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableRow tableRow = new TableRow(getApplicationContext());
+                                    tableRow.setPadding(5, 5, 5, 5);
+
+                                    img1[i] = new ImageView(getApplicationContext());
+                                    img1[i].setImageResource(R.drawable.pnrtrain);
+                                    tableRow.addView(img1[i], tableRowParams);
+
+                                    tv1[i] = new TextView(getApplicationContext());
+                                    tv1[i].setTextSize(10);
+                                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                    tv1[i].setTypeface(null, Typeface.BOLD);
+                                    tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                                    String htmlText = "<body>" +
+                                            "<h3>"+jaray.getJSONObject(i).getString("tnumber")+" ("+jaray.getJSONObject(i).getString("tname")+")"+"</h3>"+
+                                            "<font color=\""+getResources().getColor(R.color.colorPnrDate)+"\">("+jaray.getJSONObject(i).getString("sdeparture")+")"+jaray.getJSONObject(i).getString("source").split("\\(")[0]+" ==> "+"("+jaray.getJSONObject(i).getString("darrival")+")"+jaray.getJSONObject(i).getString("destination").split("\\(")[0]+"</font>"+
+                                            "</body>";
+                                    tv1[i].setText(Html.fromHtml(htmlText, null, null));
+                                    tv1[i].setId(((i + 1) * 1000) + 1);
+                                    tableRow.addView(tv1[i], tableRowParams);
+                                    tableLayout.addView(tableRow, tableRowParams);
+                                    ll[i].addView(tableLayout, tableLayoutParams);
+
+
+
+                                    //table lay out 3
+                                    TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableLayout tableLayout2 = new TableLayout(getApplicationContext());
+                                    tableLayout2.setColumnStretchable(0, true);
+                                    tableLayout2.setColumnStretchable(1, true);
+                                    TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableRow tableRow2 = new TableRow(getApplicationContext());
+                                    tableRow2.setPadding(10, 0, 0, 0);
+
+                                    tv4[i] = new TextView(getApplicationContext());
+                                    tv4[i].setTextSize(15);
+                                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                    tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                                    tv4[i].setPadding(0, 0, 5, 0);
+                                    tv4[i].setId(((i + 1) * 1000) + 2);
+                                    try {
+                                        int dst2travel = Integer.parseInt(jaray.getJSONObject(i).getString("ddistance")) - Integer.parseInt(jaray.getJSONObject(i).getString("sdistance"));
+                                        tv4[i].setText("Distance : " + String.valueOf(dst2travel));
+                                    }catch (Exception e)
+                                    {
+                                        tv4[i].setText("Distance : " + String.valueOf(0));
+                                    }
+                                    tableRow2.addView(tv4[i], tableRowParams3);
+
+
+                                    img3[i] = new ImageView(getApplicationContext());
+                                    img3[i].setId(i + 1);
+                                    img3[i].setImageResource(R.drawable.pnrinfo);
+                                    registerForContextMenu(img3[i]);
+                                    img3[i].setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            openContextMenu(v);
+                                        }
+                                    });
+                                    TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    tableRowParams7.setMargins(0, 0, 40, 0);
+                                    tableRow2.addView(img3[i], tableRowParams7);
+
+                                    tableLayout2.addView(tableRow2, tableRowParams3);
+                                    ll[i].addView(tableLayout2, tableLayoutParams2);
+
+
+
+
+
+
+                                    //table lay out 4
+                                    TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableLayout tableLayout3 = new TableLayout(getApplicationContext());
+                                    tableLayout3.setColumnStretchable (2, true);
+                                    //tableLayout3.setColumnStretchable (3, true);
+                                    TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableRow tableRow3= new TableRow(getApplicationContext());
+                                    tableRow3.setPadding(10,0,0,20);
+
+                                    img2[i] = new ImageView(getApplicationContext());
+                                    img2[i].setImageResource(R.drawable.pnrchair);
+                                    TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    tableRowParams5.setMargins(0, 0, 4, 0);
+                                    tableRow3.addView(img2[i], tableRowParams5);
+
+
+                                    tv6[i] = new TextView(getApplicationContext());
+                                    tv6[i].setTextSize(12);
+                                    tv6[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                    String statuspnr = jaray.getJSONObject(i).getString("fare");
+                                    tv6[i].setTypeface(null, Typeface.BOLD);
+                                    String classes = jaray.getJSONObject(i).getString("classes");
+                                    String[] finalstr = classes.split(",");
+                                    String[] finalstr1 = statuspnr.split(",");
+                                    StringBuilder putstr = new StringBuilder();
+                                    for(int y=1; y<finalstr.length; y++)
+                                    {
+                                        putstr.append(finalstr[y]+"("+finalstr1[y]+")");
+                                        if(y < finalstr.length-1)
+                                            putstr.append(" | ");
+                                    }
+                                    if (putstr != null) {
+                                        tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf));
+                                        tv6[i].setText(putstr.toString());
+                                    }
+                                    tv6[i].setPadding(0, 0, 5, 0);
+                                    tv6[i].setId(((i + 1) * 1000) + 3);
+                                    tableRow3.addView(tv6[i], tableRowParams4);
+
+                                    tv5[i] = new TextView(getApplicationContext());
+                                    String idstr = jaray.getJSONObject(i).getString("tnumber")+"#"+jaray.getJSONObject(i).getString("source")+"#"+jaray.getJSONObject(i).getString("destination")+"#"+jaray.getJSONObject(i).getString("classes")+"#"+jsonobj.getString("doj");
+                                    tv5[i].setText(idstr);
+                                    tv5[i].setId(((i + 1) * 1000) + 4);
+                                    tableRow3.addView(tv5[i], tableRowParams4);
+
+
+                                    tableLayout3.addView(tableRow3, tableRowParams4);
+                                    ll[i].addView(tableLayout3, tableLayoutParams3);
+
+
+
+                                    chat = (LinearLayout) findViewById(R.id.pnrstatusnum);
+                                    chat.addView(ll[i], params);
+                                    ll[i].setVisibility(View.INVISIBLE);
+                                }
+                    /*if(chat.getVisibility() == View.INVISIBLE)
+                    {
+                        chat.startAnimation(slideL);
+                        chat.setVisibility(View.VISIBLE);
+                    }
+                    chat.startAnimation(slideR);*/
+                                for(int i=0; i<jaray.length(); i++)
+                                {
+                                    if(ll[i].getVisibility()==View.INVISIBLE){
+
+                                        ll[i].startAnimation(slideL);
+                                        ll[i].setVisibility(View.VISIBLE);
+                                    }
+                                    ll[i].startAnimation(slideR);
+                                }
+
+                            }
+                        }catch (JSONException e){
+                            context = getApplicationContext();
+                            CharSequence text = "3Back-end Server issue. Please try again!"+e.getMessage();
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                        }
                         Log.d("JSON VALUE",result);
                     }
                     else

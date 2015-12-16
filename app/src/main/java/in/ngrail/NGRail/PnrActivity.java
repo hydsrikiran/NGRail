@@ -27,6 +27,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -319,13 +321,14 @@ public class PnrActivity extends AppCompatActivity{
                         TextView[] tv7= new TextView[totlcount];
                         Button adp = (Button) findViewById(R.id.addpnr);
                         adp.setText(String.valueOf(jaray.length()));
+                        LinearLayout[] ll = new LinearLayout[jaray.length()];
                         for(int i=0; i<jaray.length(); i++)
                         {
-                            LinearLayout ll = new LinearLayout(getApplicationContext());
-                            ll.setOrientation(LinearLayout.VERTICAL);
-                            ll.setPadding(3, 3, 3, 3);
-                            ll.setId(((i+1)*10000)+1);
-                            ll.setBackgroundResource(R.drawable.pnrdiv);
+                            ll[i] = new LinearLayout(getApplicationContext());
+                            ll[i].setOrientation(LinearLayout.VERTICAL);
+                            ll[i].setPadding(3, 3, 3, 3);
+                            ll[i].setId(((i + 1) * 10000) + 1);
+                            ll[i].setBackgroundResource(R.drawable.pnrdiv);
                             //table lay out 1
                             TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                             tableLayoutParams.setMargins(0, 0, 0, 10);
@@ -347,7 +350,7 @@ public class PnrActivity extends AppCompatActivity{
                                 tv1[i].setId(((i + 1) * 1000) + 9);
                             tableRow.addView(tv1[i],tableRowParams);
                             tableLayout.addView(tableRow, tableRowParams);
-                            ll.addView(tableLayout, tableLayoutParams);
+                            ll[i].addView(tableLayout, tableLayoutParams);
 
 
 
@@ -382,7 +385,7 @@ public class PnrActivity extends AppCompatActivity{
                             tableRow1.addView(tv3[i],tableRowParams2);
 
                             tableLayout1.addView(tableRow1, tableRowParams1);
-                            ll.addView(tableLayout1, tableLayoutParams1);
+                            ll[i].addView(tableLayout1, tableLayoutParams1);
 
 
                             //table lay out 3
@@ -428,7 +431,7 @@ public class PnrActivity extends AppCompatActivity{
                             tableRow2.addView(img3[i], tableRowParams7);
 
                             tableLayout2.addView(tableRow2, tableRowParams3);
-                            ll.addView(tableLayout2, tableLayoutParams2);
+                            ll[i].addView(tableLayout2, tableLayoutParams2);
 
 
 
@@ -485,9 +488,21 @@ public class PnrActivity extends AppCompatActivity{
 
                             tableLayout3.addView(tableRow3, tableRowParams4);
 
-                            ll.addView(tableLayout3, tableLayoutParams3);
+                            ll[i].addView(tableLayout3, tableLayoutParams3);
                             LinearLayout chat = (LinearLayout) findViewById(R.id.pnrstatusnum);
-                            chat.addView(ll, params);
+                            chat.addView(ll[i], params);
+                            ll[i].setVisibility(View.INVISIBLE);
+                        }
+                        Animation slideL = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+                        Animation slideR = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
+                        for(int i=0; i<jaray.length(); i++)
+                        {
+                            if(ll[i].getVisibility()==View.INVISIBLE){
+
+                                ll[i].startAnimation(slideL);
+                                ll[i].setVisibility(View.VISIBLE);
+                            }
+                            ll[i].startAnimation(slideR);
                         }
                     }
                     else

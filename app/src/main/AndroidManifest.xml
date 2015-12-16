@@ -38,24 +38,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity
-            android:name="in.ngrail.NGRail.RegisterActivity"
-            android:label="@string/app_name" >
-            <!-- intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.DELETE" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="com.idrivecare.familypro" />
-            </intent-filter>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.MainScreen" />
-        </activity>
             <activity android:name=".MainScreen"
+                android:screenOrientation="portrait"
                 android:label="@string/app_name">
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />
@@ -65,6 +49,7 @@
             </activity>
         <activity
             android:name=".RegistrationActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainScreen"
             android:label="@string/app_name" >
             <meta-data
@@ -73,6 +58,7 @@
         </activity>
         <activity
             android:name=".HomeScreenActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainScreen"
             android:label="@string/app_name" >
             <meta-data
@@ -81,6 +67,7 @@
         </activity>
         <activity
             android:name=".PnrActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".HomeScreenActivity"
             android:label="@string/app_name" >
             <meta-data
@@ -89,6 +76,7 @@
         </activity>
         <activity
             android:name=".TrainsBetweenTwoStations"
+            android:screenOrientation="portrait"
             android:parentActivityName=".HomeScreenActivity"
             android:label="@string/app_name" >
             <meta-data
@@ -97,6 +85,7 @@
         </activity>
         <activity
             android:name=".TrainsBetweenTwoStationsList"
+            android:screenOrientation="portrait"
             android:parentActivityName=".TrainsBetweenTwoStations"
             android:label="@string/app_name" >
             <meta-data
@@ -105,6 +94,7 @@
         </activity>
         <activity
             android:name=".AdvSeatAvail"
+            android:screenOrientation="portrait"
             android:parentActivityName=".TrainsBetweenTwoStationsList"
             android:label="@string/app_name" >
             <meta-data
@@ -113,6 +103,7 @@
         </activity>
         <activity
             android:name=".SpotTrainMainActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".TrainsBetweenTwoStationsList"
             android:label="@string/app_name" >
             <meta-data
