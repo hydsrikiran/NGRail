@@ -231,6 +231,7 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                         tableLayout1.addView(tableRow1, tableRowParams);
                         ll1.addView(tableLayout1, tableLayoutParams);
+						chat.addView(ll1, params);
                     }
                     tv1[i] = new TextView(getApplicationContext());
                     tv1[i].setTextSize(15);
