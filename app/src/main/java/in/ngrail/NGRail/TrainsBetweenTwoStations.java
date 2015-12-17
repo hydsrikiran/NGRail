@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -61,7 +62,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
     public static final String Mail = "email";
     public static final String Phone = "name";
     private TextView loadigText = null;
-    private ImageView loadigIcon = null;
+    private ProgressBar loadigIcon = null;
     private LinearLayout loadingLayout = null;
     private String source=null;
     private String destination=null;
@@ -69,6 +70,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
     private String dateval=null;
     int selectedid = 0;
     String Pnrstr = null;
+    private static final int MY_DATE_DIALOG_ID = 3;
     SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +174,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                         args.putInt("id", 1);
                         date.setArguments(args);
                         date.setCallBack(ondate);
+                        showDialog(MY_DATE_DIALOG_ID);;
                         date.show(getSupportFragmentManager(), "Date Picker");
                     }
                 }
@@ -260,7 +263,8 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                 loadigText = (TextView) findViewById(R.id.textView111);
                 loadigText.setVisibility(View.GONE);
 
-                loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                 loadigIcon.setVisibility(View.GONE);
 
                 //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();

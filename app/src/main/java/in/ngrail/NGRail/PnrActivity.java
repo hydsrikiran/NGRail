@@ -16,6 +16,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
@@ -36,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -47,6 +49,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Timer;
@@ -67,7 +70,7 @@ public class PnrActivity extends AppCompatActivity{
     public static final String Mail = "email";
     public static final String Phone = "name";
     private TextView loadigText = null;
-    private ImageView loadigIcon = null;
+    private ProgressBar loadigIcon = null;
     private LinearLayout loadingLayout = null;
     int selectedid = 0;
     String Pnrstr = null;
@@ -120,7 +123,8 @@ public class PnrActivity extends AppCompatActivity{
             loadigText = (TextView) findViewById(R.id.textView111);
             loadigText.setVisibility(View.GONE);
 
-            loadigIcon = (ImageView) findViewById(R.id.imageView111);
+            loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
             loadigIcon.setVisibility(View.GONE);
             loadigIcon.post(new Starter("http://api.ngrail.in/reqpnrdetail/pnr/NA"));
         }catch (Exception e)
@@ -214,7 +218,8 @@ public class PnrActivity extends AppCompatActivity{
                         loadigText = (TextView) findViewById(R.id.textView111);
                         loadigText.setVisibility(View.GONE);
 
-                        loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                         loadigIcon.setVisibility(View.GONE);
                         loadigIcon.post(new Starter_pnr(Pnrstr, "A"));
                         popupWindow.dismiss();
@@ -495,6 +500,7 @@ public class PnrActivity extends AppCompatActivity{
                         }
                         Animation slideL = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
                         Animation slideR = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
+                        int y = 1000/jaray.length();
                         for(int i=0; i<jaray.length(); i++)
                         {
                             if(ll[i].getVisibility()==View.INVISIBLE){
@@ -588,15 +594,42 @@ public class PnrActivity extends AppCompatActivity{
                 loadigText = (TextView) findViewById(R.id.textView111);
                 loadigText.setVisibility(View.GONE);
 
-                loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                 loadigIcon.setVisibility(View.GONE);
                 loadigIcon.post(new Starter_pnr(Pnrstr,"S"));
             }
         }
         else if(deside == 5 ) {
-            TextView tv = (TextView) findViewById(item.getItemId() - 2);
+            final TextView tv = (TextView) findViewById(item.getItemId() - 2);
             if (tv != null) {
-                Pnrstr = tv.getText().toString();
+
+                new AlertDialog.Builder (this)
+                        .setTitle("Warning!!")
+                        .setMessage ("Do you want to Delete?")
+                        .setIcon(getResources().getDrawable(R.drawable.ngrailsmlogo))
+                        .setPositiveButton ("Yes",new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(@NonNull DialogInterface dialog, int which) {
+                                Pnrstr = tv.getText().toString();
+
+                                loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
+                                loadingLayout.setVisibility(View.GONE);
+
+                                loadigText = (TextView) findViewById(R.id.textView111);
+                                loadigText.setVisibility(View.GONE);
+
+                                loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                                loadigIcon.setVisibility(View.GONE);
+                                loadigIcon.post(new Starter_pnr(Pnrstr, "D"));
+                            }
+                        })
+                        .setNegativeButton ("No",null)
+                        .show();
+
+                //builder.Create().Show ();
+                /*Pnrstr = tv.getText().toString();
 
                 loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
                 loadingLayout.setVisibility(View.GONE);
@@ -604,9 +637,10 @@ public class PnrActivity extends AppCompatActivity{
                 loadigText = (TextView) findViewById(R.id.textView111);
                 loadigText.setVisibility(View.GONE);
 
-                loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                 loadigIcon.setVisibility(View.GONE);
-                loadigIcon.post(new Starter_pnr(Pnrstr, "D"));
+                loadigIcon.post(new Starter_pnr(Pnrstr, "D"));*/
             }
         }
         else if(deside == 6 ) {

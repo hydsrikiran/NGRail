@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class DatePickerFragment extends DialogFragment {
     OnDateSetListener ondateSet;
-
+    private static final int MY_DATE_DIALOG_ID = 3;
     public DatePickerFragment() {
     }
 

@@ -27,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +67,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
     public static final String Mail = "email";
     public static final String Phone = "name";
     private TextView loadigText = null;
-    private ImageView loadigIcon = null;
+    private ProgressBar loadigIcon = null;
     private LinearLayout loadingLayout = null;
     private String source=null;
     private String destination=null;
@@ -138,7 +139,8 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                         loadigText = (TextView) findViewById(R.id.textView111);
                         loadigText.setVisibility(View.GONE);
 
-                        loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                         loadigIcon.setVisibility(View.GONE);
                         loadigIcon.post(new Starter("http://api.ngrail.in/trainroute/trainnumber/"+srcst.getText()));
                     }
@@ -261,7 +263,8 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                 loadigText = (TextView) findViewById(R.id.textView111);
                 loadigText.setVisibility(View.GONE);
 
-                loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                 loadigIcon.setVisibility(View.GONE);
                 refreshstat = "http://api.ngrail.in/trainlivestat1/trainnum/" + source + "/doj/" + dateofjourney;
                 loadigIcon.post(new Starter_live("http://api.ngrail.in/trainlivestat1/trainnum/" + source + "/doj/" + dateofjourney));
@@ -492,6 +495,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
         int id = item.getItemId();
 
         if (id == R.id.action_status) {
+            loadigIcon.setVisibility(View.GONE);
             Context context = getApplicationContext();
             CharSequence text = "Getting trains status for " + source + " from " + destination + " for the date " + dateofjourney;
             int duration = Toast.LENGTH_SHORT;
@@ -503,8 +507,8 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             loadigText = (TextView) findViewById(R.id.textView111);
             loadigText.setVisibility(View.GONE);
 
-            loadigIcon = (ImageView) findViewById(R.id.imageView111);
-            loadigIcon.setVisibility(View.GONE);
+            loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
             refreshstat = "http://api.ngrail.in/trainlivestat1/trainnum/" + source + "/doj/" + dateofjourney;
             loadigIcon.post(new Starter_live(refreshstat));
             return true;

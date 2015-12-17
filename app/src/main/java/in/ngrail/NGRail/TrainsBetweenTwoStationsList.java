@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -58,7 +59,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
     public static final String Mail = "email";
     public static final String Phone = "name";
     private TextView loadigText = null;
-    private ImageView loadigIcon = null;
+    private ProgressBar loadigIcon = null;
     private LinearLayout loadingLayout = null;
     public String dateval = null;
     public String jsonvalue = "";
@@ -329,7 +330,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         loadigText = (TextView) findViewById(R.id.textView111);
                         loadigText.setVisibility(View.GONE);
 
-                        loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                         loadigIcon.setVisibility(View.GONE);
 
                         //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();
@@ -375,7 +377,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         loadigText = (TextView) findViewById(R.id.textView111);
                         loadigText.setVisibility(View.GONE);
 
-                        loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                         loadigIcon.setVisibility(View.GONE);
 
                         //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();
@@ -586,7 +589,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
         loadigText = (TextView) findViewById(R.id.textView111);
         loadigText.setVisibility(View.GONE);
 
-        loadigIcon = (ImageView) findViewById(R.id.imageView111);
+        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
         loadigIcon.setVisibility(View.GONE);
         String soures = splity[1].split("\\(")[1];
         soures = soures.substring(0,soures.length()-1);

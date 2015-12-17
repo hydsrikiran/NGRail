@@ -79,11 +79,19 @@
             android:orientation="vertical"
             android:visibility="gone" >
 
-            <ImageView
+            <!-- ImageView
                 android:id="@+id/imageView111"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/loader"
+                android:visibility="gone" / -->
+            <ProgressBar
+                android:id="@+id/imageView111"
+                android:layout_width="fill_parent"
+                android:layout_margin="15dp"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.Material.Light.ProgressBar.Large.Inverse"
+                android:indeterminate="true"
                 android:visibility="gone" />
 
             <TextView

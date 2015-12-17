@@ -355,6 +355,42 @@ public class HomeScreenActivity extends AppCompatActivity{
         }
 
 
+
+        //Train Route Button
+
+        ImageView trainroute = (ImageView)findViewById(R.id.trainroute);
+        if(trainroute!=null)
+        {
+            trainroute.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v)
+                {
+                    splashTimer = new Timer();
+                    splashTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(Mail, "NA");
+                            editor.putString(Phone, "NA");
+                            editor.commit();*/
+                            Intent i;
+                            i = new Intent(HomeScreenActivity.this, TrainRouteActivity.class);
+                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                            HomeScreenActivity.this.finish();
+                            HomeScreenActivity.this.startActivity(i);
+                            // This makes the new screen slide up as it fades in
+                            // while the current screen slides up as it fades out.
+                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                        }
+                    }, DELAY);
+                    scheduled = true;
+                }
+            });
+        }
+
+
         //SPOT Train Button
 
         ImageView spottrain = (ImageView)findViewById(R.id.livestatus);

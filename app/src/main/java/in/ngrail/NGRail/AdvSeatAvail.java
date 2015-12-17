@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -38,6 +39,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,7 +56,7 @@ public class AdvSeatAvail extends AppCompatActivity{
     public static final String Mail = "email";
     public static final String Phone = "name";
     private TextView loadigText = null;
-    private ImageView loadigIcon = null;
+    private ProgressBar loadigIcon = null;
     private LinearLayout loadingLayout = null;
     public String dateval = null;
     public String jsonvalue = "";
@@ -63,6 +67,7 @@ public class AdvSeatAvail extends AppCompatActivity{
     private String train_fina = null;
     private String doj_fina = null;
     private String class_fina = null;
+    private String quota_fina = "GN";
     SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +136,9 @@ public class AdvSeatAvail extends AppCompatActivity{
                     ;
                 }
                 TextView trheader1 = (TextView)findViewById(R.id.trheader1);
-                trheader1.setText("Date Of Journey : "+jsn.getString("doj")+" Class : "+jsn.getString("class").split(",")[0]+"\n"+"GN Fare : "+jsn.getString("orgfare")+" CK Fare : "+jsn.getString("tatfare"));
+                trheader1.setText("Date Of Journey : "+jsn.getString("doj"));
+                TextView trheader3 = (TextView)findViewById(R.id.trheader3);
+                trheader3.setText("Class : "+jsn.getString("class").split(",")[0]+" "+"GN Fare : "+jsn.getString("orgfare")+" CK Fare : "+jsn.getString("tatfare"));
                 doj_fina = jsn.getString("doj");
                 class_fina = jsn.getString("class").split(",")[0];
                 TextView trheader2 = (TextView)findViewById(R.id.trheader2);
@@ -158,6 +165,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                 {
 
                     int rrg=R.color.colorPnrWl;
+                    int rrg1=R.color.colorPrimaryDark;
                     if(tatfare >= Integer.parseInt(jsnarr.getJSONObject(i).getString("farediff")))
                         rrg=R.color.colorPnrCnf;
                     ll[i] = new LinearLayout(getApplicationContext());
@@ -189,9 +197,10 @@ public class AdvSeatAvail extends AppCompatActivity{
                         tv1[i] = new TextView(getApplicationContext());
                         tv1[i].setTextSize(15);
                         tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        tv1[i].setTypeface(null, Typeface.BOLD);
+                        tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                         tv1[i].setTextColor(getResources().getColor(R.color.colorAccent));
                         tv1[i].setText("Boarding");
+                        tv1[i].setMinWidth(100);
                         tableRow1.addView(tv1[i], tableRowParams);
                         //tableLayout.addView(tableRow, tableRowParams);
                         //ll.addView(tableLayout, tableLayoutParams);
@@ -201,8 +210,9 @@ public class AdvSeatAvail extends AppCompatActivity{
                         tv2[i] = new TextView(getApplicationContext());
                         tv2[i].setTextSize(15);
                         tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        tv2[i].setTypeface(null, Typeface.BOLD);
+                        tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                         tv2[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                        tv2[i].setMinWidth(100);
                         tv2[i].setText("Aliting");
                         tableRow1.addView(tv2[i], tableRowParams);
                         //tableLayout.addView(tableRow, tableRowParams);
@@ -212,8 +222,9 @@ public class AdvSeatAvail extends AppCompatActivity{
                         tv3[i] = new TextView(getApplicationContext());
                         tv3[i].setTextSize(15);
                         tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        tv3[i].setTypeface(null, Typeface.BOLD);
+                        tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                         tv3[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                        tv3[i].setMinWidth(130);
                         tv3[i].setText("Status");
                         tableRow1.addView(tv3[i],tableRowParams);
                         //tableLayout.addView(tableRow, tableRowParams);
@@ -223,8 +234,9 @@ public class AdvSeatAvail extends AppCompatActivity{
                         tv4[i] = new TextView(getApplicationContext());
                         tv4[i].setTextSize(15);
                         tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        tv4[i].setTypeface(null, Typeface.BOLD);
+                        tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                         tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                        tv4[i].setMinWidth(100);
                         tv4[i].setText("Fare Diff");
                         //tv4[i].setId(((i + 1) * 1000) + 4);
                         tableRow1.addView(tv4[i], tableRowParams);
@@ -235,14 +247,15 @@ public class AdvSeatAvail extends AppCompatActivity{
                     }
                     tv1[i] = new TextView(getApplicationContext());
                     tv1[i].setTextSize(15);
-                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-                    tv1[i].setTypeface(null, Typeface.BOLD);
-                    tv1[i].setTextColor(getResources().getColor(rrg));
+                    tv1[i].setMinWidth(100);
+                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                    tv1[i].setTextColor(getResources().getColor(rrg1));
                     tv1[i].setText(jsnarr.getJSONObject(i).getString("from"));
                     //tv1[i].setId(((i + 1) * 1000) + 1);
                     tableRow.addView(tv1[i], tableRowParams);
                     tableRow.setMinimumWidth(100);
-                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     //tableLayout.addView(tableRow, tableRowParams);
                     //ll.addView(tableLayout, tableLayoutParams);
 
@@ -250,41 +263,44 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                     tv2[i] = new TextView(getApplicationContext());
                     tv2[i].setTextSize(15);
-                    tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-                    tv2[i].setTypeface(null, Typeface.BOLD);
-                    tv2[i].setTextColor(getResources().getColor(rrg));
+                    tv2[i].setMinWidth(100);
+                    tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                    tv2[i].setTextColor(getResources().getColor(rrg1));
                     tv2[i].setText(jsnarr.getJSONObject(i).getString("to"));
                     //tv2[i].setId(((i + 1) * 1000) + 2);
                     tableRow.addView(tv2[i], tableRowParams);
                     tableRow.setMinimumWidth(100);
-                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     //tableLayout.addView(tableRow, tableRowParams);
                     //ll.addView(tableLayout, tableLayoutParams);
 
 
                     tv3[i] = new TextView(getApplicationContext());
                     tv3[i].setTextSize(15);
-                    tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-                    tv3[i].setTypeface(null, Typeface.BOLD);
-                    tv3[i].setTextColor(getResources().getColor(rrg));
+                    tv3[i].setMinWidth(130);
+                    tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                    tv3[i].setTextColor(getResources().getColor(rrg1));
                     tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
                     //tv3[i].setId(((i + 1) * 1000) + 3);
                     tableRow.addView(tv3[i], tableRowParams);
                     tableRow.setMinimumWidth(300);
-                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     //tableLayout.addView(tableRow, tableRowParams);
                     //ll.addView(tableLayout, tableLayoutParams);
 
 
                     tv4[i] = new TextView(getApplicationContext());
                     tv4[i].setTextSize(15);
-                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-                    tv4[i].setTypeface(null, Typeface.BOLD);
+                    tv4[i].setMinWidth(100);
+                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                     tv4[i].setTextColor(getResources().getColor(rrg));
                     tv4[i].setText(jsnarr.getJSONObject(i).getString("farediff"));
                     //tv4[i].setId(((i + 1) * 1000) + 4);
                     tableRow.addView(tv4[i], tableRowParams);
-                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     tableRow.setMinimumWidth(100);
                     tableLayout.addView(tableRow, tableRowParams);
                     ll[i].addView(tableLayout, tableLayoutParams);
@@ -317,6 +333,108 @@ public class AdvSeatAvail extends AppCompatActivity{
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         }
+
+        ImageView leftarr = (ImageView)findViewById(R.id.goleft);
+        leftarr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    TextView dt = (TextView) findViewById(R.id.trheader1);
+                    String dtp = dt.getText().toString().split(":")[1];
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(sdf.parse(doj_fina));
+                    c.add(Calendar.DATE, -1);  // number of days to add
+                    doj_fina = sdf.format(c.getTime());  // dt is now the new date
+
+                    loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
+                    loadingLayout.setVisibility(View.GONE);
+
+                    loadigText = (TextView) findViewById(R.id.textView111);
+                    loadigText.setVisibility(View.GONE);
+
+                    loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                    if (quota_fina.equals("GN")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                    }
+                    else if (quota_fina.equals("LB")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                    }
+                    else if (quota_fina.equals("LD")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                    }
+                    else if (quota_fina.equals("SS")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                    }
+                    //loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    loadigIcon.setVisibility(View.GONE);
+
+                    //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();
+
+                    // This line is to start Asyn Task only when OnCreate Method get completed, So Loading Icon Rotation Animation work properly
+                    //loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+
+                }catch (ParseException e)
+                {
+                    showToast("Date format Wrong. Please Contact Admin!!");
+                }catch (Exception e)
+                {
+                    showToast(e.getMessage());
+                }
+            }
+        });
+
+        ImageView rightarr = (ImageView)findViewById(R.id.goright);
+        rightarr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    TextView dt = (TextView) findViewById(R.id.trheader1);
+                    String dtp = dt.getText().toString().split(":")[1];
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(sdf.parse(doj_fina));
+                    c.add(Calendar.DATE, 1);  // number of days to add
+                    doj_fina = sdf.format(c.getTime());  // dt is now the new date
+
+
+
+                    loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
+                    loadingLayout.setVisibility(View.GONE);
+
+                    loadigText = (TextView) findViewById(R.id.textView111);
+                    loadigText.setVisibility(View.GONE);
+
+                    loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                    //loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    if (quota_fina.equals("GN")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                    }
+                    else if (quota_fina.equals("LB")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                    }
+                    else if (quota_fina.equals("LD")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                    }
+                    else if (quota_fina.equals("SS")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                    }
+                    loadigIcon.setVisibility(View.GONE);
+
+                    //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();
+
+                    // This line is to start Asyn Task only when OnCreate Method get completed, So Loading Icon Rotation Animation work properly
+                    //loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+
+                }catch (ParseException e)
+                {
+                    showToast("Date format Wrong. Please Contact Admin!!");
+                }catch (Exception e)
+                {
+                    showToast(e.getMessage());
+                }
+            }
+        });
     }
 
     @Override
@@ -378,23 +496,28 @@ public class AdvSeatAvail extends AppCompatActivity{
         loadigText = (TextView) findViewById(R.id.textView111);
         loadigText.setVisibility(View.GONE);
 
-        loadigIcon = (ImageView) findViewById(R.id.imageView111);
+        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
         loadigIcon.setVisibility(View.GONE);
         //String[] dojsp=doj_fina.split("-");
         //String dojf = dojsp[2]+"-"+dojsp[1]+"-"+dojsp[0];
         if (id == R.id.gn) {
+            quota_fina = "GN";
             loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
             return true;
         }
         else if (id == R.id.lb) {
+            quota_fina = "LB";
             loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
             return true;
         }
         else if (id == R.id.ld) {
+            quota_fina="LD";
             loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
             return true;
         }
         else if (id == R.id.ss) {
+            quota_fina = "SS";
             loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
             return true;
         }
@@ -487,7 +610,9 @@ public class AdvSeatAvail extends AppCompatActivity{
                             ;
                         }
                         TextView trheader1 = (TextView)findViewById(R.id.trheader1);
-                        trheader1.setText("Date Of Journey : "+jsn.getString("doj")+" Class : "+jsn.getString("class").split(",")[0]+"\n"+"GN Fare : "+jsn.getString("orgfare")+" CK Fare : "+jsn.getString("tatfare"));
+                        trheader1.setText("Date Of Journey : "+jsn.getString("doj"));
+                        TextView trheader3 = (TextView)findViewById(R.id.trheader3);
+                        trheader3.setText("Class : "+jsn.getString("class").split(",")[0]+" "+"GN Fare : "+jsn.getString("orgfare")+" CK Fare : "+jsn.getString("tatfare"));
                         doj_fina = jsn.getString("doj");
                         class_fina = jsn.getString("class").split(",")[0];
                         TextView trheader2 = (TextView)findViewById(R.id.trheader2);
@@ -512,14 +637,15 @@ public class AdvSeatAvail extends AppCompatActivity{
                         for(int i=0; i<totalcnt; i++)
                         {
 
-                            int rrg=R.color.colorPnrWl;
+                            int rrg = R.color.colorPnrWl;
+                            int rrg1 = R.color.colorPrimaryDark;
                             if(tatfare >= Integer.parseInt(jsnarr.getJSONObject(i).getString("farediff")))
                                 rrg=R.color.colorPnrCnf;
                             ll[i] = new LinearLayout(getApplicationContext());
                             ll[i].setOrientation(LinearLayout.VERTICAL);
                             ll[i].setPadding(3, 3, 3, 3);
                             //ll.setId(((i + 1) * 10000) + 1);
-                            ll.setBackgroundResource(R.drawable.pnrdiv);
+                            ll[i].setBackgroundResource(R.drawable.pnrdiv);
                             TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, 	TableLayout.LayoutParams.WRAP_CONTENT);
                             tableLayoutParams.setMargins(0, 0, 0, 10);
                             TableLayout tableLayout = new TableLayout(getApplicationContext());
@@ -544,9 +670,10 @@ public class AdvSeatAvail extends AppCompatActivity{
                                 tv1[i] = new TextView(getApplicationContext());
                                 tv1[i].setTextSize(15);
                                 tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                                tv1[i].setTypeface(null, Typeface.BOLD);
+                                tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv1[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv1[i].setText("Boarding");
+                                tv1[i].setMinWidth(100);
                                 tableRow1.addView(tv1[i], tableRowParams);
                                 //tableLayout.addView(tableRow, tableRowParams);
                                 //ll.addView(tableLayout, tableLayoutParams);
@@ -556,9 +683,10 @@ public class AdvSeatAvail extends AppCompatActivity{
                                 tv2[i] = new TextView(getApplicationContext());
                                 tv2[i].setTextSize(15);
                                 tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                                tv2[i].setTypeface(null, Typeface.BOLD);
+                                tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv2[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv2[i].setText("Aliting");
+                                tv2[i].setMinWidth(100);
                                 tableRow1.addView(tv2[i], tableRowParams);
                                 //tableLayout.addView(tableRow, tableRowParams);
                                 //ll.addView(tableLayout, tableLayoutParams);
@@ -567,9 +695,10 @@ public class AdvSeatAvail extends AppCompatActivity{
                                 tv3[i] = new TextView(getApplicationContext());
                                 tv3[i].setTextSize(15);
                                 tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                                tv3[i].setTypeface(null, Typeface.BOLD);
+                                tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv3[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv3[i].setText("Status");
+                                tv3[i].setMinWidth(130);
                                 tableRow1.addView(tv3[i],tableRowParams);
                                 //tableLayout.addView(tableRow, tableRowParams);
                                 //ll.addView(tableLayout, tableLayoutParams);
@@ -578,9 +707,10 @@ public class AdvSeatAvail extends AppCompatActivity{
                                 tv4[i] = new TextView(getApplicationContext());
                                 tv4[i].setTextSize(15);
                                 tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                                tv4[i].setTypeface(null, Typeface.BOLD);
+                                tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv4[i].setText("Fare Diff");
+                                tv4[i].setMinWidth(100);
                                 //tv4[i].setId(((i + 1) * 1000) + 4);
                                 tableRow1.addView(tv4[i], tableRowParams);
 
@@ -590,9 +720,10 @@ public class AdvSeatAvail extends AppCompatActivity{
                             }
                             tv1[i] = new TextView(getApplicationContext());
                             tv1[i].setTextSize(15);
+                            tv1[i].setMinWidth(100);
                             tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                            tv1[i].setTypeface(null, Typeface.BOLD);
-                            tv1[i].setTextColor(getResources().getColor(rrg));
+                            tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                            tv1[i].setTextColor(getResources().getColor(rrg1));
                             tv1[i].setText(jsnarr.getJSONObject(i).getString("from"));
                             //tv1[i].setId(((i + 1) * 1000) + 1);
                             tableRow.addView(tv1[i], tableRowParams);
@@ -603,9 +734,10 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                             tv2[i] = new TextView(getApplicationContext());
                             tv2[i].setTextSize(15);
+                            tv2[i].setMinWidth(100);
                             tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                            tv2[i].setTypeface(null, Typeface.BOLD);
-                            tv2[i].setTextColor(getResources().getColor(rrg));
+                            tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                            tv2[i].setTextColor(getResources().getColor(rrg1));
                             tv2[i].setText(jsnarr.getJSONObject(i).getString("to"));
                             //tv2[i].setId(((i + 1) * 1000) + 2);
                             tableRow.addView(tv2[i], tableRowParams);
@@ -615,9 +747,10 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                             tv3[i] = new TextView(getApplicationContext());
                             tv3[i].setTextSize(15);
+                            tv3[i].setMinWidth(130);
                             tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                            tv3[i].setTypeface(null, Typeface.BOLD);
-                            tv3[i].setTextColor(getResources().getColor(rrg));
+                            tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                            tv3[i].setTextColor(getResources().getColor(rrg1));
                             tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
                             //tv3[i].setId(((i + 1) * 1000) + 3);
                             tableRow.addView(tv3[i],tableRowParams);
@@ -627,8 +760,9 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                             tv4[i] = new TextView(getApplicationContext());
                             tv4[i].setTextSize(15);
+                            tv4[i].setMinWidth(100);
                             tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                            tv4[i].setTypeface(null, Typeface.BOLD);
+                            tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv4[i].setTextColor(getResources().getColor(rrg));
                             tv4[i].setText(jsnarr.getJSONObject(i).getString("farediff"));
                             //tv4[i].setId(((i + 1) * 1000) + 4);
@@ -639,6 +773,8 @@ public class AdvSeatAvail extends AppCompatActivity{
                             chat.addView(ll[i], params);
 							ll[i].setVisibility(View.INVISIBLE);
 						}
+                        Animation slideL = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
+                        Animation slideR = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
 						for(int i=0; i<jsnarr.length(); i++)
 						{
 							if(ll[i].getVisibility()==View.INVISIBLE){

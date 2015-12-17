@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
     public static final String Phone = "name";
     SharedPreferences sharedpreferences;
     private TextView loadigText = null;
-    private ImageView loadigIcon = null;
+    private ProgressBar loadigIcon = null;
     private LinearLayout loadingLayout = null;
     String email =null;
     String phone =null;
@@ -112,8 +113,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 loadigText = (TextView) findViewById(R.id.textView111);
                 loadigText.setVisibility(View.GONE);
                 String regid = sharedpreferences.getString("regid", null);
-                loadigIcon = (ImageView) findViewById(R.id.imageView111);
+                loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                 loadigIcon.setVisibility(View.GONE);
+                if(regid==null)
+                    regid="NA";
                 setPnr = "http://api.ngrail.in/register1/user/"+email+"/mobnum/"+phone+"/regid/"+regid+"/";
                 loadigIcon.post(new Starter(setPnr));
             }
