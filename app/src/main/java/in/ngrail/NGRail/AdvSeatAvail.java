@@ -226,7 +226,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                         tv4[i].setTypeface(null, Typeface.BOLD);
                         tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
                         tv4[i].setText("Fare Diff");
-                        tv4[i].setId(((i + 1) * 1000) + 4);
+                        //tv4[i].setId(((i + 1) * 1000) + 4);
                         tableRow1.addView(tv4[i], tableRowParams);
 
                         tableLayout1.addView(tableRow1, tableRowParams);
@@ -239,7 +239,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv1[i].setTypeface(null, Typeface.BOLD);
                     tv1[i].setTextColor(getResources().getColor(rrg));
                     tv1[i].setText(jsnarr.getJSONObject(i).getString("from"));
-                    tv1[i].setId(((i + 1) * 1000) + 1);
+                    //tv1[i].setId(((i + 1) * 1000) + 1);
                     tableRow.addView(tv1[i], tableRowParams);
                     tableRow.setMinimumWidth(100);
                     tableRow.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
@@ -254,7 +254,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv2[i].setTypeface(null, Typeface.BOLD);
                     tv2[i].setTextColor(getResources().getColor(rrg));
                     tv2[i].setText(jsnarr.getJSONObject(i).getString("to"));
-                    tv2[i].setId(((i + 1) * 1000) + 2);
+                    //tv2[i].setId(((i + 1) * 1000) + 2);
                     tableRow.addView(tv2[i], tableRowParams);
                     tableRow.setMinimumWidth(100);
                     tableRow.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
@@ -268,7 +268,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv3[i].setTypeface(null, Typeface.BOLD);
                     tv3[i].setTextColor(getResources().getColor(rrg));
                     tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
-                    tv3[i].setId(((i + 1) * 1000) + 3);
+                    //tv3[i].setId(((i + 1) * 1000) + 3);
                     tableRow.addView(tv3[i], tableRowParams);
                     tableRow.setMinimumWidth(300);
                     tableRow.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
@@ -282,7 +282,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv4[i].setTypeface(null, Typeface.BOLD);
                     tv4[i].setTextColor(getResources().getColor(rrg));
                     tv4[i].setText(jsnarr.getJSONObject(i).getString("farediff"));
-                    tv4[i].setId(((i + 1) * 1000) + 4);
+                    //tv4[i].setId(((i + 1) * 1000) + 4);
                     tableRow.addView(tv4[i], tableRowParams);
                     tableRow.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
                     tableRow.setMinimumWidth(100);
@@ -508,16 +508,17 @@ public class AdvSeatAvail extends AppCompatActivity{
                         TextView[] tv2= new TextView[totalcnt];
                         TextView[] tv3= new TextView[totalcnt];
                         TextView[] tv4= new TextView[totalcnt];
+						LinearLayout[] ll=new LinearLayout[jsnarr.length()];
                         for(int i=0; i<totalcnt; i++)
                         {
 
                             int rrg=R.color.colorPnrWl;
                             if(tatfare >= Integer.parseInt(jsnarr.getJSONObject(i).getString("farediff")))
                                 rrg=R.color.colorPnrCnf;
-                            LinearLayout ll = new LinearLayout(getApplicationContext());
-                            ll.setOrientation(LinearLayout.VERTICAL);
-                            ll.setPadding(3, 3, 3, 3);
-                            ll.setId(((i + 1) * 10000) + 1);
+                            ll[i] = new LinearLayout(getApplicationContext());
+                            ll[i].setOrientation(LinearLayout.VERTICAL);
+                            ll[i].setPadding(3, 3, 3, 3);
+                            //ll.setId(((i + 1) * 10000) + 1);
                             ll.setBackgroundResource(R.drawable.pnrdiv);
                             TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, 	TableLayout.LayoutParams.WRAP_CONTENT);
                             tableLayoutParams.setMargins(0, 0, 0, 10);
@@ -528,6 +529,11 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tableRow.setPadding(5, 5, 5, 5);
                             if(i==0)
                             {
+								LinearLayout ll1 = new LinearLayout(getApplicationContext());
+								ll1.setOrientation(LinearLayout.VERTICAL);
+								ll1.setPadding(3, 3, 3, 3);
+								ll1.setId(((i + 1) * 10000) + 1);
+								ll1.setBackgroundResource(R.drawable.pnrdiv);
                                 TableLayout tableLayout1 = new TableLayout(getApplicationContext());
                                 tableLayout1.setStretchAllColumns(true);
                                 TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
@@ -575,11 +581,12 @@ public class AdvSeatAvail extends AppCompatActivity{
                                 tv4[i].setTypeface(null, Typeface.BOLD);
                                 tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv4[i].setText("Fare Diff");
-                                tv4[i].setId(((i + 1) * 1000) + 4);
+                                //tv4[i].setId(((i + 1) * 1000) + 4);
                                 tableRow1.addView(tv4[i], tableRowParams);
 
                                 tableLayout1.addView(tableRow1, tableRowParams);
-                                ll.addView(tableLayout1, tableLayoutParams);
+                                ll1.addView(tableLayout1, tableLayoutParams);
+								chat.addView(ll1, params);
                             }
                             tv1[i] = new TextView(getApplicationContext());
                             tv1[i].setTextSize(15);
@@ -587,7 +594,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv1[i].setTypeface(null, Typeface.BOLD);
                             tv1[i].setTextColor(getResources().getColor(rrg));
                             tv1[i].setText(jsnarr.getJSONObject(i).getString("from"));
-                            tv1[i].setId(((i + 1) * 1000) + 1);
+                            //tv1[i].setId(((i + 1) * 1000) + 1);
                             tableRow.addView(tv1[i], tableRowParams);
                             //tableLayout.addView(tableRow, tableRowParams);
                             //ll.addView(tableLayout, tableLayoutParams);
@@ -600,7 +607,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv2[i].setTypeface(null, Typeface.BOLD);
                             tv2[i].setTextColor(getResources().getColor(rrg));
                             tv2[i].setText(jsnarr.getJSONObject(i).getString("to"));
-                            tv2[i].setId(((i + 1) * 1000) + 2);
+                            //tv2[i].setId(((i + 1) * 1000) + 2);
                             tableRow.addView(tv2[i], tableRowParams);
                             //tableLayout.addView(tableRow, tableRowParams);
                             //ll.addView(tableLayout, tableLayoutParams);
@@ -612,7 +619,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv3[i].setTypeface(null, Typeface.BOLD);
                             tv3[i].setTextColor(getResources().getColor(rrg));
                             tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
-                            tv3[i].setId(((i + 1) * 1000) + 3);
+                            //tv3[i].setId(((i + 1) * 1000) + 3);
                             tableRow.addView(tv3[i],tableRowParams);
                             //tableLayout.addView(tableRow, tableRowParams);
                             //ll.addView(tableLayout, tableLayoutParams);
@@ -624,13 +631,23 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv4[i].setTypeface(null, Typeface.BOLD);
                             tv4[i].setTextColor(getResources().getColor(rrg));
                             tv4[i].setText(jsnarr.getJSONObject(i).getString("farediff"));
-                            tv4[i].setId(((i + 1) * 1000) + 4);
+                            //tv4[i].setId(((i + 1) * 1000) + 4);
                             tableRow.addView(tv4[i], tableRowParams);
                             tableLayout.addView(tableRow, tableRowParams);
-                            ll.addView(tableLayout, tableLayoutParams);
+                            ll[i].addView(tableLayout, tableLayoutParams);
 
-                            chat.addView(ll, params);
-                        }
+                            chat.addView(ll[i], params);
+							ll[i].setVisibility(View.INVISIBLE);
+						}
+						for(int i=0; i<jsnarr.length(); i++)
+						{
+							if(ll[i].getVisibility()==View.INVISIBLE){
+
+								ll[i].startAnimation(slideL);
+								ll[i].setVisibility(View.VISIBLE);
+							}
+							ll[i].startAnimation(slideR);
+						}
                     }catch (JSONException e)
                     {
                         showToast("Back-End server issue Please try again!!"+e.getMessage());
