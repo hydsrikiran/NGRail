@@ -95,7 +95,7 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
 
             //myToolbar.setSubtitle("One Stop Train Enquiry Hub");
             myToolbar.setLogo(R.mipmap.ngrailsmlogo);
-            myToolbar.inflateMenu(R.menu.main);
+            //myToolbar.inflateMenu(R.menu.main);
 
 
             final EditText srcst = (EditText)findViewById(R.id.source_station);
