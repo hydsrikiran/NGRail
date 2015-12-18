@@ -4,4 +4,7 @@
     <item android:id="@+id/action_status"
         app:showAsAction="never"
         android:title="New Tour" />
+    <item android:id="@+id/action_status1"
+        app:showAsAction="never"
+        android:title="Reload SMS" />
 </menu>

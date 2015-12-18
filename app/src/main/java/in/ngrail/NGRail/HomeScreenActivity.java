@@ -1,10 +1,12 @@
 package in.ngrail.NGRail;
 
+import android.animation.TypeEvaluator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,14 +14,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,7 +48,11 @@ public class HomeScreenActivity extends AppCompatActivity{
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
+    public static final String Type = "type";
     SharedPreferences sharedpreferences;
+    private TextView loadigText = null;
+    private ProgressBar loadigIcon = null;
+    private LinearLayout loadingLayout = null;
     /*TextView lblMessage;
     Controller aController;
     private BroadcastReceiver sendBroadcastReceiver;
@@ -46,6 +64,7 @@ public class HomeScreenActivity extends AppCompatActivity{
 
     public static String name;
     public static String email;
+    public static String type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +77,8 @@ public class HomeScreenActivity extends AppCompatActivity{
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("NGRail");
         setSupportActionBar(myToolbar);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        type = sharedpreferences.getString(Type, null);
         //myToolbar.setLogo(getDrawable(R.drawable.ngraillogo));
         //myToolbar.setTitle("NGRail");
         myToolbar.setNavigationIcon(R.drawable.logout);
@@ -72,88 +93,9 @@ public class HomeScreenActivity extends AppCompatActivity{
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
+                        editor.putString(Type, "NA");
+                        editor.putString("fload", "1");
                         editor.commit();
-
-                        /*//Get Global Controller Class object (see application tag in AndroidManifest.xml)
-                        aController = (Controller) getApplicationContext();
-
-
-                        // Check if Internet present
-                        if (!aController.isConnectingToInternet()) {
-
-                            // Internet Connection is not present
-                            aController.showAlertDialog(HomeScreenActivity.this,
-                                    "Internet Connection Error",
-                                    "Please connect to Internet connection", false);
-                            // stop executing code by return
-                            return;
-                        }
-
-                        // Getting name, email from intent
-                        Intent i = getIntent();
-
-                        name = i.getStringExtra("name");
-                        email = i.getStringExtra("email");
-
-                        // Make sure the device has the proper dependencies.
-                        //GCMRegistrar.checkDevice(getApplicationContext());
-
-                        // Make sure the manifest permissions was properly set
-                        //GCMRegistrar.checkManifest(getApplicationContext());
-
-                        lblMessage = (TextView) findViewById(R.id.lblMessage);
-
-                        // Register custom Broadcast receiver to show messages on activity
-                        //registerReceiver(mHandleMessageReceiver, new IntentFilter(
-                        //        Config.DISPLAY_MESSAGE_ACTION));
-
-                        // Get GCM registration id
-                        final String regId = GCMRegistrar.getRegistrationId(getApplicationContext());
-
-                        // Check if regid already presents
-                        if (regId.equals("")) {
-
-                            // Register with GCM
-                            GCMRegistrar.register(getApplicationContext(), Config.GOOGLE_SENDER_ID);
-
-                        } else {
-
-                            // Device is already registered on GCM Server
-                            if (GCMRegistrar.isRegisteredOnServer(getApplicationContext())) {
-
-                                final Context context1 = getApplicationContext();
-                                mRegisterTask = new AsyncTask<Void, Void, Void>() {
-
-                                    @Override
-                                    protected Void doInBackground(Void... params) {
-
-                                        // Register on our server
-                                        // On server creates a new user
-                                        aController.unregister(context1, regId);
-
-                                        return null;
-                                    }
-
-                                    @Override
-                                    protected void onPostExecute(Void result) {
-                                        mRegisterTask = null;
-                                        Intent i;
-                                        i = new Intent(HomeScreenActivity.this, RegisterActivity.class);
-                                                    i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                                                    i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                                                    HomeScreenActivity.this.finish();
-                                                    HomeScreenActivity.this.startActivity(i);
-                                                    // This makes the new screen slide up as it fades in
-                                                    // while the current screen slides up as it fades out.
-                                                    overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                                                }
-
-                                };
-
-                                // execute AsyncTask
-                                mRegisterTask.execute(null, null, null);
-                            }
-                        }*/
 
                         Intent i1;
                         i1 = new Intent(HomeScreenActivity.this, MainScreen.class);
@@ -173,118 +115,6 @@ public class HomeScreenActivity extends AppCompatActivity{
         myToolbar.setSubtitle("One Stop Train Enquiry Hub");
         myToolbar.setLogo(R.mipmap.ngrailsmlogo);
 
-
-        /*//Get Global Controller Class object (see application tag in AndroidManifest.xml)
-        aController = (Controller) getApplicationContext();
-
-
-        // Check if Internet present
-        if (!aController.isConnectingToInternet()) {
-
-            // Internet Connection is not present
-            aController.showAlertDialog(HomeScreenActivity.this,
-                    "Internet Connection Error",
-                    "Please connect to Internet connection", false);
-            // stop executing code by return
-            return;
-        }
-
-        // Getting name, email from intent
-        Intent i = getIntent();
-
-        name = i.getStringExtra("name");
-        email = i.getStringExtra("email");
-
-        // Make sure the device has the proper dependencies.
-        GCMRegistrar.checkDevice(this);
-
-        // Make sure the manifest permissions was properly set
-        GCMRegistrar.checkManifest(this);
-
-        //lblMessage = (TextView) findViewById(R.id.lblMessage);
-
-        // Register custom Broadcast receiver to show messages on activity
-        registerReceiver(mHandleMessageReceiver, new IntentFilter(
-                Config.DISPLAY_MESSAGE_ACTION));
-
-        // Get GCM registration id
-        final String regId = GCMRegistrar.getRegistrationId(this);
-
-        // Check if regid already presents
-        if (regId.equals("")) {
-
-            // Register with GCM
-            GCMRegistrar.register(this, Config.GOOGLE_SENDER_ID);
-
-        } else {
-
-            // Device is already registered on GCM Server
-            if (GCMRegistrar.isRegisteredOnServer(this)) {
-                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString(Mail, email);
-                editor.putString(Phone, name);
-                editor.commit();
-                // Skips registration.
-
-                Toast.makeText(getApplicationContext(),
-                        "Already registered with GCM Server",
-                        Toast.LENGTH_LONG).
-                        show();
-
-            } else {
-
-                // Try to register again, but not in the UI thread.
-                // It's also necessary to cancel the thread onDestroy(),
-                // hence the use of AsyncTask instead of a raw thread.
-
-                final Context context = this;
-                mRegisterTask = new AsyncTask<Void, Void, Void>() {
-
-                    @Override
-                    protected Void doInBackground(Void... params) {
-
-                        // Register on our server
-                        // On server creates a new user
-                        aController.register(context, name, email, regId);
-
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Void result) {
-                        mRegisterTask = null;
-                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        final String email = sharedpreferences.getString("email", null);
-                        final String phonenum = sharedpreferences.getString("name", null);
-                        splashTimer = new Timer();
-
-                        splashTimer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                Intent i;
-                                if (email == null || phonenum == null || email.equals("NA") || phonenum.equals("NA")) {
-                                    i = new Intent(HomeScreenActivity.this, RegisterActivity.class);
-                                    i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                                    i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                                    HomeScreenActivity.this.finish();
-                                    HomeScreenActivity.this.startActivity(i);
-                                    // This makes the new screen slide up as it fades in
-                                    // while the current screen slides up as it fades out.
-                                    overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                                }
-                            }
-                        }, DELAY);
-                        scheduled = true;
-                    }
-
-                };
-
-                // execute AsyncTask
-                mRegisterTask.execute(null, null, null);
-            }
-        }*/
-
         //PNR Status Button
 
         ImageView pnrstat = (ImageView)findViewById(R.id.pnrstatus);
@@ -294,27 +124,32 @@ public class HomeScreenActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v)
                 {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    if (!type.equals("NA")) {
+                        showToast("Please valide your mobile number By entering OTP/ Contact Admin");
+                    }
+                    else {
+                        splashTimer = new Timer();
+                        splashTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
                             /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(Mail, "NA");
                             editor.putString(Phone, "NA");
                             editor.commit();*/
-                            Intent i;
-                            i = new Intent(HomeScreenActivity.this, PnrActivity.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                            HomeScreenActivity.this.finish();
-                            HomeScreenActivity.this.startActivity(i);
-                            // This makes the new screen slide up as it fades in
-                            // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                                Intent i;
+                                i = new Intent(HomeScreenActivity.this, PnrActivity.class);
+                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                HomeScreenActivity.this.finish();
+                                HomeScreenActivity.this.startActivity(i);
+                                // This makes the new screen slide up as it fades in
+                                // while the current screen slides up as it fades out.
+                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                            }
+                        }, DELAY);
+                        scheduled = true;
+                    }
                 }
             });
         }
@@ -327,8 +162,12 @@ public class HomeScreenActivity extends AppCompatActivity{
         {
             smartsearch.setOnClickListener(new View.OnClickListener(){
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
+                    if (!type.equals("NA")) {
+                        showToast("Please valide your mobile number By entering OTP/ Contact Admin");
+                    }
+                    else
+                    {
                     splashTimer = new Timer();
                     splashTimer.schedule(new TimerTask() {
                         @Override
@@ -351,6 +190,7 @@ public class HomeScreenActivity extends AppCompatActivity{
                     }, DELAY);
                     scheduled = true;
                 }
+                }
             });
         }
 
@@ -363,8 +203,12 @@ public class HomeScreenActivity extends AppCompatActivity{
         {
             trainroute.setOnClickListener(new View.OnClickListener(){
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
+                    if (!type.equals("NA")) {
+                        showToast("Please valide your mobile number By entering OTP/ Contact Admin");
+                    }
+                    else
+                    {
                     splashTimer = new Timer();
                     splashTimer.schedule(new TimerTask() {
                         @Override
@@ -387,6 +231,7 @@ public class HomeScreenActivity extends AppCompatActivity{
                     }, DELAY);
                     scheduled = true;
                 }
+                }
             });
         }
 
@@ -400,27 +245,33 @@ public class HomeScreenActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v)
                 {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    if(!type.equals("NA"))
+                    {
+                        showToast("Please valide your mobile number By entering OTP/ Contact Admin");
+                    }
+                    else {
+                        splashTimer = new Timer();
+                        splashTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
                             /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(Mail, "NA");
                             editor.putString(Phone, "NA");
                             editor.commit();*/
-                            Intent i;
-                            i = new Intent(HomeScreenActivity.this, SpotTrainMainActivity.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                            HomeScreenActivity.this.finish();
-                            HomeScreenActivity.this.startActivity(i);
-                            // This makes the new screen slide up as it fades in
-                            // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                                Intent i;
+                                i = new Intent(HomeScreenActivity.this, SpotTrainMainActivity.class);
+                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                HomeScreenActivity.this.finish();
+                                HomeScreenActivity.this.startActivity(i);
+                                // This makes the new screen slide up as it fades in
+                                // while the current screen slides up as it fades out.
+                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                            }
+                        }, DELAY);
+                        scheduled = true;
+                    }
                 }
             });
         }
@@ -435,17 +286,94 @@ public class HomeScreenActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v)
                 {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    if(!type.equals("NA"))
+                    {
+                        showToast("Please valide your mobile number By entering OTP/ Contact Admin");
+                    }
+                    else {
+                        splashTimer = new Timer();
+                        splashTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
                             /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(Mail, "NA");
                             editor.putString(Phone, "NA");
                             editor.commit();*/
+                                Intent i;
+                                i = new Intent(HomeScreenActivity.this, TrainsAtStation.class);
+                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                HomeScreenActivity.this.finish();
+                                HomeScreenActivity.this.startActivity(i);
+                                // This makes the new screen slide up as it fades in
+                                // while the current screen slides up as it fades out.
+                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                            }
+                        }, DELAY);
+                        scheduled = true;
+                    }
+                }
+            });
+        }
+
+        //Conatact Button
+
+
+        TableRow cntus1 = (TableRow)findViewById(R.id.regid);
+        if(!type.equals("NA"))
+        {
+            if(cntus1.getVisibility()==View.GONE)
+            {
+                cntus1.setVisibility(View.VISIBLE);
+            }
+        }
+
+        ImageView cntus2 = (ImageView)findViewById(R.id.otp);
+        if(cntus2!=null)
+        {
+            cntus2.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v)
+                {
+                    EditText rt = (EditText)findViewById(R.id.otp1);
+                    if(rt.getText().length() <5)
+                    {
+                        showToast("Please valide your mobile number By entering OTP/ Contact Admin");
+                    }
+                    else {
+                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+                        loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
+                        loadingLayout.setVisibility(View.GONE);
+
+                        loadigText = (TextView) findViewById(R.id.textView111);
+                        loadigText.setVisibility(View.GONE);
+
+                        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        loadigIcon.setVisibility(View.GONE);
+                        loadigIcon.post(new Starter("http://api.ngrail.in/regotp/user/" + sharedpreferences.getString(Mail, null) + "/mobnum/"+sharedpreferences.getString(Phone,null)+"/otp/"+rt.getText()+"/"));
+
+                    }
+                }
+            });
+        }
+
+
+        ImageView cntus = (ImageView)findViewById(R.id.aboutus);
+        if(cntus!=null)
+        {
+            cntus.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v)
+                {
+                    splashTimer = new Timer();
+                    splashTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
                             Intent i;
-                            i = new Intent(HomeScreenActivity.this, TrainsAtStation.class);
+                            i = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
                             i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
                             i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             HomeScreenActivity.this.finish();
@@ -459,30 +387,154 @@ public class HomeScreenActivity extends AppCompatActivity{
                 }
             });
         }
+
+
     }
 
-    /*// Create a broadcast receiver to get message and show on screen
-    private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+    class Starter implements Runnable {
+        String url=null;
+        public Starter(String str){
+            url=str;
+        }
+        public void run() {
+            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+            final String phonenum = sharedpreferences.getString("name", null);
+            //EditText et1 = (EditText) findViewById(R.id.qqqq);
+            //et1.setText("QQQ"+url+"/key/"+phonenum+"/");
+            //start Asyn Task here
+            new DownloadTask().execute(url);
+        }
+    }
+
+
+    private class DownloadTask extends AsyncTask<String, Void, String> {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
-
-            String newMessage = intent.getExtras().getString(Config.EXTRA_MESSAGE);
-
-            // Waking up mobile if it is sleeping
-            aController.acquireWakeLock(getApplicationContext());
-
-            // Display message on the screen
-            //lblMessage.append(newMessage + " ");
-
-            Toast.makeText(getApplicationContext(),
-                    "Got Message: " + newMessage,
-                    Toast.LENGTH_LONG).show();
-
-            // Releasing wake lock
-            aController.releaseWakeLock();
+        protected String doInBackground(String... urls) {
+            try {
+                RailwayAPI railapi = new RailwayAPI();
+                return railapi.getRegister(urls[0]);
+            } catch (Exception e) {
+                Context context = getApplicationContext();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                return "Connection Error";
+            }
         }
-    };*/
+        @Override
+        protected void onPreExecute() {
+            //Start  Loading Animation
+            loadingLayout.setVisibility(View.VISIBLE);
+            loadigText.setVisibility(View.VISIBLE);
+            loadigIcon.setVisibility(View.VISIBLE);
+            //loadingViewAnim.start();
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            try {
+                loadingLayout.setVisibility(View.GONE);
+                loadigText.setVisibility(View.GONE);
+                loadigIcon.setVisibility(View.GONE);
+                Context context = getApplicationContext();
+                if(result.equals("0\n"))
+                {
+                    CharSequence text = "Enquiry not possible in Tatkal Time";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                    return;
+                }
+                try{
+                    JSONObject jsonobj = new JSONObject(result);
+                    if(jsonobj.getString("responsecode").equals("200"))
+                    {
+                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString(Type, "NA");
+                        editor.commit();
+
+                        splashTimer = new Timer();
+                        splashTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                Intent i;
+                                i = new Intent(HomeScreenActivity.this, HomeScreenActivity.class);
+                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                HomeScreenActivity.this.finish();
+                                HomeScreenActivity.this.startActivity(i);
+                                // This makes the new screen slide up as it fades in
+                                // while the current screen slides up as it fades out.
+                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                            }
+                        }, DELAY);
+                        scheduled = true;
+                    }
+                    else
+                    {
+                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString(Type, "R");
+                        editor.commit();
+
+                        /*splashTimer = new Timer();
+                        splashTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                Intent i;
+                                i = new Intent(HomeScreenActivity.this, HomeScreenActivity.class);
+                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                HomeScreenActivity.this.finish();
+                                HomeScreenActivity.this.startActivity(i);
+                                // This makes the new screen slide up as it fades in
+                                // while the current screen slides up as it fades out.
+                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                            }
+                        }, DELAY);
+                        scheduled = true;*/
+                        showToast("Invalid OTP. Please try again/Contact Admin!!");
+                        return;
+                    }
+                }catch (JSONException j)
+                {
+                    context = getApplicationContext();
+                    CharSequence text = "Back-end Server issue. Please try again!"+j.getMessage();
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Context context = getApplicationContext();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        }
+
+        private View.OnClickListener ClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selected_item = (Integer) v.getId();
+                //Log.d("OUT END", String.valueOf(selected_item));
+            }
+        };
+    }
+
+    public void showToast(String message) {
+
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+
+        toast.show();
+
+    }
 
     @Override
     protected void onDestroy() {

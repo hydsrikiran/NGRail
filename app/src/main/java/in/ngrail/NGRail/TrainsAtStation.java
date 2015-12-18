@@ -63,7 +63,7 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
             Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-            myToolbar.setTitle("NGRail Train Route");
+            myToolbar.setTitle("NGRail Next Trains At Station");
             setSupportActionBar(myToolbar);
             //myToolbar.setLogo(getDrawable(R.drawable.ngraillogo));
             //myToolbar.setTitle("NGRail");
@@ -97,7 +97,7 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
 
             //myToolbar.setSubtitle("One Stop Train Enquiry Hub");
             myToolbar.setLogo(R.mipmap.ngrailsmlogo);
-            myToolbar.inflateMenu(R.menu.main);
+            //myToolbar.inflateMenu(R.menu.main);
 
 
             final AutoCompleteTextView srcst = (AutoCompleteTextView)findViewById(R.id.source_station);

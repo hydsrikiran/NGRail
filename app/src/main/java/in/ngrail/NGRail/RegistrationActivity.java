@@ -40,6 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
+    public static final String Type = "type";
     SharedPreferences sharedpreferences;
     private TextView loadigText = null;
     private ProgressBar loadigIcon = null;
@@ -97,7 +98,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 phone = phone1.getText().toString();
                 Context context = getApplicationContext();
                 CharSequence text=null;
-                if(email.length() == 0 || phone.length() == 0)
+                if(email.length() == 0 || phone.length() != 10)
                 {
                     text = "All fields are mandatory.!!";
                 }
@@ -172,6 +173,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, email);
                         editor.putString(Phone, phone);
+                        editor.putString("fload", "1");
+                        if(jsonobj.getString("type").equals("L"))
+                            editor.putString(Type, "NA");
+                        else
+                            editor.putString(Type, jsonobj.getString("type"));
+
                         editor.commit();
                         CharSequence text = jsonobj.getString("error");
                         int duration = Toast.LENGTH_LONG;

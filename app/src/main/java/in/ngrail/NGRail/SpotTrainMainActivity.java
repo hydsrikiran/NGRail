@@ -119,7 +119,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
 
             //myToolbar.setSubtitle("One Stop Train Enquiry Hub");
             myToolbar.setLogo(R.mipmap.ngrailsmlogo);
-            myToolbar.inflateMenu(R.menu.main);
+            //myToolbar.inflateMenu(R.menu.main);
 
             final EditText srcst = (EditText)findViewById(R.id.source_station);
             srcst.addTextChangedListener(new TextWatcher() {
@@ -484,7 +484,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 

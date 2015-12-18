@@ -118,7 +118,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
 
             //myToolbar.setSubtitle("One Stop Train Enquiry Hub");
             myToolbar.setLogo(R.mipmap.ngrailsmlogo);
-            myToolbar.inflateMenu(R.menu.main);
+            //myToolbar.inflateMenu(R.menu.main);
             AutoCompleteTextView text;
             text=(AutoCompleteTextView)findViewById(R.id.source_station);
             ArrayAdapter adapter3 = ArrayAdapter.createFromResource(this,
@@ -328,7 +328,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 

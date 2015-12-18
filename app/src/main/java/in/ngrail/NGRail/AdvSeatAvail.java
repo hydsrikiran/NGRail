@@ -79,7 +79,7 @@ public class AdvSeatAvail extends AppCompatActivity{
         dateval = bundle.getString("dateval");
         try {
             Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-            myToolbar.setTitle("NGRail PNR Status");
+            myToolbar.setTitle("NGRail Smart Search");
             setSupportActionBar(myToolbar);
             //myToolbar.setLogo(getDrawable(R.drawable.ngraillogo));
             //myToolbar.setTitle("NGRail");
@@ -138,7 +138,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                 TextView trheader1 = (TextView)findViewById(R.id.trheader1);
                 trheader1.setText("Date Of Journey : "+jsn.getString("doj"));
                 TextView trheader3 = (TextView)findViewById(R.id.trheader3);
-                trheader3.setText("Class : "+jsn.getString("class").split(",")[0]+" "+"GN Fare : "+jsn.getString("orgfare")+" CK Fare : "+jsn.getString("tatfare"));
+                trheader3.setText("Class : "+jsn.getString("class").split(",")[0]+" "+"Gen Fare : "+jsn.getString("orgfare")+" Tatkal Fare : "+jsn.getString("tatfare"));
                 doj_fina = jsn.getString("doj");
                 class_fina = jsn.getString("class").split(",")[0];
                 TextView trheader2 = (TextView)findViewById(R.id.trheader2);
@@ -608,7 +608,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                         TextView trheader1 = (TextView)findViewById(R.id.trheader1);
                         trheader1.setText("Date Of Journey : "+jsn.getString("doj"));
                         TextView trheader3 = (TextView)findViewById(R.id.trheader3);
-                        trheader3.setText("Class : "+jsn.getString("class").split(",")[0]+" "+"GN Fare : "+jsn.getString("orgfare")+" CK Fare : "+jsn.getString("tatfare"));
+                        trheader3.setText("Class : "+jsn.getString("class").split(",")[0]+" "+"Gen Fare : "+jsn.getString("orgfare")+" Tatkal Fare : "+jsn.getString("tatfare"));
                         doj_fina = jsn.getString("doj");
                         class_fina = jsn.getString("class").split(",")[0];
                         TextView trheader2 = (TextView)findViewById(R.id.trheader2);

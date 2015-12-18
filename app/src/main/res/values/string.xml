@@ -9,4 +9,5 @@
     <string name="gcm_recoverable_error">GCM Recovery Error</string>
     <string name="gcm_deleted">GCM Deleted</string>
     <string name="gcm_unregistered">GCM UnRegistered</string>
+    <string name="disc1">NGRail is a private site and has no connection with Indian Railways, Govt. of India or Govt. Railway sites in any way. All contents available in this site is just for Information Purpose and is intended to Personal Non-Commercial Use only. Information available here like Arrival Departure of Trains at Stations, Train Route, Availability in Trains, PNR Status, Running Status, Fare Chart is collected from various sources and are subjected to change without any prior information. You are requested to re-verify it from other official sources before proceeding.</string>
 </resources>

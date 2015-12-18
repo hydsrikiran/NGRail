@@ -47,7 +47,7 @@
                     android:text="Pnr Status">
                     </TextView>
                     <ImageView
-                        android:src="@drawable/mainscreennav"
+                        android:src="@drawable/arrowgood"
                         android:id="@+id/pnrstatus"
                         >
                     </ImageView>
@@ -72,7 +72,7 @@
                         android:text="Smart Seat Availability">
                     </TextView>
                     <ImageView
-                        android:src="@drawable/mainscreennav"
+                        android:src="@drawable/arrowgood"
                         android:id="@+id/smartsearch"
                         >
                     </ImageView>
@@ -97,7 +97,7 @@
                         android:text="Train route">
                     </TextView>
                     <ImageView
-                        android:src="@drawable/mainscreennav"
+                        android:src="@drawable/arrowgood"
                         android:id="@+id/trainroute"
                         >
                     </ImageView>
@@ -122,7 +122,7 @@
                         android:text="Spot your Train">
                     </TextView>
                     <ImageView
-                        android:src="@drawable/mainscreennav"
+                        android:src="@drawable/arrowgood"
                         android:id="@+id/livestatus"
                         >
                         </ImageView>
@@ -148,13 +148,105 @@
                         android:text="Next Trains At Station">
                     </TextView>
                     <ImageView
-                        android:src="@drawable/mainscreennav"
+                        android:src="@drawable/arrowgood"
                         android:id="@+id/trainsstation"
                         >
                     </ImageView>
                 </TableRow>
 
+                <TableRow android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/layout_textbox"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:paddingRight="10dp">
+                    <ImageView
+                        android:src="@drawable/aboutus"
+                        android:layout_marginRight="3dp"
+                        >
+                    </ImageView>
+                    <TextView
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Contact Us">
+                    </TextView>
+                    <ImageView
+                        android:src="@drawable/arrowgood"
+                        android:id="@+id/aboutus"
+                        >
+                    </ImageView>
+                </TableRow>
+
+                <TableRow android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/layout_textbox"
+                    android:id="@+id/regid"
+                    android:visibility="gone"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:paddingRight="10dp">
+                    <ImageView
+                        android:src="@drawable/otp"
+                        android:layout_marginRight="3dp"
+                        >
+                    </ImageView>
+                    <EditText
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:id="@+id/otp1"
+                        android:hint="Enter OTP">
+                    </EditText>
+                    <ImageView
+                        android:src="@drawable/arrowgood"
+                        android:id="@+id/otp"
+                        >
+                    </ImageView>
+                </TableRow>
+
             </TableLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:background="#33303F9F"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <!-- ImageView
+                android:id="@+id/imageView111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/loader"
+                android:visibility="gone" / -->
+            <ProgressBar
+                android:id="@+id/imageView111"
+                android:layout_width="fill_parent"
+                android:layout_margin="15dp"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.Material.Light.ProgressBar.Large.Inverse"
+                android:indeterminate="true"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textView111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Searching..."
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
         </LinearLayout>
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
