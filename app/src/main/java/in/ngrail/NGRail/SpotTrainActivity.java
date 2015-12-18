@@ -78,7 +78,7 @@ public class SpotTrainActivity extends AppCompatActivity { //implements OnMapRea
         }catch (Exception e)
         {
             Context context = getApplicationContext();
-            CharSequence text = "1Back-end Server issue. Please try again!"+e.getMessage();
+            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();

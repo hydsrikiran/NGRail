@@ -160,7 +160,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
         }catch (Exception e)
         {
             Context context = getApplicationContext();
-            CharSequence text = "1Back-end Server issue. Please try again!"+e.getMessage();
+            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -209,7 +209,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                 try {
                     JSONArray arr= routejson.getJSONArray("route");
                     for (int i = 0; i < arr.length(); i++) {
-                        Log.d("PPP",arr.getJSONObject(i).getString("code")+"!!!"+destination+"~~"+arr.getJSONObject(i).getInt("day"));
+                        //Log.d("PPP",arr.getJSONObject(i).getString("code")+"!!!"+destination+"~~"+arr.getJSONObject(i).getInt("day"));
                         if(arr.getJSONObject(i).getString("code").equals(destination))
                         {
                             jrday = arr.getJSONObject(i).getInt("day");
@@ -219,7 +219,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                     }
                 }catch (JSONException e)
                 {
-                    Log.d("ASA",e.getMessage());
+                    //Log.d("ASA",e.getMessage());
                 }
 
                 Spinner spo1 = (Spinner) findViewById(R.id.spinner1);
@@ -245,7 +245,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                     cal.add(Calendar.DATE,y);
                 }
                 dateofjourney = sf.format(cal.getTime());
-                Log.d("AAAA",source+"~~~"+destination+"~~"+dateofjourney+"~~~"+spo1.getSelectedItemId());
+                //Log.d("AAAA",source+"~~~"+destination+"~~"+dateofjourney+"~~~"+spo1.getSelectedItemId());
                 if (source.length() <= 0 || destination.length() <= 0 || dateofjourney.length() <= 0) {
                     CharSequence text = "*All the fields are Required. Please Enter!!!";
                     int duration = Toast.LENGTH_SHORT;
@@ -294,7 +294,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             //EditText et1 = (EditText) findViewById(R.id.qqqq);
             //et1.setText("QQQ"+url+"/key/"+phonenum+"/");
             //start Asyn Task here
-            Log.d("URL",url+"/key/"+phonenum+"/");
+            //Log.d("URL",url+"/key/"+phonenum+"/");
             new DownloadTask_live().execute(url+"/key/"+phonenum+"/");
         }
     }
@@ -308,7 +308,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "2Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -330,7 +330,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                 loadigText.setVisibility(View.GONE);
                 loadigIcon.setVisibility(View.GONE);
                 Context context = getApplicationContext();
-                Log.d("AAA",result);
+                //Log.d("AAA",result);
                 if(result.equals("0\n"))
                 {
                     CharSequence text = "Enquiry not possible in Tatkal Time";
@@ -357,10 +357,10 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                                 break;
                             }
                         }
-                        Log.d("ASASS","~~"+needdest+"!!!"+destination);
+                        //Log.d("ASASS","~~"+needdest+"!!!"+destination);
                         for (int j = jarr.length()-1; j >=0; j--) {
                             int distobetravel = needdest - Integer.parseInt(jarr.getJSONObject(j).getString("distance"));
-                            Log.d("ASASS","~~"+needdest+"~~~"+Integer.parseInt(jarr.getJSONObject(j).getString("distance"))+"~~~"+distobetravel);
+                            //Log.d("ASASS","~~"+needdest+"~~~"+Integer.parseInt(jarr.getJSONObject(j).getString("distance"))+"~~~"+distobetravel);
                             valstr.append(jarr.getJSONObject(j).getString("lat") + ",");
                             valstr.append(jarr.getJSONObject(j).getString("lng") + ",");
                             valstr.append(jarr.getJSONObject(j).getString("name") + ",");
@@ -438,7 +438,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             catch (Exception e)
             {
                 Context context = getApplicationContext();
-                CharSequence text = "12Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -449,7 +449,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 int selected_item = (Integer) v.getId();
-                Log.d("OUT END", String.valueOf(selected_item));
+                //Log.d("OUT END", String.valueOf(selected_item));
             }
         };
     }
@@ -527,7 +527,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
 
             final String phonenum = sharedpreferences.getString("name", null);
             //start Asyn Task here
-            Log.d("URL",url+"/key/"+phonenum+"/");
+            //Log.d("URL",url+"/key/"+phonenum+"/");
             new DownloadTask().execute(url+"/key/"+phonenum+"/");
         }
     }
@@ -541,7 +541,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "2Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -563,7 +563,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                 loadigText.setVisibility(View.GONE);
                 loadigIcon.setVisibility(View.GONE);
                 Context context = getApplicationContext();
-                Log.d("AAA",result);
+                //Log.d("AAA",result);
                 if(result.equals("0\n"))
                 {
                     CharSequence text = "Enquiry not possible in Tatkal Time";
@@ -597,9 +597,9 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                                     destination = destination.substring(0, destination.length() - 1);
                                 }catch (JSONException e)
                                 {
-                                    Log.d("PPP",e.getMessage());
+                                    //Log.d("PPP",e.getMessage());
                                 }
-                                Log.d("SELECTED", parent.getItemAtPosition(position).toString());
+                                //Log.d("SELECTED", parent.getItemAtPosition(position).toString());
                             }
 
                             @Override
@@ -619,7 +619,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 //sp.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
-                                Log.d("SELECTED",parent.getItemAtPosition(position).toString());
+                                //Log.d("SELECTED",parent.getItemAtPosition(position).toString());
                             }
 
                             @Override
@@ -635,7 +635,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                         i.putExtra("dateval", dateval);
 
                         SpotTrainMainActivity.this.startActivity(i);*/
-                        Log.d("JSON VALUE",result);
+                        //Log.d("JSON VALUE",result);
                     }
                     else
                     {
@@ -644,7 +644,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                 }catch (JSONException j)
                 {
                     context = getApplicationContext();
-                    CharSequence text = "3Back-end Server issue. Please try again!"+j.getMessage()+result;
+                    CharSequence text = "Back-end Server issue. Please try again!"+j.getMessage()+result;
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -654,7 +654,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             catch (Exception e)
             {
                 Context context = getApplicationContext();
-                CharSequence text = "12Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -665,7 +665,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 int selected_item = (Integer) v.getId();
-                Log.d("OUT END", String.valueOf(selected_item));
+                //Log.d("OUT END", String.valueOf(selected_item));
             }
         };
     }

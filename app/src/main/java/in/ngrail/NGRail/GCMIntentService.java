@@ -38,7 +38,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         Log.i(TAG, "Device registered: regId = " + registrationId);
         aController.displayMessageOnScreen(context,
                 "Your device registred with GCM");
-        Log.d("NAME", MainScreen.name);
+        //Log.d("NAME", MainScreen.name);
         aController.register(context, MainScreen.name,
                 MainScreen.email, registrationId);
     }

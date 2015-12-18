@@ -31,18 +31,29 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="0dp"
-        android:text="Train Number"/>
-            <EditText
+        android:text="Station"/>
+            <AutoCompleteTextView
                 android:layout_width="fill_parent"
                 android:background="@drawable/layout_textbox"
                 android:textColor="@color/colorPrimaryDark"
-                android:inputType="phone"
-                android:maxLength="5"
+                android:inputType="textCapCharacters"
                 android:padding="5dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
                 android:id="@+id/source_station">
-            </EditText>
+            </AutoCompleteTextView>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Searchtrain"
+                android:text="Get Trains"
+                android:textAlignment="gravity"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/colorAccent"
+                android:background="@drawable/layout_button"/>
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:background="@drawable/layout_masterbg1"
@@ -80,36 +91,6 @@
                     android:layout_marginBottom="5dp"
                     android:text=""
                     android:id="@+id/trheader"/>
-                <!-- LinearLayout
-                    android:layout_width="fill_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:id="@+id/goleft"
-                        android:src="@drawable/leftarrowpnr"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"/ -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
-                    android:textAlignment="gravity"
-                    android:layout_above="@+id/ScrollView01"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="15dp"
-                    android:text=""
-                    android:id="@+id/trheader1"/>
-                <!-- ImageView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/goright"
-                    android:src="@drawable/rightarrowpnr"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="wrap_content" />
-            </LinearLayout -->
             </LinearLayout>
             <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/ScrollView01"
@@ -133,7 +114,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-5505631954730373/3949867249">
+            ads:adUnitId="ca-app-pub-5505631954730373/5751000048">
         </com.google.android.gms.ads.AdView>
     </LinearLayout>
             </RelativeLayout>

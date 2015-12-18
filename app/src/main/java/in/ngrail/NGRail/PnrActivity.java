@@ -130,7 +130,7 @@ public class PnrActivity extends AppCompatActivity{
         }catch (Exception e)
         {
             Context context = getApplicationContext();
-            CharSequence text = "1Back-end Server issue. Please try again!"+e.getMessage();
+            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -272,7 +272,7 @@ public class PnrActivity extends AppCompatActivity{
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "2Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -518,7 +518,7 @@ public class PnrActivity extends AppCompatActivity{
                 }catch (JSONException j)
                 {
                     context = getApplicationContext();
-                    CharSequence text = "3Back-end Server issue. Please try again!"+j.getMessage();
+                    CharSequence text = "Back-end Server issue. Please try again!"+j.getMessage();
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -528,7 +528,7 @@ public class PnrActivity extends AppCompatActivity{
             catch (Exception e)
             {
                 Context context = getApplicationContext();
-                CharSequence text = "12Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -539,7 +539,7 @@ public class PnrActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 int selected_item = (Integer) v.getId();
-                Log.d("OUT END", String.valueOf(selected_item));
+                //Log.d("OUT END", String.valueOf(selected_item));
             }
         };
     }
@@ -691,7 +691,7 @@ public class PnrActivity extends AppCompatActivity{
                 return railapi.getPnrStatus(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "4Back-end Server issue. Please try again!";
+                CharSequence text = "Back-end Server issue. Please try again!";
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -976,7 +976,7 @@ public class PnrActivity extends AppCompatActivity{
                         }catch (JSONException j)
                         {
                             Context context = getApplicationContext();
-                            CharSequence text = "5Back-end Server issue. Please try again!"+j.getMessage();
+                            CharSequence text = "Back-end Server issue. Please try again!"+j.getMessage();
                             int duration = Toast.LENGTH_LONG;
                             Toast toast = Toast.makeText(context, text, duration);
                             toast.show();
@@ -1002,7 +1002,7 @@ public class PnrActivity extends AppCompatActivity{
                         }
                         lastupdid.setText("lst Upd : " + jsonobj.getString("lastupdate").split(" ")[1]);
                         Context context = getApplicationContext();
-                        CharSequence text = "Synchronize completed for " + pnr;
+                        CharSequence text = "Synchronize completed for " + pnrid.getText().toString();
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
@@ -1035,7 +1035,7 @@ public class PnrActivity extends AppCompatActivity{
             catch (Exception e)
             {
                 Context context = getApplicationContext();
-                CharSequence text = "6Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -1046,7 +1046,7 @@ public class PnrActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 int selected_item = (Integer) v.getId();
-                Log.d("OUT END", String.valueOf(selected_item));
+                //Log.d("OUT END", String.valueOf(selected_item));
             }
         };
     }

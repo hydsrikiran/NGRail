@@ -59,7 +59,7 @@ public class Controller extends Application{
         // times.
         for (int i = 1; i <= MAX_ATTEMPTS; i++) {
 
-            Log.d(Config.TAG, "Attempt #" + i + " to register");
+            //Log.d(Config.TAG, "Attempt #" + i + " to register");
 
             try {
                 //Send Broadcast to Show message on screen
@@ -93,12 +93,12 @@ public class Controller extends Application{
                 }
                 try {
 
-                    Log.d(Config.TAG, "Sleeping for " + backoff + " ms before retry");
+                    //Log.d(Config.TAG, "Sleeping for " + backoff + " ms before retry");
                     Thread.sleep(backoff);
 
                 } catch (InterruptedException e1) {
                     // Activity finished before we complete - exit.
-                    Log.d(Config.TAG, "Thread interrupted: abort remaining retries!");
+                    //Log.d(Config.TAG, "Thread interrupted: abort remaining retries!");
                     Thread.currentThread().interrupt();
                     return;
                 }

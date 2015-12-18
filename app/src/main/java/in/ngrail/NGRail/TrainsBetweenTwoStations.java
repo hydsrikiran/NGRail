@@ -43,6 +43,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,6 +79,9 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trainsbetween2stations);
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         try {
             Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
             myToolbar.setTitle("NGRail Smart Search");
@@ -216,7 +222,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
         }catch (Exception e)
         {
             Context context = getApplicationContext();
-            CharSequence text = "1Back-end Server issue. Please try again!"+e.getMessage();
+            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -352,7 +358,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
             //EditText et1 = (EditText) findViewById(R.id.qqqq);
             //et1.setText("QQQ"+url+"/key/"+phonenum+"/");
             //start Asyn Task here
-            Log.d("URL",url+"/key/"+phonenum+"/");
+            //Log.d("URL",url+"/key/"+phonenum+"/");
             new DownloadTask().execute(url+"/key/"+phonenum+"/");
         }
     }
@@ -366,7 +372,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "2Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -388,7 +394,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                 loadigText.setVisibility(View.GONE);
                 loadigIcon.setVisibility(View.GONE);
                 Context context = getApplicationContext();
-                Log.d("AAA",result);
+                //Log.d("AAA",result);
                 if(result.equals("0\n"))
                 {
                     CharSequence text = "Enquiry not possible in Tatkal Time";
@@ -408,7 +414,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                         i.putExtra("dateval", dateval);
 
                         TrainsBetweenTwoStations.this.startActivity(i);
-                        Log.d("JSON VALUE",result);
+                        //Log.d("JSON VALUE",result);
                     }
                     else
                     {
@@ -417,7 +423,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                 }catch (JSONException j)
                 {
                     context = getApplicationContext();
-                    CharSequence text = "3Back-end Server issue. Please try again!"+j.getMessage()+result;
+                    CharSequence text = "Back-end Server issue. Please try again!"+j.getMessage()+result;
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -427,7 +433,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
             catch (Exception e)
             {
                 Context context = getApplicationContext();
-                CharSequence text = "12Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -438,7 +444,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 int selected_item = (Integer) v.getId();
-                Log.d("OUT END", String.valueOf(selected_item));
+                //Log.d("OUT END", String.valueOf(selected_item));
             }
         };
     }

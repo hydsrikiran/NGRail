@@ -25,7 +25,7 @@ public class RailwayAPI{
         }
         String APIKEY="72436";  //Your API key
         String endpoint = pnr;
-        Log.d("endpoint",endpoint);
+        //Log.d("endpoint",endpoint);
         BufferedReader rd = null;
         StringBuilder response = null;
         HttpURLConnection request=null;

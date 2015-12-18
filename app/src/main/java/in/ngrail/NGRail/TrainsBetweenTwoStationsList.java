@@ -296,7 +296,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                 }
             }catch (JSONException e){
                 Context context = getApplicationContext();
-                CharSequence text = "3Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -399,7 +399,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
         }catch (Exception e)
         {
             Context context = getApplicationContext();
-            CharSequence text = "1Back-end Server issue. Please try again!"+e.getMessage();
+            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -460,7 +460,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             final String phonenum = sharedpreferences.getString("name", null);
             //EditText et1 = (EditText) findViewById(R.id.qqqq);
             //et1.setText("QQQ"+url+"/key/"+phonenum+"/");
-            Log.d("AAAA","QQQ"+url+"/key/"+phonenum+"/");
+            //Log.d("AAAA","QQQ"+url+"/key/"+phonenum+"/");
             //start Asyn Task here
             new DownloadTask().execute(url+"/key/"+phonenum+"/");
         }
@@ -475,7 +475,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "2Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -508,7 +508,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                 else
                 {
                     try {
-                        Log.d("AAAA",result);
+                        //Log.d("AAAA",result);
                         JSONObject jsnobj = new JSONObject(result);
                         if(jsnobj.getInt("responsecode") == 200) {
                             Intent i = new Intent(TrainsBetweenTwoStationsList.this, AdvSeatAvail.class);
@@ -529,14 +529,14 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                     {
                         showToast("Back-end Server issue. Please try again!"+e.getMessage());
                     }
-                    Log.d("ASAAS", jsonvalue + String.valueOf(dateval));
+                    //Log.d("ASAAS", jsonvalue + String.valueOf(dateval));
                 }
 
             }
             catch (Exception e)
             {
                 Context context = getApplicationContext();
-                CharSequence text = "12Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -547,7 +547,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 int selected_item = (Integer) v.getId();
-                Log.d("OUT END", String.valueOf(selected_item));
+                //Log.d("OUT END", String.valueOf(selected_item));
             }
         };
     }
@@ -622,7 +622,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             //EditText et1 = (EditText) findViewById(R.id.qqqq);
             //et1.setText("QQQ"+url+"/key/"+phonenum+"/");
             //start Asyn Task here
-            Log.d("URL",url+"/key/"+phonenum+"/");
+            //Log.d("URL",url+"/key/"+phonenum+"/");
             new DownloadTask_tb().execute(url+"/key/"+phonenum+"/");
         }
     }
@@ -636,7 +636,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "2Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -869,12 +869,12 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                             }
                         }catch (JSONException e){
                             context = getApplicationContext();
-                            CharSequence text = "3Back-end Server issue. Please try again!"+e.getMessage();
+                            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
                             int duration = Toast.LENGTH_SHORT;
                             Toast toast = Toast.makeText(context, text, duration);
                             toast.show();
                         }
-                        Log.d("JSON VALUE",result);
+                        //Log.d("JSON VALUE",result);
                     }
                     else
                     {
@@ -883,7 +883,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                 }catch (JSONException j)
                 {
                     context = getApplicationContext();
-                    CharSequence text = "3Back-end Server issue. Please try again!"+j.getMessage();
+                    CharSequence text = "Back-end Server issue. Please try again!"+j.getMessage();
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -904,7 +904,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 int selected_item = (Integer) v.getId();
-                Log.d("OUT END", String.valueOf(selected_item));
+                //Log.d("OUT END", String.valueOf(selected_item));
             }
         };
     }

@@ -223,7 +223,7 @@ public class MainScreen extends FragmentActivity{
             GCMRegistrar.onDestroy(this);
 
         } catch (Exception e) {
-            Log.d("UnRegister ", e.getMessage());
+            //Log.d("UnRegister ", e.getMessage());
         }
     }
 

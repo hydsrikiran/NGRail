@@ -328,7 +328,7 @@ public class AdvSeatAvail extends AppCompatActivity{
         }catch (Exception e)
         {
             Context context = getApplicationContext();
-            CharSequence text = "1Back-end Server issue. Please try again!"+e.getMessage();
+            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -354,6 +354,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                     loadigText.setVisibility(View.GONE);
 
                     loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                    loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                     if (quota_fina.equals("GN")) {
                         loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
                     }
@@ -398,7 +399,6 @@ public class AdvSeatAvail extends AppCompatActivity{
                     doj_fina = sdf.format(c.getTime());  // dt is now the new date
 
 
-
                     loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
                     loadingLayout.setVisibility(View.GONE);
 
@@ -406,18 +406,16 @@ public class AdvSeatAvail extends AppCompatActivity{
                     loadigText.setVisibility(View.GONE);
 
                     loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                    loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                     //loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                     if (quota_fina.equals("GN")) {
-                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
-                    }
-                    else if (quota_fina.equals("LB")) {
-                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
-                    }
-                    else if (quota_fina.equals("LD")) {
-                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
-                    }
-                    else if (quota_fina.equals("SS")) {
-                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina));
+                    } else if (quota_fina.equals("LB")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina));
+                    } else if (quota_fina.equals("LD")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina));
+                    } else if (quota_fina.equals("SS")) {
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina));
                     }
                     loadigIcon.setVisibility(View.GONE);
 
@@ -426,11 +424,9 @@ public class AdvSeatAvail extends AppCompatActivity{
                     // This line is to start Asyn Task only when OnCreate Method get completed, So Loading Icon Rotation Animation work properly
                     //loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
 
-                }catch (ParseException e)
-                {
+                } catch (ParseException e) {
                     showToast("Date format Wrong. Please Contact Admin!!");
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     showToast(e.getMessage());
                 }
             }
@@ -545,7 +541,7 @@ public class AdvSeatAvail extends AppCompatActivity{
             final String phonenum = sharedpreferences.getString("name", null);
             //EditText et1 = (EditText) findViewById(R.id.qqqq);
             //et1.setText("QQQ"+url+"/key/"+phonenum+"/");
-            Log.d("AAAA","QQQ"+url+"/key/"+phonenum+"/");
+            //Log.d("AAAA","QQQ"+url+"/key/"+phonenum+"/");
             //start Asyn Task here
             new DownloadTask().execute(url+"/key/"+phonenum+"/");
         }
@@ -560,7 +556,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "2Back-end Server issue. Please try again!" + e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!" + e.getMessage();
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -792,12 +788,12 @@ public class AdvSeatAvail extends AppCompatActivity{
                     {
                         showToast("Back-End server issue Please try again!!"+e.getMessage());
                     }
-                    Log.d("ASAAS", jsonvalue + String.valueOf(dateval));
+                    //Log.d("ASAAS", jsonvalue + String.valueOf(dateval));
                 }
 
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "12Back-end Server issue. Please try again!" + e.getMessage();
+                CharSequence text = "Back-end Server issue. Please try again!" + e.getMessage();
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
