@@ -113,12 +113,15 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 loadigText = (TextView) findViewById(R.id.textView111);
                 loadigText.setVisibility(View.GONE);
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 String regid = sharedpreferences.getString("regid", null);
+
                 loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
                 loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                 loadigIcon.setVisibility(View.GONE);
-                if(regid==null)
-                    regid="NA";
+                if(regid==null) {
+                    regid = "NA";
+                }
                 setPnr = "http://api.ngrail.in/register1/user/"+email+"/mobnum/"+phone+"/regid/"+regid+"/";
                 loadigIcon.post(new Starter(setPnr));
             }

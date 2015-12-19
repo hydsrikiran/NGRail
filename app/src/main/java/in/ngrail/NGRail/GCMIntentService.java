@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.google.android.gcm.GCMRegistrar;
 
 public class GCMIntentService extends GCMBaseIntentService {
 
+    public static final String MyPREFERENCES = "NGRailPrefs" ;
+    SharedPreferences sharedpreferences;
     private static final String TAG = "GCMIntentService";
 
     private Controller aController = null;
@@ -38,6 +41,10 @@ public class GCMIntentService extends GCMBaseIntentService {
         Log.i(TAG, "Device registered: regId = " + registrationId);
         aController.displayMessageOnScreen(context,
                 "Your device registred with GCM");
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("regid", registrationId);
+        editor.commit();
         //Log.d("NAME", MainScreen.name);
         aController.register(context, MainScreen.name,
                 MainScreen.email, registrationId);

@@ -3,8 +3,8 @@
         android:type="radial"
         android:centerX="50%"
         android:centerY="50%"
-        android:startColor="#FF303F9F"
+        android:startColor="#005682"
         android:centerColor="#FF030000"
-        android:endColor="#FF303F9F"
+        android:endColor="#005682"
         android:gradientRadius="33"/>
 </shape>

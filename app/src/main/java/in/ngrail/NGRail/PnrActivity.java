@@ -503,7 +503,7 @@ public class PnrActivity extends AppCompatActivity{
                             params.leftMargin = 5;
                             params.rightMargin = 5;
                             params.topMargin = 5;
-                            params.bottomMargin = 5;
+                            params.bottomMargin = 10;
                             ImageView[] img1 = new ImageView[totlcount];
                             ImageView[] img2 = new ImageView[totlcount];
                             ImageView[] img3 = new ImageView[totlcount];
@@ -976,7 +976,7 @@ public class PnrActivity extends AppCompatActivity{
                                 params.leftMargin=5;
                                 params.rightMargin=5;
                                 params.topMargin=5;
-                                params.bottomMargin=5;
+                                params.bottomMargin=10;
                                 ImageView img1;
                                 ImageView img2;
                                 ImageView img3;

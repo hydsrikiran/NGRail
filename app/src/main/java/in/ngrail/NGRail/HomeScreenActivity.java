@@ -124,7 +124,7 @@ public class HomeScreenActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v)
                 {
-                    if (!type.equals("NA")) {
+                    if (type==null || !type.equals("NA")) {
                         showToast("Please valide your mobile number By entering OTP/ Contact Admin");
                     }
                     else {
@@ -163,7 +163,7 @@ public class HomeScreenActivity extends AppCompatActivity{
             smartsearch.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    if (!type.equals("NA")) {
+                    if (type==null || !type.equals("NA")) {
                         showToast("Please valide your mobile number By entering OTP/ Contact Admin");
                     }
                     else
@@ -204,7 +204,7 @@ public class HomeScreenActivity extends AppCompatActivity{
             trainroute.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    if (!type.equals("NA")) {
+                    if (type==null || !type.equals("NA")) {
                         showToast("Please valide your mobile number By entering OTP/ Contact Admin");
                     }
                     else
@@ -245,7 +245,7 @@ public class HomeScreenActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v)
                 {
-                    if(!type.equals("NA"))
+                    if(type==null || !type.equals("NA"))
                     {
                         showToast("Please valide your mobile number By entering OTP/ Contact Admin");
                     }
@@ -286,7 +286,7 @@ public class HomeScreenActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v)
                 {
-                    if(!type.equals("NA"))
+                    if(type==null || !type.equals("NA"))
                     {
                         showToast("Please valide your mobile number By entering OTP/ Contact Admin");
                     }
@@ -321,11 +321,20 @@ public class HomeScreenActivity extends AppCompatActivity{
 
 
         TableRow cntus1 = (TableRow)findViewById(R.id.regid);
-        if(!type.equals("NA"))
+        if(type==null || !type.equals("NA"))
         {
             if(cntus1.getVisibility()==View.GONE)
             {
                 cntus1.setVisibility(View.VISIBLE);
+            }
+        }
+
+        TableRow cntus11 = (TableRow)findViewById(R.id.regid1);
+        if(type==null || !type.equals("NA"))
+        {
+            if(cntus11.getVisibility()==View.GONE)
+            {
+                cntus11.setVisibility(View.VISIBLE);
             }
         }
 
@@ -356,6 +365,30 @@ public class HomeScreenActivity extends AppCompatActivity{
                         loadigIcon.post(new Starter("http://api.ngrail.in/regotp/user/" + sharedpreferences.getString(Mail, null) + "/mobnum/"+sharedpreferences.getString(Phone,null)+"/otp/"+rt.getText()+"/"));
 
                     }
+                }
+            });
+        }
+
+
+        ImageView cntus3 = (ImageView)findViewById(R.id.otpnot);
+        if(cntus3!=null)
+        {
+            cntus3.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v)
+                {
+                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+                        loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
+                        loadingLayout.setVisibility(View.GONE);
+
+                        loadigText = (TextView) findViewById(R.id.textView111);
+                        loadigText.setVisibility(View.GONE);
+
+                        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        loadigIcon.setVisibility(View.GONE);
+                        loadigIcon.post(new Starter("http://api.ngrail.in/nootp/user/" + sharedpreferences.getString(Mail, null) + "/mobnum/"+sharedpreferences.getString(Phone,null)+"/"));
                 }
             });
         }
@@ -451,34 +484,49 @@ public class HomeScreenActivity extends AppCompatActivity{
                     JSONObject jsonobj = new JSONObject(result);
                     if(jsonobj.getString("responsecode").equals("200"))
                     {
-                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString(Type, "NA");
-                        editor.commit();
+                        if (jsonobj.getString("error").equals("NOOTP"))
+                        {
+                            showToast("Request Sent To Admin. Will get back to you.");
+                            return;
+                        }
+                        else {
+                            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(Type, "NA");
+                            editor.commit();
 
-                        splashTimer = new Timer();
-                        splashTimer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                Intent i;
-                                i = new Intent(HomeScreenActivity.this, HomeScreenActivity.class);
-                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                                HomeScreenActivity.this.finish();
-                                HomeScreenActivity.this.startActivity(i);
-                                // This makes the new screen slide up as it fades in
-                                // while the current screen slides up as it fades out.
-                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                            }
-                        }, DELAY);
-                        scheduled = true;
+                            splashTimer = new Timer();
+                            splashTimer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    Intent i;
+                                    i = new Intent(HomeScreenActivity.this, HomeScreenActivity.class);
+                                    i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                    i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                    HomeScreenActivity.this.finish();
+                                    HomeScreenActivity.this.startActivity(i);
+                                    // This makes the new screen slide up as it fades in
+                                    // while the current screen slides up as it fades out.
+                                    overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                                }
+                            }, DELAY);
+                            scheduled = true;
+                        }
                     }
                     else
                     {
-                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString(Type, "R");
-                        editor.commit();
+                        if (jsonobj.getString("error").equals("NOOTP"))
+                        {
+                            showToast("Error while Sending to Admin.");
+                            return;
+                        }
+                        else {
+                            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            showToast("Invalid OTP. Please try again/Contact Admin!!");
+                            editor.putString(Type, "R");
+                            editor.commit();
+                        }
 
                         /*splashTimer = new Timer();
                         splashTimer.schedule(new TimerTask() {
@@ -496,7 +544,7 @@ public class HomeScreenActivity extends AppCompatActivity{
                             }
                         }, DELAY);
                         scheduled = true;*/
-                        showToast("Invalid OTP. Please try again/Contact Admin!!");
+
                         return;
                     }
                 }catch (JSONException j)

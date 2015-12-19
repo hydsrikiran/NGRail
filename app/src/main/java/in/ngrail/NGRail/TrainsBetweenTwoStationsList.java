@@ -124,7 +124,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                     params.leftMargin=5;
                     params.rightMargin=5;
                     params.topMargin=5;
-                    params.bottomMargin=5;
+                    params.bottomMargin=10;
                     Animation slideL = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
                     Animation slideR = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
                     ImageView[] img1= new ImageView[totlcount];
@@ -178,8 +178,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         //table lay out 3
                         TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableLayout tableLayout2 = new TableLayout(getApplicationContext());
+                        tableLayout2.setColumnStretchable(1, false);
                         tableLayout2.setColumnStretchable(0, true);
-                        tableLayout2.setColumnStretchable(1, true);
                         TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableRow tableRow2 = new TableRow(getApplicationContext());
                         tableRow2.setPadding(10, 0, 0, 0);
@@ -211,7 +211,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                             }
                         });
                         TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
-                        tableRowParams7.setMargins(0, 0, 40, 0);
+                        tableRowParams7.setMargins(0, 0, 10, 0);
                         tableRow2.addView(img3[i], tableRowParams7);
 
                         tableLayout2.addView(tableRow2, tableRowParams3);
@@ -697,7 +697,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                 params.leftMargin=5;
                                 params.rightMargin=5;
                                 params.topMargin=5;
-                                params.bottomMargin=5;
+                                params.bottomMargin=10;
                                 Animation slideL = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
                                 Animation slideR = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
                                 ImageView[] img1= new ImageView[totlcount];

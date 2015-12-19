@@ -211,6 +211,35 @@
                     </ImageView>
                 </TableRow>
 
+                <TableRow android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/layout_textbox"
+                    android:id="@+id/regid1"
+                    android:visibility="gone"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:paddingRight="10dp">
+                    <ImageView
+                        android:src="@drawable/otp"
+                        android:layout_marginRight="3dp"
+                        >
+                    </ImageView>
+                    <TextView
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:id="@+id/otp2"
+                        android:text="OTP Not Received">
+                    </TextView>
+                    <ImageView
+                        android:src="@drawable/arrowgood"
+                        android:id="@+id/otpnot"
+                        >
+                    </ImageView>
+                </TableRow>
+
             </TableLayout>
         </LinearLayout>
         <LinearLayout

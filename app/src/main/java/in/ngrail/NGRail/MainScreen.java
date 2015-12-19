@@ -38,7 +38,7 @@ public class MainScreen extends FragmentActivity{
     AsyncTask<Void, Void, Void> mRegisterTask;
 
     public static String name="8885033313";
-    public static String email="admin";
+    public static String email="info@ngrail.in";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,17 +104,16 @@ public class MainScreen extends FragmentActivity{
             GCMRegistrar.register(this, Config.GOOGLE_SENDER_ID);
 
         }else {
-
             // Device is already registered on GCM Server
             if (GCMRegistrar.isRegisteredOnServer(this)) {
                 sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("regid", regId);
                 editor.commit();
-                Toast.makeText(getApplicationContext(),
+                /*Toast.makeText(getApplicationContext(),
                         "Already registered with GCM Server",
                         Toast.LENGTH_LONG).
-                        show();
+                        show();*/
 
             }
             else {
@@ -131,7 +130,7 @@ public class MainScreen extends FragmentActivity{
 
                         // Register on our server
                         // On server creates a new user
-                        aController.register(context, "8885033313", "admin", regId);
+                        aController.register(context, "8885033313", "NGRail Admin", regId);
                         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("regid", regId);
