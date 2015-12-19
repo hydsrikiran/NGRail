@@ -140,7 +140,7 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
         }catch (Exception e)
         {
             Context context = getApplicationContext();
-            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
+            CharSequence text = "Back-end Server/Network issue. Please try again!";
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -171,7 +171,7 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "Back-end Server issue. Please try again!" + e.getMessage();
+                CharSequence text = "Back-end Server/Network issue. Please try again!";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -450,7 +450,7 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
                     }
                 } catch (JSONException j) {
                     context = getApplicationContext();
-                    CharSequence text = "Back-end Server issue. Please try again!" + j.getMessage() + result;
+                    CharSequence text = "Back-end Server/Network issue. Please try again!";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -458,7 +458,7 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
 
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "Back-end Server issue. Please try again!" + e.getMessage();
+                CharSequence text = "Back-end Server/Network issue. Please try again!";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();

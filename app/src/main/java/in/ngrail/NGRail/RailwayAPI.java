@@ -91,7 +91,7 @@ public class RailwayAPI{
         BufferedReader rd = null;
         StringBuilder response = null;
         HttpURLConnection request=null;
-
+        Log.d("LLL",endpoint);
         try{
             URL endpointUrl = new URL(endpoint);
 

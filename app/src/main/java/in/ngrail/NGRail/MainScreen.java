@@ -1,24 +1,52 @@
 package in.ngrail.NGRail;
 
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gcm.GCMRegistrar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by kiran on 10-12-2015.
@@ -33,6 +61,19 @@ public class MainScreen extends FragmentActivity{
     SharedPreferences sharedpreferences;
     TextView lblMessage;
     Controller aController;
+    private TextView loadigText = null;
+    private ProgressBar loadigIcon = null;
+    private LinearLayout loadingLayout = null;
+
+    private final int CHECK_CODE = 0x1;
+    private final int LONG_DURATION = 5000;
+    private final int SHORT_DURATION = 1200;
+
+    //private Speaker speaker;
+
+    private ToggleButton toggle;
+    private RadioGroup.OnCheckedChangeListener toggleListener;
+
 
     // Asyntask
     AsyncTask<Void, Void, Void> mRegisterTask;
@@ -173,6 +214,7 @@ public class MainScreen extends FragmentActivity{
             }
         }, DELAY);
         scheduled = true;
+
     }
 
     // Create a broadcast receiver to get message and show on screen
@@ -217,6 +259,7 @@ public class MainScreen extends FragmentActivity{
                 splashTimer.purge();
             // Unregister Broadcast Receiver
             unregisterReceiver(mHandleMessageReceiver);
+            //unregisterReceiver(smsReceiver);
 
             //Clear internal resources.
             GCMRegistrar.onDestroy(this);
@@ -226,6 +269,12 @@ public class MainScreen extends FragmentActivity{
         }
     }
 
+    public void showToast(String message) {
 
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+
+        toast.show();
+
+    }
 
 }

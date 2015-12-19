@@ -86,7 +86,27 @@ public class PnrActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pnrstatus_main);
+        Bundle bundle = getIntent().getExtras();
+
         try {
+            try {
+                String notpnr = bundle.getString("notpnr");
+                if (notpnr != null && notpnr.length() == 10) {
+                    loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
+                    loadingLayout.setVisibility(View.GONE);
+
+                    loadigText = (TextView) findViewById(R.id.textView111);
+                    loadigText.setVisibility(View.GONE);
+
+                    loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                    loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    loadigIcon.setVisibility(View.GONE);
+                    loadigIcon.post(new Starter_pnr(notpnr, "A"));
+                }
+            }catch (Exception e)
+            {
+                showToast("Plese add pnr manually.");
+            }
             Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
             myToolbar.setTitle("NGRail PNR Status");
             setSupportActionBar(myToolbar);
@@ -221,7 +241,7 @@ public class PnrActivity extends AppCompatActivity{
         }catch (Exception e)
         {
             Context context = getApplicationContext();
-            CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
+            CharSequence text = "Back-end Server/Network issue. Please try again!";
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -461,7 +481,7 @@ public class PnrActivity extends AppCompatActivity{
                 return railapi.getRegister(urls[0]);
             } catch (Exception e) {
                 Context context = getApplicationContext();
-                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server/Network issue. Please try again!";
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -706,7 +726,7 @@ public class PnrActivity extends AppCompatActivity{
                 }catch (JSONException j)
                 {
                     context = getApplicationContext();
-                    CharSequence text = "Back-end Server issue. Please try again!"+j.getMessage();
+                    CharSequence text = "Back-end Server/Network issue. Please try again!";
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
@@ -716,7 +736,7 @@ public class PnrActivity extends AppCompatActivity{
             catch (Exception e)
             {
                 Context context = getApplicationContext();
-                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server/Network issue. Please try again!";
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -1164,7 +1184,7 @@ public class PnrActivity extends AppCompatActivity{
                         }catch (JSONException j)
                         {
                             Context context = getApplicationContext();
-                            CharSequence text = "Back-end Server issue. Please try again!"+j.getMessage();
+                            CharSequence text = "Back-end Server/Network issue. Please try again!";
                             int duration = Toast.LENGTH_LONG;
                             Toast toast = Toast.makeText(context, text, duration);
                             toast.show();
@@ -1223,7 +1243,7 @@ public class PnrActivity extends AppCompatActivity{
             catch (Exception e)
             {
                 Context context = getApplicationContext();
-                CharSequence text = "Back-end Server issue. Please try again!"+e.getMessage();
+                CharSequence text = "Back-end Server/Network issue. Please try again!";
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
