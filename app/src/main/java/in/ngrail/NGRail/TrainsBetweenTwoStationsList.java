@@ -104,7 +104,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
             //myToolbar.setSubtitle("One Stop Train Enquiry Hub");
             myToolbar.setLogo(R.mipmap.ngrailsmlogo);
-            myToolbar.inflateMenu(R.menu.main);
+            //myToolbar.inflateMenu(R.menu.main);
             LinearLayout chat = (LinearLayout) findViewById(R.id.pnrstatusnum);
             //chat.setVisibility(View.INVISIBLE);
 
@@ -431,7 +431,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
