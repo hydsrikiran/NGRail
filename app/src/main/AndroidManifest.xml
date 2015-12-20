@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="in.ngrail.NGRail">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="in.ngrail.NGERail">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +17,7 @@
 
     <!-- Creates a custom permission so only this app can receive its messages. -->
     <permission
-        android:name="in.ngrail.NGRail.permission.C2D_MESSAGE"
+        android:name="in.ngrail.NGERail.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="in.ngrail.NGRail.permission.C2D_MESSAGE" />
@@ -34,12 +34,12 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application android:allowBackup="true"
-        android:name="in.ngrail.NGRail.Controller"
+        android:name="in.ngrail.NGERail.Controller"
         android:icon="@mipmap/ngraillogo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-            <activity android:name=".MainScreen"
+            <activity android:name="in.ngrail.NGERail.MainScreen"
                 android:screenOrientation="portrait"
                 android:label="@string/app_name">
                 <intent-filter>
@@ -49,96 +49,96 @@
                 </intent-filter>
             </activity>
         <activity
-            android:name=".RegistrationActivity"
+            android:name="in.ngrail.NGERail.RegistrationActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainScreen"
+            android:parentActivityName="in.ngrail.NGERail.MainScreen"
             android:label="@string/app_name" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.MainScreen" />
+                android:value="in.ngrail.NGERail.MainScreen" />
         </activity>
         <activity
-            android:name=".HomeScreenActivity"
+            android:name="in.ngrail.NGERail.HomeScreenActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainScreen"
+            android:parentActivityName="in.ngrail.NGERail.MainScreen"
             android:label="@string/app_name" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.MainScreen" />
+                android:value="in.ngrail.NGERail.MainScreen" />
         </activity>
         <activity
-            android:name=".PnrActivity"
+            android:name="in.ngrail.NGERail.PnrActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".HomeScreenActivity"
+            android:parentActivityName="in.ngrail.NGERail.HomeScreenActivity"
             android:label="@string/app_name" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.HomeScreenActivity" />
+                android:value="in.ngrail.NGERail.HomeScreenActivity" />
         </activity>
         <activity
-            android:name=".TrainsBetweenTwoStations"
+            android:name="in.ngrail.NGERail.TrainsBetweenTwoStations"
             android:screenOrientation="portrait"
-            android:parentActivityName=".HomeScreenActivity"
+            android:parentActivityName="in.ngrail.NGERail.HomeScreenActivity"
             android:label="@string/app_name" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.HomeScreenActivity" />
+                android:value="in.ngrail.NGERail.HomeScreenActivity" />
         </activity>
         <activity
-            android:name=".TrainsBetweenTwoStationsList"
+            android:name="in.ngrail.NGERail.TrainsBetweenTwoStationsList"
             android:screenOrientation="portrait"
-            android:parentActivityName=".TrainsBetweenTwoStations"
+            android:parentActivityName="in.ngrail.NGERail.TrainsBetweenTwoStations"
             android:label="@string/app_name" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.TrainsBetweenTwoStations" />
+                android:value="in.ngrail.NGERail.TrainsBetweenTwoStations" />
         </activity>
         <activity
-            android:name=".AdvSeatAvail"
+            android:name="in.ngrail.NGERail.AdvSeatAvail"
             android:screenOrientation="portrait"
-            android:parentActivityName=".TrainsBetweenTwoStationsList"
+            android:parentActivityName="in.ngrail.NGERail.TrainsBetweenTwoStationsList"
             android:label="@string/app_name" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.TrainsBetweenTwoStationsList" />
+                android:value="in.ngrail.NGERail.TrainsBetweenTwoStationsList" />
         </activity>
         <activity
-            android:name=".SpotTrainMainActivity"
+            android:name="in.ngrail.NGERail.SpotTrainMainActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".TrainsBetweenTwoStationsList"
+            android:parentActivityName="in.ngrail.NGERail.TrainsBetweenTwoStationsList"
             android:label="@string/app_name" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.HomeScreenActivity" />
-        </activity>
-
-        <activity
-            android:name=".TrainRouteActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".HomeScreenActivity"
-            android:label="@string/app_name" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.HomeScreenActivity" />
-        </activity>
-        <activity
-            android:name=".ContactUsActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".HomeScreenActivity"
-            android:label="@string/app_name" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.ngrail.NGRail.HomeScreenActivity" />
+                android:value="in.ngrail.NGERail.HomeScreenActivity" />
         </activity>
 
         <activity
-            android:name=".TrainsAtStation"
+            android:name="in.ngrail.NGERail.TrainRouteActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".HomeScreenActivity"
+            android:parentActivityName="in.ngrail.NGERail.HomeScreenActivity"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGERail.HomeScreenActivity" />
+        </activity>
+        <activity
+            android:name="in.ngrail.NGERail.ContactUsActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName="in.ngrail.NGERail.HomeScreenActivity"
+            android:label="@string/app_name" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.ngrail.NGERail.HomeScreenActivity" />
+        </activity>
+
+        <activity
+            android:name="in.ngrail.NGERail.TrainsAtStation"
+            android:screenOrientation="portrait"
+            android:parentActivityName="in.ngrail.NGERail.HomeScreenActivity"
             android:label="@string/app_name" >
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="in.ngrail.NGRail.HomeScreenActivity" />
+            android:value="in.ngrail.NGERail.HomeScreenActivity" />
         </activity>
         <!-- This meta-data tag is required to use Google Play Services. -->
         <meta-data
@@ -180,13 +180,13 @@
                 <category android:name="com.androidexample.gcm" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".MySMSApp">
+        <receiver android:name="in.ngrail.NGERail.MySMSApp">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
-        <service android:name="in.ngrail.NGRail.GCMIntentService" />
+        <service android:name="in.ngrail.NGERail.GCMIntentService" />
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

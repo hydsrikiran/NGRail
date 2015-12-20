@@ -1,4 +1,4 @@
-package in.ngrail.NGRail;
+package in.ngrail.NGERail;
 
 /**
  * Created by kiran on 15-12-2015.
@@ -16,7 +16,6 @@ import java.util.Map.Entry;
 
 import com.google.android.gcm.GCMRegistrar;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
@@ -26,7 +25,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.PowerManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 public class Controller extends Application{

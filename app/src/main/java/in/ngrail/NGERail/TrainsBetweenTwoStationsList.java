@@ -1,12 +1,8 @@
-package in.ngrail.NGRail;
+package in.ngrail.NGERail;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,24 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -581,25 +568,31 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
     public boolean onContextItemSelected(MenuItem item) {
 
-        TextView tt = (TextView)findViewById(item.getItemId() - 1);
-        String[] splity = tt.getText().toString().split("#");
-        loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
-        loadingLayout.setVisibility(View.GONE);
+        try {
 
-        loadigText = (TextView) findViewById(R.id.textView111);
-        loadigText.setVisibility(View.GONE);
+            TextView tt = (TextView) findViewById(item.getItemId() - 1);
+            String[] splity = tt.getText().toString().split("#");
+            loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
+            loadingLayout.setVisibility(View.GONE);
 
-        loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
-        loadigIcon.setVisibility(View.GONE);
-        String soures = splity[1].split("\\(")[1];
-        soures = soures.substring(0,soures.length()-1);
-        String descs = splity[2].split("\\(")[1];
-        descs = descs.substring(0,descs.length()-1);
-        String reqclass = item.getTitle().toString();
-        String[] dojsp=splity[4].split("-");
-        String dojf = dojsp[2]+"-"+dojsp[1]+"-"+dojsp[0];
-        loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+soures+"/destination/"+descs+"/doj/"+dojf+"/train/"+splity[0]+"/class/"+reqclass));
+            loadigText = (TextView) findViewById(R.id.textView111);
+            loadigText.setVisibility(View.GONE);
+
+            loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+            loadigIcon.setVisibility(View.GONE);
+            String soures = splity[1].split("\\(")[1];
+            soures = soures.substring(0, soures.length() - 1);
+            String descs = splity[2].split("\\(")[1];
+            descs = descs.substring(0, descs.length() - 1);
+            String reqclass = item.getTitle().toString();
+            String[] dojsp = splity[4].split("-");
+            String dojf = dojsp[2] + "-" + dojsp[1] + "-" + dojsp[0];
+            loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/" + soures + "/destination/" + descs + "/doj/" + dojf + "/train/" + splity[0] + "/class/" + reqclass));
+        }catch (Exception e)
+        {
+            Log.d("Exception list", e.getMessage());
+        }
         //Log.d("ASAAS", jsonvalue + String.valueOf(dateval));
         return true;
     }

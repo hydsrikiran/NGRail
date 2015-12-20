@@ -5,11 +5,11 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "in.ngrail.NGRail"
-        minSdkVersion 21
+        applicationId "in.ngrail.NGERail"
+        minSdkVersion 16
         targetSdkVersion 23
-        versionCode 2
-        versionName "2.0"
+        versionCode 1
+        versionName "1.0"
     }
     buildTypes {
         release {

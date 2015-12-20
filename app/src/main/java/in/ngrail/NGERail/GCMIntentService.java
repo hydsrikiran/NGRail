@@ -1,4 +1,4 @@
-package in.ngrail.NGRail;
+package in.ngrail.NGERail;
 
 /**
  * Created by kiran on 15-12-2015.
@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
 import android.util.Log;
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;

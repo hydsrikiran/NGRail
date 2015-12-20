@@ -1,4 +1,4 @@
-package in.ngrail.NGRail;
+package in.ngrail.NGERail;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package in.ngrail.NGRail;
+package in.ngrail.NGERail;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;

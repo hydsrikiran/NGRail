@@ -1,4 +1,4 @@
-package in.ngrail.NGRail;
+package in.ngrail.NGERail;
 
 /**
  * Created by kiran on 15-12-2015.
