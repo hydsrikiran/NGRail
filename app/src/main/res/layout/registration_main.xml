@@ -60,7 +60,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="0dp"
-            android:text="Mobie Number"/>
+            android:text="Mobile Number"/>
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

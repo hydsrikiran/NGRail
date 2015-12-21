@@ -138,7 +138,7 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                     // your code here
                 }
             });
-            EditText ed = (EditText)findViewById(R.id.datepick);
+            /*EditText ed = (EditText)findViewById(R.id.datepick);
             ed.setShowSoftInputOnFocus(false);
             ed.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -164,9 +164,9 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                         date.show(getSupportFragmentManager(), "Date Picker");
                     }
                 }
-            });
-            findViewById(R.id.datepick).setOnClickListener(new View.OnClickListener() {
-
+            });*/
+            //findViewById(R.id.datepick).setOnClickListener(new View.OnClickListener() {
+            findViewById(R.id.datepic).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //showDatePicker();
