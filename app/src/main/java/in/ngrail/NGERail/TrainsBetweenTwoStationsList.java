@@ -322,9 +322,10 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         loadigIcon.setVisibility(View.GONE);
 
                         //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();
-
+                        dateval = dtp;
                         // This line is to start Asyn Task only when OnCreate Method get completed, So Loading Icon Rotation Animation work properly
                         loadigIcon.post(new Starter_tb("http://api.ngrail.in/trbwts/source/" + sourcen + "/destination/" + destn + "/doj/" + dtp));
+
 
                     }catch (ParseException e)
                     {
@@ -369,7 +370,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         loadigIcon.setVisibility(View.GONE);
 
                         //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();
-
+                        dateval = dtp;
                         // This line is to start Asyn Task only when OnCreate Method get completed, So Loading Icon Rotation Animation work properly
                         loadigIcon.post(new Starter_tb("http://api.ngrail.in/trbwts/source/" + sourcen + "/destination/" + destn + "/doj/" + dtp));
 
@@ -677,6 +678,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                             //JSONObject jsonobj = new JSONObject(jsonvalue);
                             if(jsonobj.getString("responsecode").equals("200"))
                             {
+                                jsonvalue = result;
                                 chat.removeAllViewsInLayout();
                                 TextView trheader = (TextView)findViewById(R.id.trheader);
                                 trheader.setText(jsonobj.getString("from")+" > "+jsonobj.getString("to"));

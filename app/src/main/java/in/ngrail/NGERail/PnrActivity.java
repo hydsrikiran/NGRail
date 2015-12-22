@@ -716,6 +716,13 @@ public class PnrActivity extends AppCompatActivity{
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
+                }catch (Exception e)
+                {
+                    context = getApplicationContext();
+                    CharSequence text = "Back-end Server/Network issue. Please try again!"+e.getMessage();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
 
             }
