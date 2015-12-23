@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -298,7 +299,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
 
                                 tv1[i] = new TextView(getApplicationContext());
                                 tv1[i].setTextSize(15);
-                                tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv1[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv1[i].setText("Station");
@@ -311,7 +313,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
 
                                 tv2[i] = new TextView(getApplicationContext());
                                 tv2[i].setTextSize(15);
-                                tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv2[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv2[i].setText("Arrival");
@@ -323,7 +326,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
 
                                 tv3[i] = new TextView(getApplicationContext());
                                 tv3[i].setTextSize(15);
-                                tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv3[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv3[i].setText("Departure");
@@ -335,7 +339,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
 
                                 tv4[i] = new TextView(getApplicationContext());
                                 tv4[i].setTextSize(15);
-                                tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv4[i].setText("Distance");
@@ -345,7 +350,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
 
                                 tv5[i] = new TextView(getApplicationContext());
                                 tv5[i].setTextSize(15);
-                                tv5[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv5[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv5[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv5[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv5[i].setText("Day");
@@ -360,7 +366,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
                             tv1[i] = new TextView(getApplicationContext());
                             tv1[i].setTextSize(15);
                             tv1[i].setMinWidth(100);
-                            tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv1[i].setTextColor(getResources().getColor(rrg1));
                             tv1[i].setText(jsnarr.getJSONObject(i).getString("code"));
@@ -374,7 +381,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
                             tv2[i] = new TextView(getApplicationContext());
                             tv2[i].setTextSize(15);
                             tv2[i].setMinWidth(100);
-                            tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv2[i].setTextColor(getResources().getColor(rrg1));
                             tv2[i].setText(jsnarr.getJSONObject(i).getString("scharr"));
@@ -387,7 +395,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
                             tv3[i] = new TextView(getApplicationContext());
                             tv3[i].setTextSize(15);
                             tv3[i].setMinWidth(100);
-                            tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv3[i].setTextColor(getResources().getColor(rrg1));
                             tv3[i].setText(jsnarr.getJSONObject(i).getString("schdep"));
@@ -400,7 +409,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
                             tv4[i] = new TextView(getApplicationContext());
                             tv4[i].setTextSize(15);
                             tv4[i].setMinWidth(100);
-                            tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv4[i].setTextColor(getResources().getColor(rrg));
                             tv4[i].setText(jsnarr.getJSONObject(i).getString("distance"));
@@ -410,7 +420,8 @@ public class TrainRouteActivity extends AppCompatActivity { //implements OnMapRe
                             tv5[i] = new TextView(getApplicationContext());
                             tv5[i].setTextSize(15);
                             tv5[i].setMinWidth(100);
-                            tv5[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv5[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv5[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv5[i].setTextColor(getResources().getColor(rrg));
                             tv5[i].setText(jsnarr.getJSONObject(i).getString("day"));

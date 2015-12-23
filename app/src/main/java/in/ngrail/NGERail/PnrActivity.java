@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -545,7 +546,9 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv1[i] = new TextView(getApplicationContext());
                                 tv1[i].setTextSize(20);
-                                tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17) {
+                                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                }
                                 tv1[i].setTypeface(null, Typeface.BOLD);
                                 tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 tv1[i].setText("Trip To " + jaray.getJSONObject(i).getString("destination"));
@@ -566,7 +569,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv2[i] = new TextView(getApplicationContext());
                                 tv2[i].setTextSize(15);
-                                tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 tv2[i].setTextColor(getResources().getColor(R.color.colorPnrDate));
                                 tv2[i].setId(((i + 1) * 1000) + 8);
                                 tv2[i].setText(jaray.getJSONObject(i).getString("doj"));
@@ -576,7 +580,8 @@ public class PnrActivity extends AppCompatActivity{
                                 tableRowParams2.setMargins(0, 0, 40, 0);
                                 tv3[i] = new TextView(getApplicationContext());
                                 tv3[i].setTextSize(15);
-                                tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
                                 tv3[i].setTypeface(null, Typeface.BOLD);
                                 tv3[i].setText(jaray.getJSONObject(i).getString("pnr"));
                                 tv3[i].setId(((i + 1) * 1000) + 3);
@@ -599,7 +604,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv4[i] = new TextView(getApplicationContext());
                                 tv4[i].setTextSize(15);
-                                tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 tv4[i].setPadding(0, 0, 5, 0);
                                 tv4[i].setId(((i + 1) * 1000) + 7);
@@ -609,7 +615,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv5[i] = new TextView(getApplicationContext());
                                 tv5[i].setTextSize(15);
-                                tv5[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv5[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 tv5[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 tv5[i].setPadding(0, 0, 5, 0);
                                 tv5[i].setText(jaray.getJSONObject(i).getString("trainname"));
@@ -651,8 +658,20 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv6[i] = new TextView(getApplicationContext());
                                 tv6[i].setTextSize(15);
-                                tv6[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv6[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 String statuspnr = jaray.getJSONObject(i).getString("status");
+                                String[] statuspnra = statuspnr.split("\\|");
+                                StringBuilder pnrstr = new StringBuilder();
+                                for(int j=0; j<statuspnra.length; j++)
+                                {
+                                    pnrstr.append(statuspnra[j]);
+
+                                    if(j%2==1)
+                                        pnrstr.append("\n");
+                                    else
+                                        pnrstr.append("|");
+                                }
                                 tv6[i].setTypeface(null, Typeface.BOLD);
                                 if (statuspnr != null) {
                                     if (statuspnr.indexOf("W") != -1) {
@@ -662,7 +681,8 @@ public class PnrActivity extends AppCompatActivity{
                                     } else {
                                         tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf));
                                     }
-                                    tv6[i].setText(jaray.getJSONObject(i).getString("status"));
+                                    //tv6[i].setText(jaray.getJSONObject(i).getString("status"));
+                                    tv6[i].setText(pnrstr);
                                 }
 
                                 tv6[i].setPadding(0, 0, 5, 0);
@@ -673,7 +693,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv7[i] = new TextView(getApplicationContext());
                                 tv7[i].setTextSize(10);
-                                tv7[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv7[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
 
                                 tv7[i].setTextColor(getResources().getColor(R.color.colorPnrDate));
                                 tv7[i].setPadding(0, 0, 5, 0);
@@ -963,6 +984,17 @@ public class PnrActivity extends AppCompatActivity{
                                         TextView statusid = (TextView) findViewById(status);
                                         TextView lastupdid = (TextView) findViewById(lastupd);
                                         String statusval = jsonobj.getString("status");
+                                        String[] statuspnra = statusval.split("\\|");
+                                        StringBuilder pnrstr = new StringBuilder();
+                                        for(int k=0; k<statuspnra.length; k++)
+                                        {
+                                            pnrstr.append(statuspnra[k]);
+
+                                            if(k%2==1)
+                                                pnrstr.append("\n");
+                                            else
+                                                pnrstr.append("|");
+                                        }
                                         if (statusval != null) {
                                             if (statusval.indexOf("W") != -1) {
                                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrWl));
@@ -971,7 +1003,7 @@ public class PnrActivity extends AppCompatActivity{
                                             } else {
                                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrCnf));
                                             }
-                                            statusid.setText(statusval);
+                                            statusid.setText(pnrstr);
                                         }
                                         lastupdid.setText("lst Upd : " + jsonobj.getString("lastupdate").split(" ")[1]);
                                         /*Context context = getApplicationContext();
@@ -1022,7 +1054,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv1 = new TextView(getApplicationContext());
                                 tv1.setTextSize(20);
-                                tv1.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv1.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 tv1.setTypeface(null, Typeface.BOLD);
                                 tv1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 tv1.setText("Trip To " + jsonobj.getString("destination"));
@@ -1045,7 +1078,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv2 = new TextView(getApplicationContext());
                                 tv2.setTextSize(15);
-                                tv2.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv2.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 tv2.setTextColor(getResources().getColor(R.color.colorPnrDate));
                                 tv2.setText(jsonobj.getString("doj"));
                                 tv2.setId(((i + 1) * 1000) + 8);
@@ -1055,7 +1089,8 @@ public class PnrActivity extends AppCompatActivity{
                                 tableRowParams2.setMargins(0, 0, 40, 0);
                                 tv3 = new TextView(getApplicationContext());
                                 tv3.setTextSize(15);
-                                tv3.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv3.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
                                 tv3.setTypeface(null, Typeface.BOLD);
                                 tv3.setText(jsonobj.getString("pnr"));
                                 tv3.setId(((i + 1) * 1000) + 3);
@@ -1078,7 +1113,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv4 = new TextView(getApplicationContext());
                                 tv4.setTextSize(15);
-                                tv4.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv4.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 tv4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 tv4.setPadding(0, 0, 5, 0);
                                 tv4.setId(((i + 1) * 1000) + 7);
@@ -1088,7 +1124,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv5 = new TextView(getApplicationContext());
                                 tv5.setTextSize(15);
-                                tv5.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv5.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 tv5.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                 tv5.setPadding(0, 0, 5, 0);
                                 tv5.setText(jsonobj.getString("trainname"));
@@ -1130,9 +1167,21 @@ public class PnrActivity extends AppCompatActivity{
                                 tableRow3.addView(img2, tableRowParams5);
                                 tv6 = new TextView(getApplicationContext());
                                 tv6.setTextSize(15);
-                                tv6.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv6.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                 String statuspnr = jsonobj.getString("status");
                                 tv6.setTypeface(null, Typeface.BOLD);
+                                String[] statuspnra = statuspnr.split("\\|");
+                                StringBuilder pnrstr = new StringBuilder();
+                                for(int j=0; j<statuspnra.length; j++)
+                                {
+                                    pnrstr.append(statuspnra[j]);
+
+                                    if(j%2==1)
+                                        pnrstr.append("\n");
+                                    else
+                                        pnrstr.append("|");
+                                }
                                 if (statuspnr != null) {
                                     if (statuspnr.indexOf("W") != -1) {
                                         tv6.setTextColor(getResources().getColor(R.color.colorPnrWl));
@@ -1141,7 +1190,8 @@ public class PnrActivity extends AppCompatActivity{
                                     } else {
                                         tv6.setTextColor(getResources().getColor(R.color.colorPnrCnf));
                                     }
-                                    tv6.setText(jsonobj.getString("status"));
+                                    //tv6.setText(jsonobj.getString("status"));
+                                    tv6.setText(pnrstr);
                                 }
 
                                 tv6.setPadding(0, 0, 5, 0);
@@ -1152,7 +1202,8 @@ public class PnrActivity extends AppCompatActivity{
 
                                 tv7 = new TextView(getApplicationContext());
                                 tv7.setTextSize(10);
-                                tv7.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv7.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
 
                                 tv7.setTextColor(getResources().getColor(R.color.colorPnrDate));
                                 tv7.setPadding(0, 0, 5, 0);
@@ -1191,6 +1242,17 @@ public class PnrActivity extends AppCompatActivity{
                         TextView statusid = (TextView) findViewById(status);
                         TextView lastupdid = (TextView) findViewById(lastupd);
                         String statusval = jsonobj.getString("status");
+                        String[] statuspnra = statusval.split("\\|");
+                        StringBuilder pnrstr = new StringBuilder();
+                        for(int j=0; j<statuspnra.length; j++)
+                        {
+                            pnrstr.append(statuspnra[j]);
+
+                            if(j%2==1)
+                                pnrstr.append("\n");
+                            else
+                                pnrstr.append("|");
+                        }
                         if (statusval != null) {
                             if (statusval.indexOf("W") != -1) {
                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrWl));
@@ -1199,7 +1261,7 @@ public class PnrActivity extends AppCompatActivity{
                             } else {
                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrCnf));
                             }
-                            statusid.setText(statusval);
+                            statusid.setText(pnrstr);
                         }
                         lastupdid.setText("lst Upd : " + jsonobj.getString("lastupdate").split(" ")[1]);
                         Context context = getApplicationContext();
@@ -1217,14 +1279,24 @@ public class PnrActivity extends AppCompatActivity{
                     String notify1 = jsonobj.getString("pnr")+" ("+jsonobj.getString("doj")+")";
                     String notify2 = jsonobj.getString("trainnum")+" "+jsonobj.getString("status");
                     Notification.Builder builder = new Notification.Builder(PnrActivity.this);
-                    builder.setSmallIcon(R.drawable.ngrailsmlogo)
-                            .setContentTitle(notify1)
-                            .setColor(getResources().getColor(R.color.colorPrimary))
-                            .setContentInfo("NGRail")
-                            .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
-                            .setLights(Color.RED, 3000, 3000)
-                            .setContentText(notify2)
-                            .setContentIntent(pending);
+                    if (Build.VERSION.SDK_INT >= 21) {
+                        builder.setSmallIcon(R.drawable.ngrailsmlogo)
+                                .setContentTitle(notify1)
+                                .setColor(getResources().getColor(R.color.colorPrimary))
+                                .setContentInfo("NGRail")
+                                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                                .setLights(Color.RED, 3000, 3000)
+                                .setContentText(notify2)
+                                .setContentIntent(pending);
+                    }else{
+                        builder.setSmallIcon(R.drawable.ngrailsmlogo)
+                                .setContentTitle(notify1)
+                                .setContentInfo("NGRail")
+                                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                                .setLights(Color.RED, 3000, 3000)
+                                .setContentText(notify2)
+                                .setContentIntent(pending);
+                    }
 
                     Notification notify = builder.getNotification();
                     notif.notify(R.drawable.pnrinfo, notify);

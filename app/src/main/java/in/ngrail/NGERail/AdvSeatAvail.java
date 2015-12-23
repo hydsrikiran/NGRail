@@ -1,10 +1,13 @@
 package in.ngrail.NGERail;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -184,7 +187,8 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                         tv1[i] = new TextView(getApplicationContext());
                         tv1[i].setTextSize(15);
-                        tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        if (Build.VERSION.SDK_INT >= 17)
+                            tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                         tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                         tv1[i].setTextColor(getResources().getColor(R.color.colorAccent));
                         tv1[i].setText("Boarding");
@@ -197,7 +201,8 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                         tv2[i] = new TextView(getApplicationContext());
                         tv2[i].setTextSize(15);
-                        tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        if (Build.VERSION.SDK_INT >= 17)
+                            tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                         tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                         tv2[i].setTextColor(getResources().getColor(R.color.colorAccent));
                         tv2[i].setMinWidth(100);
@@ -209,19 +214,22 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                         tv3[i] = new TextView(getApplicationContext());
                         tv3[i].setTextSize(15);
-                        tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        if (Build.VERSION.SDK_INT >= 17)
+                            tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                         tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                         tv3[i].setTextColor(getResources().getColor(R.color.colorAccent));
                         tv3[i].setMinWidth(130);
                         tv3[i].setText("Status");
-                        tableRow1.addView(tv3[i],tableRowParams);
+
+                        tableRow1.addView(tv3[i], tableRowParams);
                         //tableLayout.addView(tableRow, tableRowParams);
                         //ll.addView(tableLayout, tableLayoutParams);
 
 
                         tv4[i] = new TextView(getApplicationContext());
                         tv4[i].setTextSize(15);
-                        tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        if (Build.VERSION.SDK_INT >= 17)
+                            tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                         tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                         tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
                         tv4[i].setMinWidth(100);
@@ -236,14 +244,16 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv1[i] = new TextView(getApplicationContext());
                     tv1[i].setTextSize(15);
                     tv1[i].setMinWidth(100);
-                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    if (Build.VERSION.SDK_INT >= 17)
+                        tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                     tv1[i].setTextColor(getResources().getColor(rrg1));
                     tv1[i].setText(jsnarr.getJSONObject(i).getString("from"));
                     //tv1[i].setId(((i + 1) * 1000) + 1);
                     tableRow.addView(tv1[i], tableRowParams);
                     tableRow.setMinimumWidth(100);
-                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    if (Build.VERSION.SDK_INT >= 17)
+                        tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     //tableLayout.addView(tableRow, tableRowParams);
                     //ll.addView(tableLayout, tableLayoutParams);
 
@@ -252,14 +262,16 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv2[i] = new TextView(getApplicationContext());
                     tv2[i].setTextSize(15);
                     tv2[i].setMinWidth(100);
-                    tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    if (Build.VERSION.SDK_INT >= 17)
+                        tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                     tv2[i].setTextColor(getResources().getColor(rrg1));
                     tv2[i].setText(jsnarr.getJSONObject(i).getString("to"));
                     //tv2[i].setId(((i + 1) * 1000) + 2);
                     tableRow.addView(tv2[i], tableRowParams);
                     tableRow.setMinimumWidth(100);
-                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    if (Build.VERSION.SDK_INT >= 17)
+                        tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     //tableLayout.addView(tableRow, tableRowParams);
                     //ll.addView(tableLayout, tableLayoutParams);
 
@@ -267,14 +279,28 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv3[i] = new TextView(getApplicationContext());
                     tv3[i].setTextSize(15);
                     tv3[i].setMinWidth(130);
-                    tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    if (Build.VERSION.SDK_INT >= 17)
+                        tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                     tv3[i].setTextColor(getResources().getColor(rrg1));
                     tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
+                    String stat = jsnarr.getJSONObject(i).getString("status");
+                    if(stat.indexOf("AVA")>=0 && stat.indexOf("NOT")<0) {
+                        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
+                                R.animator.animator);
+                        set.setTarget(tv3[i]);
+                        set.start();
+                    }else if(stat.indexOf("RAC")>=0) {
+                        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
+                                R.animator.property_animator);
+                        set.setTarget(tv3[i]);
+                        set.start();
+                    }
                     //tv3[i].setId(((i + 1) * 1000) + 3);
                     tableRow.addView(tv3[i], tableRowParams);
                     tableRow.setMinimumWidth(300);
-                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    if (Build.VERSION.SDK_INT >= 17)
+                        tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     //tableLayout.addView(tableRow, tableRowParams);
                     //ll.addView(tableLayout, tableLayoutParams);
 
@@ -282,13 +308,15 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv4[i] = new TextView(getApplicationContext());
                     tv4[i].setTextSize(15);
                     tv4[i].setMinWidth(100);
-                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    if (Build.VERSION.SDK_INT >= 17)
+                        tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                     tv4[i].setTextColor(getResources().getColor(rrg));
                     tv4[i].setText(jsnarr.getJSONObject(i).getString("farediff"));
                     //tv4[i].setId(((i + 1) * 1000) + 4);
                     tableRow.addView(tv4[i], tableRowParams);
-                    tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    if (Build.VERSION.SDK_INT >= 17)
+                        tableRow.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     tableRow.setMinimumWidth(100);
                     tableLayout.addView(tableRow, tableRowParams);
                     ll[i].addView(tableLayout, tableLayoutParams);
@@ -653,7 +681,8 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                                 tv1[i] = new TextView(getApplicationContext());
                                 tv1[i].setTextSize(15);
-                                tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv1[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv1[i].setText("Boarding");
@@ -666,7 +695,8 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                                 tv2[i] = new TextView(getApplicationContext());
                                 tv2[i].setTextSize(15);
-                                tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv2[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv2[i].setText("Aliting");
@@ -678,7 +708,8 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                                 tv3[i] = new TextView(getApplicationContext());
                                 tv3[i].setTextSize(15);
-                                tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv3[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv3[i].setText("Status");
@@ -690,7 +721,8 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                                 tv4[i] = new TextView(getApplicationContext());
                                 tv4[i].setTextSize(15);
-                                tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv4[i].setText("Fare Diff");
@@ -705,7 +737,8 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv1[i] = new TextView(getApplicationContext());
                             tv1[i].setTextSize(15);
                             tv1[i].setMinWidth(100);
-                            tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv1[i].setTextColor(getResources().getColor(rrg1));
                             tv1[i].setText(jsnarr.getJSONObject(i).getString("from"));
@@ -719,7 +752,8 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv2[i] = new TextView(getApplicationContext());
                             tv2[i].setTextSize(15);
                             tv2[i].setMinWidth(100);
-                            tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv2[i].setTextColor(getResources().getColor(rrg1));
                             tv2[i].setText(jsnarr.getJSONObject(i).getString("to"));
@@ -732,10 +766,23 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv3[i] = new TextView(getApplicationContext());
                             tv3[i].setTextSize(15);
                             tv3[i].setMinWidth(130);
-                            tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv3[i].setTextColor(getResources().getColor(rrg1));
                             tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
+                            String stat = jsnarr.getJSONObject(i).getString("status");
+                            if(stat.indexOf("AVA")>=0 && stat.indexOf("NOT")<0) {
+                                AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
+                                        R.animator.animator);
+                                set.setTarget(tv3[i]);
+                                set.start();
+                            }else if(stat.indexOf("RAC")>=0) {
+                                AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
+                                        R.animator.property_animator);
+                                set.setTarget(tv3[i]);
+                                set.start();
+                            }
                             //tv3[i].setId(((i + 1) * 1000) + 3);
                             tableRow.addView(tv3[i],tableRowParams);
                             //tableLayout.addView(tableRow, tableRowParams);
@@ -745,7 +792,8 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv4[i] = new TextView(getApplicationContext());
                             tv4[i].setTextSize(15);
                             tv4[i].setMinWidth(100);
-                            tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv4[i].setTextColor(getResources().getColor(rrg));
                             tv4[i].setText(jsnarr.getJSONObject(i).getString("farediff"));

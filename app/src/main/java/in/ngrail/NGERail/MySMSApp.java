@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 
@@ -62,14 +63,24 @@ public class MySMSApp extends BroadcastReceiver {
 
                         String notify1 = "New Pnr "+pnrstr.substring(matcher.start(1),matcher.start(1)+10)+" found. Click here to add to NGRail app.";
                         Notification.Builder builder = new Notification.Builder(context);
-                        builder.setSmallIcon(R.drawable.ngrailsmlogo)
-                                .setContentTitle("NGRail - One Stop Train Enquiry Hub")
-                                .setColor(context.getResources().getColor(R.color.colorPrimary))
-                                .setContentInfo("NGRail")
-                                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
-                                .setLights(Color.RED, 3000, 3000)
-                                .setContentText(notify1)
-                                .setContentIntent(pending);
+                        if (Build.VERSION.SDK_INT >= 21) {
+                            builder.setSmallIcon(R.drawable.ngrailsmlogo)
+                                    .setContentTitle("NGRail - One Stop Train Enquiry Hub")
+                                    .setColor(context.getResources().getColor(R.color.colorPrimary))
+                                    .setContentInfo("NGRail")
+                                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                                    .setLights(Color.RED, 3000, 3000)
+                                    .setContentText(notify1)
+                                    .setContentIntent(pending);
+                        }else{
+                            builder.setSmallIcon(R.drawable.ngrailsmlogo)
+                                    .setContentTitle("NGRail - One Stop Train Enquiry Hub")
+                                    .setContentInfo("NGRail")
+                                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                                    .setLights(Color.RED, 3000, 3000)
+                                    .setContentText(notify1)
+                                    .setContentIntent(pending);
+                        }
 
                         Notification notify = builder.getNotification();
                         notif.notify(R.drawable.pnrinfo, notify);

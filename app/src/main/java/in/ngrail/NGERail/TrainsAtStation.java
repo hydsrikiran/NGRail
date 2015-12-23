@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -311,7 +312,8 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
 
                                 tv1[i] = new TextView(getApplicationContext());
                                 tv1[i].setTextSize(10);
-                                tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv1[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv1[i].setText("Name\nNumber");
@@ -324,7 +326,8 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
 
                                 tv2[i] = new TextView(getApplicationContext());
                                 tv2[i].setTextSize(10);
-                                tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv2[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv2[i].setText("Sch Arrival\nAct Arrival");
@@ -336,7 +339,8 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
 
                                 tv3[i] = new TextView(getApplicationContext());
                                 tv3[i].setTextSize(10);
-                                tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv3[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv3[i].setText("Sch Departure\nAct Departure");
@@ -348,7 +352,8 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
 
                                 tv4[i] = new TextView(getApplicationContext());
                                 tv4[i].setTextSize(10);
-                                tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                                if (Build.VERSION.SDK_INT >= 17)
+                                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                                 tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
                                 tv4[i].setText("Arr Delay\nDep Delay");
@@ -364,7 +369,8 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             tv1[i] = new TextView(getApplicationContext());
                             tv1[i].setTextSize(10);
                             tv1[i].setMinWidth(250);
-                            tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv1[i].setTextColor(getResources().getColor(rrg1));
                             tv1[i].setText(jsnarr.getJSONObject(i).getString("name") + "\n" + jsnarr.getJSONObject(i).getString("number"));
@@ -378,7 +384,8 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             tv2[i] = new TextView(getApplicationContext());
                             tv2[i].setTextSize(10);
                             tv2[i].setMinWidth(50);
-                            tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv2[i].setTextColor(getResources().getColor(rrg1));
                             tv2[i].setText(jsnarr.getJSONObject(i).getString("scharr") + "\n" + jsnarr.getJSONObject(i).getString("actarr"));
@@ -391,7 +398,8 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             tv3[i] = new TextView(getApplicationContext());
                             tv3[i].setTextSize(10);
                             tv3[i].setMinWidth(50);
-                            tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv3[i].setTextColor(getResources().getColor(rrg1));
                             tv3[i].setText(jsnarr.getJSONObject(i).getString("schdep") + "\n" + jsnarr.getJSONObject(i).getString("number"));
@@ -404,7 +412,8 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             tv4[i] = new TextView(getApplicationContext());
                             tv4[i].setTextSize(10);
                             tv4[i].setMinWidth(50);
-                            tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            if (Build.VERSION.SDK_INT >= 17)
+                                tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                             tv4[i].setTextColor(getResources().getColor(rrg));
                             tv4[i].setText(jsnarr.getJSONObject(i).getString("delayarr") + "\n" + jsnarr.getJSONObject(i).getString("delaydep"));

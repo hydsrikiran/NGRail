@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +58,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
     int selectedid = 0;
     String Pnrstr = null;
     SharedPreferences sharedpreferences;
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,7 +153,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
                         tv1[i] = new TextView(getApplicationContext());
                         tv1[i].setTextSize(10);
-                        tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                        if (Build.VERSION.SDK_INT >= 17)
+                            tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                         tv1[i].setTypeface(null, Typeface.BOLD);
                         tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                         String htmlText = "<body>" +
@@ -173,7 +180,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
                         tv4[i] = new TextView(getApplicationContext());
                         tv4[i].setTextSize(15);
-                        tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                        if (Build.VERSION.SDK_INT >= 17)
+                            tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                         tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                         tv4[i].setPadding(0, 0, 5, 0);
                         tv4[i].setId(((i + 1) * 1000) + 2);
@@ -227,7 +235,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
                         tv6[i] = new TextView(getApplicationContext());
                         tv6[i].setTextSize(12);
-                        tv6[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                        if (Build.VERSION.SDK_INT >= 17)
+                            tv6[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                         String statuspnr = jaray.getJSONObject(i).getString("fare");
                         tv6[i].setTypeface(null, Typeface.BOLD);
                         String classes = jaray.getJSONObject(i).getString("classes");
@@ -392,6 +401,55 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         }
+        mInterstitialAd = newInterstitialAd();
+        loadInterstitial();
+    }
+
+    private InterstitialAd newInterstitialAd() {
+        InterstitialAd interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Proceed to the next level.
+                goToNextLevel();
+            }
+        });
+        return interstitialAd;
+    }
+
+    private void showInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and reload the ad.
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            //Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
+            goToNextLevel();
+        }
+    }
+
+
+    private void loadInterstitial() {
+        // Disable the next level button and load the ad.
+        AdRequest adRequest = new AdRequest.Builder()
+                .setRequestAgent("android_studio:ad_template").build();
+        mInterstitialAd.loadAd(adRequest);
+    }
+    private void goToNextLevel() {
+        // Show the next level and reload the ad to prepare for the level after.
+        //mLevelTextView.setText("Level " + (++mLevel));
+        mInterstitialAd = newInterstitialAd();
+        loadInterstitial();
     }
 
     @Override
@@ -570,7 +628,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
     public boolean onContextItemSelected(MenuItem item) {
 
         try {
-
+            showInterstitial();
             TextView tt = (TextView) findViewById(item.getItemId() - 1);
             String[] splity = tt.getText().toString().split("#");
             loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
@@ -728,7 +786,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
                                     tv1[i] = new TextView(getApplicationContext());
                                     tv1[i].setTextSize(10);
-                                    tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                    if (Build.VERSION.SDK_INT >= 17)
+                                        tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                     tv1[i].setTypeface(null, Typeface.BOLD);
                                     tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                     String htmlText = "<body>" +
@@ -754,7 +813,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
                                     tv4[i] = new TextView(getApplicationContext());
                                     tv4[i].setTextSize(15);
-                                    tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                    if (Build.VERSION.SDK_INT >= 17)
+                                        tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                     tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                                     tv4[i].setPadding(0, 0, 5, 0);
                                     tv4[i].setId(((i + 1) * 1000) + 2);
@@ -808,7 +868,8 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
                                     tv6[i] = new TextView(getApplicationContext());
                                     tv6[i].setTextSize(12);
-                                    tv6[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                                    if (Build.VERSION.SDK_INT >= 17)
+                                        tv6[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                     String statuspnr = jaray.getJSONObject(i).getString("fare");
                                     tv6[i].setTypeface(null, Typeface.BOLD);
                                     String classes = jaray.getJSONObject(i).getString("classes");
