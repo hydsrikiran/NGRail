@@ -11,7 +11,7 @@
         android:elevation="4dp"/>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:background="@drawable/layout_masterbg1"
         android:layout_gravity="center_horizontal"
         android:padding="5dp"
@@ -34,7 +34,7 @@
             android:id="@+id/trheader2"/>
 
         <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:textAlignment="gravity"
@@ -46,7 +46,7 @@
             android:text=""
             android:id="@+id/trheader"/>
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
@@ -89,24 +89,24 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:id="@+id/relt">
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollView01"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/layout_masterbg"
         android:layout_margin="7dp">
         <RelativeLayout
             android:id="@+id/RelativeLayout01"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/pnrstatusnum">
 
@@ -117,8 +117,8 @@
     </ScrollView>
         <LinearLayout
             android:id="@+id/LinearLayout1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:background="#33303F9F"
             android:orientation="vertical"
@@ -126,7 +126,7 @@
 
             <ProgressBar
                 android:id="@+id/imageView111"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_margin="15dp"
                 android:layout_height="wrap_content"
                 style="@android:style/Widget.Material.Light.ProgressBar.Large.Inverse"

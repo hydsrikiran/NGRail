@@ -37,16 +37,12 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
-/**
- * Created by kiran on 11-12-2015.
- */
+
 public class TrainsBetweenTwoStationsList extends AppCompatActivity{
-    private static final long DELAY = 500;
-    private boolean scheduled = false;
-    private Timer splashTimer;
+    //private static final long DELAY = 500;
+    //private boolean scheduled = false;
+    //private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
@@ -56,7 +52,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
     public String dateval = null;
     public String jsonvalue = "";
     int selectedid = 0;
-    String Pnrstr = null;
+    //String Pnrstr = null;
     SharedPreferences sharedpreferences;
     private InterstitialAd mInterstitialAd;
     @Override
@@ -76,29 +72,30 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                             Intent i;
-                            i = new Intent(TrainsBetweenTwoStationsList.this, TrainsBetweenTwoStations.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             TrainsBetweenTwoStationsList.this.finish();
+                            i = new Intent(TrainsBetweenTwoStationsList.this, TrainsBetweenTwoStations.class);
+                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                            //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                            //TrainsBetweenTwoStationsList.this.finish();
                             TrainsBetweenTwoStationsList.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            overridePendingTransition(R.anim.slide_out_b, R.anim.slide_in_b);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
             });
 
             //myToolbar.setSubtitle("One Stop Train Enquiry Hub");
             myToolbar.setLogo(R.mipmap.ngrailsmlogo);
             //myToolbar.inflateMenu(R.menu.main);
-            LinearLayout chat = (LinearLayout) findViewById(R.id.pnrstatusnum);
+            LinearLayout chat;// = (LinearLayout) findViewById(R.id.pnrstatusnum);
             //chat.setVisibility(View.INVISIBLE);
 
             try {
@@ -113,7 +110,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                     JSONArray jaray = jsonobj.getJSONArray("details");
                     int totlcount = jaray.length();
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                            ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                     params.leftMargin=5;
                     params.rightMargin=5;
                     params.topMargin=5;
@@ -124,12 +121,12 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                     ImageView[] img2= new ImageView[totlcount];
                     ImageView[] img3= new ImageView[totlcount];
                     TextView[] tv1= new TextView[totlcount];
-                    TextView[] tv2= new TextView[totlcount];
-                    TextView[] tv3= new TextView[totlcount];
+                    //TextView[] tv2= new TextView[totlcount];
+                    //TextView[] tv3= new TextView[totlcount];
                     TextView[] tv4= new TextView[totlcount];
                     TextView[] tv5= new TextView[totlcount];
                     TextView[] tv6= new TextView[totlcount];
-                    TextView[] tv7= new TextView[totlcount];
+                    //TextView[] tv7= new TextView[totlcount];
                     LinearLayout[] ll = new LinearLayout[jaray.length()];
                     for(int i=0; i<jaray.length(); i++) {
                         ll[i] = new LinearLayout(getApplicationContext());
@@ -140,10 +137,10 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
 
                         //table lay out 1
-                        TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         tableLayoutParams.setMargins(0, 0, 0, 10);
                         TableLayout tableLayout = new TableLayout(getApplicationContext());
-                        TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableRow tableRow = new TableRow(getApplicationContext());
                         tableRow.setPadding(5, 5, 5, 5);
 
@@ -156,11 +153,24 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         if (Build.VERSION.SDK_INT >= 17)
                             tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                         tv1[i].setTypeface(null, Typeface.BOLD);
-                        tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                        String htmlText = "<body>" +
-                                "<h3>"+jaray.getJSONObject(i).getString("tnumber")+" ("+jaray.getJSONObject(i).getString("tname")+")"+"</h3>"+
-                                "<font color=\""+getResources().getColor(R.color.colorPnrDate)+"\">("+jaray.getJSONObject(i).getString("sdeparture")+")"+jaray.getJSONObject(i).getString("source").split("\\(")[0]+" ==> "+"("+jaray.getJSONObject(i).getString("darrival")+")"+jaray.getJSONObject(i).getString("destination").split("\\(")[0]+"</font>"+
-                                "</body>";
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark,getApplicationContext().getTheme()));
+                        }else {
+                            tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                        }
+                        String htmlText;
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            htmlText = "<body>" +
+                                    "<h3>"+jaray.getJSONObject(i).getString("tnumber")+" ("+jaray.getJSONObject(i).getString("tname")+")"+"</h3>"+
+                                    "<font color=\""+getResources().getColor(R.color.colorPnrDate,getApplicationContext().getTheme())+"\">("+jaray.getJSONObject(i).getString("sdeparture")+")"+jaray.getJSONObject(i).getString("source").split("\\(")[0]+" ==> "+"("+jaray.getJSONObject(i).getString("darrival")+")"+jaray.getJSONObject(i).getString("destination").split("\\(")[0]+"</font>"+
+                                    "</body>";
+                        }else {
+                            htmlText = "<body>" +
+                                    "<h3>"+jaray.getJSONObject(i).getString("tnumber")+" ("+jaray.getJSONObject(i).getString("tname")+")"+"</h3>"+
+                                    "<font color=\""+getResources().getColor(R.color.colorPnrDate)+"\">("+jaray.getJSONObject(i).getString("sdeparture")+")"+jaray.getJSONObject(i).getString("source").split("\\(")[0]+" ==> "+"("+jaray.getJSONObject(i).getString("darrival")+")"+jaray.getJSONObject(i).getString("destination").split("\\(")[0]+"</font>"+
+                                    "</body>";
+                        }
+
                         tv1[i].setText(Html.fromHtml(htmlText, null, null));
                         tv1[i].setId(((i + 1) * 1000) + 1);
                         tableRow.addView(tv1[i], tableRowParams);
@@ -170,11 +180,11 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
 
                         //table lay out 3
-                        TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableLayout tableLayout2 = new TableLayout(getApplicationContext());
                         tableLayout2.setColumnStretchable(1, false);
                         tableLayout2.setColumnStretchable(0, true);
-                        TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableRow tableRow2 = new TableRow(getApplicationContext());
                         tableRow2.setPadding(10, 0, 0, 0);
 
@@ -182,7 +192,11 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         tv4[i].setTextSize(15);
                         if (Build.VERSION.SDK_INT >= 17)
                             tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-                        tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark,getApplicationContext().getTheme()));
+                        }else {
+                            tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                        }
                         tv4[i].setPadding(0, 0, 5, 0);
                         tv4[i].setId(((i + 1) * 1000) + 2);
                         try {
@@ -198,6 +212,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         img3[i] = new ImageView(getApplicationContext());
                         img3[i].setId(i + 1);
                         img3[i].setImageResource(R.drawable.pnrinfo);
+                        img3[i].setBackground(getResources().getDrawable(R.drawable.button));
                         registerForContextMenu(img3[i]);
                         img3[i].setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -205,7 +220,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                 openContextMenu(v);
                             }
                         });
-                        TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         tableRowParams7.setMargins(0, 0, 10, 0);
                         tableRow2.addView(img3[i], tableRowParams7);
 
@@ -218,17 +233,17 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
 
                         //table lay out 4
-                        TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableLayout tableLayout3 = new TableLayout(getApplicationContext());
                         tableLayout3.setColumnStretchable (2, true);
                         //tableLayout3.setColumnStretchable (3, true);
-                        TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableRow tableRow3= new TableRow(getApplicationContext());
                         tableRow3.setPadding(10,0,0,20);
 
                         img2[i] = new ImageView(getApplicationContext());
                         img2[i].setImageResource(R.drawable.pnrchair);
-                        TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         tableRowParams5.setMargins(0, 0, 4, 0);
                         tableRow3.addView(img2[i], tableRowParams5);
 
@@ -249,8 +264,12 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                             if(y < finalstr.length-1)
                                 putstr.append(" | ");
                         }
-                        if (putstr != null) {
-                            tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf));
+                        if (putstr.toString().length()>0) {
+                            if (Build.VERSION.SDK_INT >= 23) {
+                                tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf,getApplicationContext().getTheme()));
+                            }else {
+                                tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf));
+                            }
                             tv6[i].setText(putstr.toString());
                         }
                         tv6[i].setPadding(0, 0, 5, 0);
@@ -327,7 +346,11 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         loadigText.setVisibility(View.GONE);
 
                         loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        }else {
+                            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        }
                         loadigIcon.setVisibility(View.GONE);
 
                         //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();
@@ -359,14 +382,14 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         c.add(Calendar.DATE, 1);  // number of days to add
                         dtp = sdf.format(c.getTime());  // dt is now the new date
 
-                        TextView sd = (TextView)findViewById(R.id.trheader);
+                        TextView sd = (TextView) findViewById(R.id.trheader);
                         String sdp = sd.getText().toString();
                         String[] sdps = sdp.split(">");
                         String[] sdps1 = sdps[0].split("\\(");
-                        String sourcen = sdps1[1].substring(0,sdps1[1].length()-2);
+                        String sourcen = sdps1[1].substring(0, sdps1[1].length() - 2);
 
                         sdps1 = sdps[1].split("\\(");
-                        String destn = sdps1[1].substring(0,sdps1[1].length()-1);
+                        String destn = sdps1[1].substring(0, sdps1[1].length() - 1);
 
                         loadingLayout = (LinearLayout) findViewById(R.id.LinearLayout1);
                         loadingLayout.setVisibility(View.GONE);
@@ -375,7 +398,11 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         loadigText.setVisibility(View.GONE);
 
                         loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        } else {
+                            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        }
                         loadigIcon.setVisibility(View.GONE);
 
                         //loadingViewAnim = (AnimationDrawable) loadigIcon.getBackground();
@@ -383,11 +410,9 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         // This line is to start Asyn Task only when OnCreate Method get completed, So Loading Icon Rotation Animation work properly
                         loadigIcon.post(new Starter_tb("http://api.ngrail.in/trbwts/source/" + sourcen + "/destination/" + destn + "/doj/" + dtp));
 
-                    }catch (ParseException e)
-                    {
+                    } catch (ParseException e) {
                         showToast("Date format Wrong. Please Contact Admin!!");
-                    }catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         //showToast(e.getMessage());
                     }
                 }
@@ -455,23 +480,24 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         // your code.
-        splashTimer = new Timer();
-        splashTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        //splashTimer = new Timer();
+        //splashTimer.schedule(new TimerTask() {
+            //@Override
+            //public void run() {
                 Intent i;
-                i = new Intent(TrainsBetweenTwoStationsList.this, TrainsBetweenTwoStations.class);
-                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                 TrainsBetweenTwoStationsList.this.finish();
+                i = new Intent(TrainsBetweenTwoStationsList.this, TrainsBetweenTwoStations.class);
+                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                //TrainsBetweenTwoStationsList.this.finish();
                 TrainsBetweenTwoStationsList.this.startActivity(i);
                 // This makes the new screen slide up as it fades in
                 // while the current screen slides up as it fades out.
-                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-            }
-        }, DELAY);
-        scheduled = true;
-        return;
+                overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+            //}
+        //}, DELAY);
+        //scheduled = true;
+        //return;
     }
 
     @Override
@@ -485,12 +511,12 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
+        //int id = item.getItemId();
 
-        if (id == R.id.action_status) {
+        /*if (id == R.id.action_status) {
 
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -549,7 +575,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
-                    return;
+                    //return;
                 }
                 else
                 {
@@ -557,15 +583,16 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         //Log.d("AAAA",result);
                         JSONObject jsnobj = new JSONObject(result);
                         if(jsnobj.getInt("responsecode") == 200) {
-                            Intent i = new Intent(TrainsBetweenTwoStationsList.this, AdvSeatAvail.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_left_exit);
-                            i.putExtra("anim id out", R.anim.fragment_slide_right_enter);
                             TrainsBetweenTwoStationsList.this.finish();
+                            Intent i = new Intent(TrainsBetweenTwoStationsList.this, AdvSeatAvail.class);
+                            //i.putExtra("anim id in", R.anim.fragment_slide_left_exit);
+                            //i.putExtra("anim id out", R.anim.fragment_slide_right_enter);
                             i.putExtra("jsonval", result);
                             i.putExtra("jsonvalue", jsonvalue);
                             i.putExtra("dateval", dateval);
 
                             TrainsBetweenTwoStationsList.this.startActivity(i);
+                            overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
                         }
                         else
                         {
@@ -589,13 +616,6 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             }
         }
 
-        private View.OnClickListener ClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selected_item = (Integer) v.getId();
-                //Log.d("OUT END", String.valueOf(selected_item));
-            }
-        };
     }
     @Override
 
@@ -612,7 +632,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             String[] splitstr = tt.getText().toString().split("#");
             String classes = splitstr[3];
             String[] spcl = classes.split(",");
-            String pnrval = tt.getText().toString();
+            //String pnrval = tt.getText().toString();
             menu.setHeaderTitle("Seat Availability");
             menu.setHeaderIcon(R.drawable.ngrailsmlogo);
             for(int i=1; i<spcl.length; i++)
@@ -638,7 +658,11 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             loadigText.setVisibility(View.GONE);
 
             loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+            if (Build.VERSION.SDK_INT >= 23) {
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+            }else {
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+            }
             loadigIcon.setVisibility(View.GONE);
             String soures = splity[1].split("\\(")[1];
             soures = soures.substring(0, soures.length() - 1);
@@ -746,7 +770,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                 JSONArray jaray = jsonobj.getJSONArray("details");
                                 int totlcount = jaray.length();
                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                        ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 params.leftMargin=5;
                                 params.rightMargin=5;
                                 params.topMargin=5;
@@ -757,12 +781,12 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                 ImageView[] img2= new ImageView[totlcount];
                                 ImageView[] img3= new ImageView[totlcount];
                                 TextView[] tv1= new TextView[totlcount];
-                                TextView[] tv2= new TextView[totlcount];
-                                TextView[] tv3= new TextView[totlcount];
+                                //TextView[] tv2= new TextView[totlcount];
+                                //TextView[] tv3= new TextView[totlcount];
                                 TextView[] tv4= new TextView[totlcount];
                                 TextView[] tv5= new TextView[totlcount];
                                 TextView[] tv6= new TextView[totlcount];
-                                TextView[] tv7= new TextView[totlcount];
+                                //TextView[] tv7= new TextView[totlcount];
                                 LinearLayout[] ll = new LinearLayout[jaray.length()];
                                 for(int i=0; i<jaray.length(); i++) {
                                     ll[i] = new LinearLayout(getApplicationContext());
@@ -773,10 +797,10 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
 
                                     //table lay out 1
-                                    TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     tableLayoutParams.setMargins(0, 0, 0, 10);
                                     TableLayout tableLayout = new TableLayout(getApplicationContext());
-                                    TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     TableRow tableRow = new TableRow(getApplicationContext());
                                     tableRow.setPadding(5, 5, 5, 5);
 
@@ -789,11 +813,23 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                     if (Build.VERSION.SDK_INT >= 17)
                                         tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                                     tv1[i].setTypeface(null, Typeface.BOLD);
-                                    tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                                    String htmlText = "<body>" +
-                                            "<h3>"+jaray.getJSONObject(i).getString("tnumber")+" ("+jaray.getJSONObject(i).getString("tname")+")"+"</h3>"+
-                                            "<font color=\""+getResources().getColor(R.color.colorPnrDate)+"\">("+jaray.getJSONObject(i).getString("sdeparture")+")"+jaray.getJSONObject(i).getString("source").split("\\(")[0]+" ==> "+"("+jaray.getJSONObject(i).getString("darrival")+")"+jaray.getJSONObject(i).getString("destination").split("\\(")[0]+"</font>"+
-                                            "</body>";
+                                    if (Build.VERSION.SDK_INT >= 23) {
+                                        tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark,getApplicationContext().getTheme()));
+                                    }else {
+                                        tv1[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                                    }
+                                    String htmlText;
+                                    if (Build.VERSION.SDK_INT >= 23) {
+                                        htmlText = "<body>" +
+                                                "<h3>" + jaray.getJSONObject(i).getString("tnumber") + " (" + jaray.getJSONObject(i).getString("tname") + ")" + "</h3>" +
+                                                "<font color=\"" + getResources().getColor(R.color.colorPnrDate,getApplicationContext().getTheme()) + "\">(" + jaray.getJSONObject(i).getString("sdeparture") + ")" + jaray.getJSONObject(i).getString("source").split("\\(")[0] + " ==> " + "(" + jaray.getJSONObject(i).getString("darrival") + ")" + jaray.getJSONObject(i).getString("destination").split("\\(")[0] + "</font>" +
+                                                "</body>";
+                                    }else {
+                                        htmlText = "<body>" +
+                                                "<h3>" + jaray.getJSONObject(i).getString("tnumber") + " (" + jaray.getJSONObject(i).getString("tname") + ")" + "</h3>" +
+                                                "<font color=\"" + getResources().getColor(R.color.colorPnrDate) + "\">(" + jaray.getJSONObject(i).getString("sdeparture") + ")" + jaray.getJSONObject(i).getString("source").split("\\(")[0] + " ==> " + "(" + jaray.getJSONObject(i).getString("darrival") + ")" + jaray.getJSONObject(i).getString("destination").split("\\(")[0] + "</font>" +
+                                                "</body>";
+                                    }
                                     tv1[i].setText(Html.fromHtml(htmlText, null, null));
                                     tv1[i].setId(((i + 1) * 1000) + 1);
                                     tableRow.addView(tv1[i], tableRowParams);
@@ -803,11 +839,11 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
 
                                     //table lay out 3
-                                    TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     TableLayout tableLayout2 = new TableLayout(getApplicationContext());
                                     tableLayout2.setColumnStretchable(0, true);
                                     tableLayout2.setColumnStretchable(1, true);
-                                    TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     TableRow tableRow2 = new TableRow(getApplicationContext());
                                     tableRow2.setPadding(10, 0, 0, 0);
 
@@ -815,7 +851,11 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                     tv4[i].setTextSize(15);
                                     if (Build.VERSION.SDK_INT >= 17)
                                         tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-                                    tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                                    if (Build.VERSION.SDK_INT >= 23) {
+                                        tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark,getApplicationContext().getTheme()));
+                                    }else {
+                                        tv4[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                                    }
                                     tv4[i].setPadding(0, 0, 5, 0);
                                     tv4[i].setId(((i + 1) * 1000) + 2);
                                     try {
@@ -831,6 +871,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                     img3[i] = new ImageView(getApplicationContext());
                                     img3[i].setId(i + 1);
                                     img3[i].setImageResource(R.drawable.pnrinfo);
+                                    img3[i].setBackground(getResources().getDrawable(R.drawable.button));
                                     registerForContextMenu(img3[i]);
                                     img3[i].setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -838,7 +879,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                             openContextMenu(v);
                                         }
                                     });
-                                    TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     tableRowParams7.setMargins(0, 0, 40, 0);
                                     tableRow2.addView(img3[i], tableRowParams7);
 
@@ -851,17 +892,17 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
 
 
                                     //table lay out 4
-                                    TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     TableLayout tableLayout3 = new TableLayout(getApplicationContext());
                                     tableLayout3.setColumnStretchable (2, true);
                                     //tableLayout3.setColumnStretchable (3, true);
-                                    TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     TableRow tableRow3= new TableRow(getApplicationContext());
                                     tableRow3.setPadding(10,0,0,20);
 
                                     img2[i] = new ImageView(getApplicationContext());
                                     img2[i].setImageResource(R.drawable.pnrchair);
-                                    TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     tableRowParams5.setMargins(0, 0, 4, 0);
                                     tableRow3.addView(img2[i], tableRowParams5);
 
@@ -883,7 +924,11 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                             putstr.append(" | ");
                                     }
                                     if (putstr != null) {
-                                        tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf));
+                                        if (Build.VERSION.SDK_INT >= 23) {
+                                            tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf,getApplicationContext().getTheme()));
+                                        }else {
+                                            tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf));
+                                        }
                                         tv6[i].setText(putstr.toString());
                                     }
                                     tv6[i].setPadding(0, 0, 5, 0);
@@ -956,13 +1001,6 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             }
         }
 
-        private View.OnClickListener ClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selected_item = (Integer) v.getId();
-                //Log.d("OUT END", String.valueOf(selected_item));
-            }
-        };
     }
     @Override
     protected void onDestroy() {
@@ -972,10 +1010,10 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
             mRegisterTask.cancel(true);
         }
         try {*/
-        if (scheduled)
+        /*if (scheduled)
             splashTimer.cancel();
         if(splashTimer!=null)
-            splashTimer.purge();
+            splashTimer.purge();*/
             /*// Unregister Broadcast Receiver
             unregisterReceiver(mHandleMessageReceiver);
 

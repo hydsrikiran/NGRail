@@ -33,16 +33,11 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
-/**
- * Created by kiran on 11-12-2015.
- */
 public class AdvSeatAvail extends AppCompatActivity{
-    private static final long DELAY = 500;
-    private boolean scheduled = false;
-    private Timer splashTimer;
+    //private static final long DELAY = 500;
+    //private boolean scheduled = false;
+    //private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
@@ -51,8 +46,8 @@ public class AdvSeatAvail extends AppCompatActivity{
     private LinearLayout loadingLayout = null;
     public String dateval = null;
     public String jsonvalue = "";
-    int selectedid = 0;
-    String Pnrstr = null;
+    //int selectedid = 0;
+    //String Pnrstr = null;
     private String source_fina = null;
     private String dest_fina = null;
     private String train_fina = null;
@@ -78,10 +73,10 @@ public class AdvSeatAvail extends AppCompatActivity{
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
@@ -89,18 +84,19 @@ public class AdvSeatAvail extends AppCompatActivity{
                         editor.commit();*/
                             Intent i;
                             i = new Intent(AdvSeatAvail.this, TrainsBetweenTwoStationsList.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                    AdvSeatAvail.this.finish();
+                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                            //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             i.putExtra("jsonvalue", jsonvalue);
                             i.putExtra("dateval", dateval);
-                            AdvSeatAvail.this.finish();
+                            //AdvSeatAvail.this.finish();
                             AdvSeatAvail.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
             });
 
@@ -139,7 +135,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                 JSONArray jsnarr = jsn.getJSONArray("avail");
                 int totalcnt = jsnarr.length();
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                        ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                 params.leftMargin=5;
                 params.rightMargin=5;
                 params.topMargin=5;
@@ -164,11 +160,11 @@ public class AdvSeatAvail extends AppCompatActivity{
                     ll[i].setPadding(3, 3, 3, 3);
                     ll[i].setId(((i + 1) * 10000) + 1);
                     ll[i].setBackgroundResource(R.drawable.pnrdiv);
-                    TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, 	TableLayout.LayoutParams.WRAP_CONTENT);
+                    TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, 	TableLayout.LayoutParams.WRAP_CONTENT);
                     tableLayoutParams.setMargins(0, 0, 0, 10);
                     TableLayout tableLayout = new TableLayout(getApplicationContext());
                     tableLayout.setStretchAllColumns(true);
-                    TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
+                    TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
                     TableRow tableRow = new TableRow(getApplicationContext());
                     tableRow.setPadding(5, 5, 5, 5);
                     if(i==0)
@@ -180,7 +176,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                         ll1.setBackgroundResource(R.drawable.pnrdiv);
                         TableLayout tableLayout1 = new TableLayout(getApplicationContext());
                         tableLayout1.setStretchAllColumns(true);
-                        TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
+                        TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
                         TableRow tableRow1 = new TableRow(getApplicationContext());
                         tableRow1.setPadding(5, 5, 5, 5);
                         tableRow1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -285,12 +281,12 @@ public class AdvSeatAvail extends AppCompatActivity{
                     tv3[i].setTextColor(getResources().getColor(rrg1));
                     tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
                     String stat = jsnarr.getJSONObject(i).getString("status");
-                    if(stat.indexOf("AVA")>=0 && stat.indexOf("NOT")<0) {
+                    if(stat.contains("AVA") && !stat.contains("NOT")) {
                         AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
                                 R.animator.animator);
                         set.setTarget(tv3[i]);
                         set.start();
-                    }else if(stat.indexOf("RAC")>=0) {
+                    }else if(stat.contains("RAC")) {
                         AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
                                 R.animator.property_animator);
                         set.setTarget(tv3[i]);
@@ -371,7 +367,22 @@ public class AdvSeatAvail extends AppCompatActivity{
 
                     loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
                     loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
-                    if (quota_fina.equals("GN")) {
+                    switch (quota_fina)
+                    {
+                        case "GN":
+                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                            break;
+                        case "LB":
+                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                            break;
+                        case "LD":
+                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                            break;
+                        case "SS":
+                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                            break;
+                    }
+                    /*if (quota_fina.equals("GN")) {
                         loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
                     }
                     else if (quota_fina.equals("LB")) {
@@ -382,7 +393,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                     }
                     else if (quota_fina.equals("SS")) {
                         loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
-                    }
+                    }*/
                     //loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                     loadigIcon.setVisibility(View.GONE);
 
@@ -407,7 +418,7 @@ public class AdvSeatAvail extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     TextView dt = (TextView) findViewById(R.id.trheader1);
-                    String dtp = dt.getText().toString().split(":")[1];
+                    //String dtp = dt.getText().toString().split(":")[1];
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                     Calendar c = Calendar.getInstance();
                     c.setTime(sdf.parse(doj_fina));
@@ -452,25 +463,26 @@ public class AdvSeatAvail extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         // your code.
-        splashTimer = new Timer();
-        splashTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        //splashTimer = new Timer();
+        //splashTimer.schedule(new TimerTask() {
+            //@Override
+            //public void run() {
                 Intent i;
                 i = new Intent(AdvSeatAvail.this, TrainsBetweenTwoStationsList.class);
+        AdvSeatAvail.this.finish();
                 i.putExtra("jsonvalue", jsonvalue);
                 i.putExtra("dateval", dateval);
-                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                AdvSeatAvail.this.finish();
+                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                //AdvSeatAvail.this.finish();
                 AdvSeatAvail.this.startActivity(i);
                 // This makes the new screen slide up as it fades in
                 // while the current screen slides up as it fades out.
-                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-            }
-        }, DELAY);
-        scheduled = true;
-        return;
+                overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+            //}
+        //}, DELAY);
+        //scheduled = true;
+        //return;
     }
 
     @Override
@@ -634,7 +646,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                         JSONArray jsnarr = jsn.getJSONArray("avail");
                         int totalcnt = jsnarr.length();
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         params.leftMargin=5;
                         params.rightMargin=5;
                         params.topMargin=5;
@@ -658,11 +670,11 @@ public class AdvSeatAvail extends AppCompatActivity{
                             ll[i].setPadding(3, 3, 3, 3);
                             //ll.setId(((i + 1) * 10000) + 1);
                             ll[i].setBackgroundResource(R.drawable.pnrdiv);
-                            TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, 	TableLayout.LayoutParams.WRAP_CONTENT);
+                            TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, 	TableLayout.LayoutParams.WRAP_CONTENT);
                             tableLayoutParams.setMargins(0, 0, 0, 10);
                             TableLayout tableLayout = new TableLayout(getApplicationContext());
                             tableLayout.setStretchAllColumns(true);
-                            TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
+                            TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
                             TableRow tableRow = new TableRow(getApplicationContext());
                             tableRow.setPadding(5, 5, 5, 5);
                             if(i==0)
@@ -674,7 +686,7 @@ public class AdvSeatAvail extends AppCompatActivity{
 								ll1.setBackgroundResource(R.drawable.pnrdiv);
                                 TableLayout tableLayout1 = new TableLayout(getApplicationContext());
                                 tableLayout1.setStretchAllColumns(true);
-                                TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
+                                TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
                                 TableRow tableRow1 = new TableRow(getApplicationContext());
                                 tableRow1.setPadding(5, 5, 5, 5);
                                 tableRow1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -772,12 +784,12 @@ public class AdvSeatAvail extends AppCompatActivity{
                             tv3[i].setTextColor(getResources().getColor(rrg1));
                             tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
                             String stat = jsnarr.getJSONObject(i).getString("status");
-                            if(stat.indexOf("AVA")>=0 && stat.indexOf("NOT")<0) {
+                            if (stat.contains("AVA") && !stat.contains("NOT")) {
                                 AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
                                         R.animator.animator);
                                 set.setTarget(tv3[i]);
                                 set.start();
-                            }else if(stat.indexOf("RAC")>=0) {
+                            }else if(stat.contains("RAC")) {
                                 AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
                                         R.animator.property_animator);
                                 set.setTarget(tv3[i]);

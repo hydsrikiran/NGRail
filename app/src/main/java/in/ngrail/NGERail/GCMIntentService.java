@@ -1,8 +1,5 @@
 package in.ngrail.NGERail;
 
-/**
- * Created by kiran on 15-12-2015.
- */
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -43,7 +40,8 @@ public class GCMIntentService extends GCMBaseIntentService {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("regid", registrationId);
-        editor.commit();
+        //editor.commit();
+        editor.apply();
         //Log.d("NAME", MainScreen.name);
         aController.register(context, MainScreen.name,
                 MainScreen.email, registrationId);
@@ -132,12 +130,12 @@ public class GCMIntentService extends GCMBaseIntentService {
      */
     private static void generateNotification(Context context, String message) {
 
-        int icon = R.drawable.ngrailsmlogo;
-        long when = System.currentTimeMillis();
+        //int icon = R.drawable.ngrailsmlogo;
+        //long when = System.currentTimeMillis();
 
-        NotificationManager notificationManager = (NotificationManager)
+        /*NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notification = new Notification(icon, message, when);
+        Notification notification = new Notification(icon, message, when);*/
 
         String title = context.getString(R.string.app_name);
 
@@ -145,16 +143,18 @@ public class GCMIntentService extends GCMBaseIntentService {
         PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
 
         //notif.notify(0, notify);
-        Notification.Builder builder = new Notification.Builder(context);
-        builder.setSmallIcon(R.drawable.ngrailsmlogo)
+        //Notification.Builder builder = new Notification.Builder(context);
+        Notification notify = new Notification.Builder(context)
+                .setSmallIcon(R.drawable.ngrailsmlogo)
                 .setContentTitle(title)
                 .setContentInfo("NGRail")
                 .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                 .setLights(Color.RED, 3000, 3000)
                 .setContentText(message)
-                .setContentIntent(pending);
+                .setContentIntent(pending)
+                .build();
 
-        Notification notify = builder.getNotification();
+        //Notification notify = builder.getNotification();
         notif.notify(R.drawable.pnrinfo, notify);
 
         /*Intent notificationIntent = new Intent(context, MainScreen.class);

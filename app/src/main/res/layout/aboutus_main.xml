@@ -15,13 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@drawable/layout_masterbg"
             android:layout_margin="7dp">
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginLeft="10dp"
@@ -33,34 +33,34 @@
                 android:layout_marginBottom="20dp"
                 android:text="Contact Us"/>
             <TableLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:stretchColumns="1">
-                <TableRow android:layout_width="fill_parent" android:layout_height="wrap_content"
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:layout_margin="10dp"
                     android:textAlignment="viewStart"
                     android:background="@drawable/pnrdiv">
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:textColor="@color/colorPrimaryDark"
         android:text="Email"/>
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimaryDark"
 
                         android:text="info@ngrail.in"/>
                 </TableRow>
-                <TableRow android:layout_width="fill_parent" android:layout_height="wrap_content"
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:layout_margin="10dp"
                     android:textAlignment="viewStart"
                     android:background="@drawable/pnrdiv">
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginRight="10dp"
@@ -68,7 +68,7 @@
                     <!-- view android:layout_width="0dp"
                         android:layout_height="0dp" /-->
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="none"
                         android:scrollHorizontally="false"
@@ -76,7 +76,7 @@
                         android:textColor="@color/colorPnrRac"
                         android:text="Kiran Kumar and Vinay Mohan"/>
                 </TableRow>
-                <TableRow android:layout_width="fill_parent" android:layout_height="wrap_content"
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textAlignment="viewStart"
                     android:layout_margin="10dp"
@@ -92,7 +92,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:text="D\ni\ns\nc\nl\na\ni\nm\ne\nr"/>
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scrollHorizontally="false"
                         android:ellipsize="none"

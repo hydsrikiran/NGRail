@@ -34,13 +34,10 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by kiran on 11-12-2015.
- */
 public class TrainsBetweenTwoStations extends AppCompatActivity{
-    private static final long DELAY = 500;
-    private boolean scheduled = false;
-    private Timer splashTimer;
+    //private static final long DELAY = 500;
+    //private boolean scheduled = false;
+    //private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
@@ -72,27 +69,28 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.commit();*/
                             Intent i;
-                            i = new Intent(TrainsBetweenTwoStations.this, HomeScreenActivity.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             TrainsBetweenTwoStations.this.finish();
+                            i = new Intent(TrainsBetweenTwoStations.this, HomeScreenActivity.class);
+                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                            //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                            //TrainsBetweenTwoStations.this.finish();
                             TrainsBetweenTwoStations.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
             });
 
@@ -281,28 +279,29 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         // your code.
-        splashTimer = new Timer();
-        splashTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        //splashTimer = new Timer();
+        //splashTimer.schedule(new TimerTask() {
+            //@Override
+            //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.commit();*/
                 Intent i;
-                i = new Intent(TrainsBetweenTwoStations.this, HomeScreenActivity.class);
-                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                 TrainsBetweenTwoStations.this.finish();
+                i = new Intent(TrainsBetweenTwoStations.this, HomeScreenActivity.class);
+                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                //TrainsBetweenTwoStations.this.finish();
                 TrainsBetweenTwoStations.this.startActivity(i);
                 // This makes the new screen slide up as it fades in
                 // while the current screen slides up as it fades out.
-                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-            }
-        }, DELAY);
-        scheduled = true;
-        return;
+                overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+            //}
+        //}, DELAY);
+        //scheduled = true;
+        //return;
     }
 
     @Override
@@ -386,14 +385,15 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
                 try{
                     JSONObject jsonobj = new JSONObject(result);
                     if(jsonobj.getString("responsecode").equals("200")) {
-                        Intent i = new Intent(TrainsBetweenTwoStations.this, TrainsBetweenTwoStationsList.class);
-                        i.putExtra("anim id in", R.anim.fragment_slide_left_exit);
-                        i.putExtra("anim id out", R.anim.fragment_slide_right_enter);
                         TrainsBetweenTwoStations.this.finish();
+                        Intent i = new Intent(TrainsBetweenTwoStations.this, TrainsBetweenTwoStationsList.class);
+                        //i.putExtra("anim id in", R.anim.fragment_slide_left_exit);
+                        //i.putExtra("anim id out", R.anim.fragment_slide_right_enter);
+                        //TrainsBetweenTwoStations.this.finish();
                         i.putExtra("jsonvalue", result);
                         i.putExtra("dateval", dateval);
-
                         TrainsBetweenTwoStations.this.startActivity(i);
+                        overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
                         //Log.d("JSON VALUE",result);
                     }
                     else
@@ -474,11 +474,11 @@ public class TrainsBetweenTwoStations extends AppCompatActivity{
         if (mRegisterTask != null) {
             mRegisterTask.cancel(true);
         }
-        try {*/
+        try {
         if (scheduled)
             splashTimer.cancel();
         if(splashTimer!=null)
-            splashTimer.purge();
+            splashTimer.purge();*/
             /*// Unregister Broadcast Receiver
             unregisterReceiver(mHandleMessageReceiver);
 

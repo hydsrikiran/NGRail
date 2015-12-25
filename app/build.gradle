@@ -8,8 +8,8 @@ android {
         applicationId "in.ngrail.NGERail"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 6
-        versionName "1.5"
+        versionCode 10
+        versionName "1.9"
     }
     buildTypes {
         release {
@@ -22,11 +22,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:support-annotations:23.1.0'
-    compile 'com.android.support:design:23.1.0'
-    compile 'com.google.android.gms:play-services-ads:8.1.0'
-    compile 'com.google.android.gms:play-services:8.1.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:support-annotations:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile files('libs/gcm.jar')
     compile files('libs/rewardsboxsdk-with-googleplayservice.jar')
 }

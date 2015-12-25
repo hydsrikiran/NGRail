@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -103,27 +104,29 @@ public class PnrActivity extends AppCompatActivity{
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.commit();*/
                             Intent i;
-                            i = new Intent(PnrActivity.this, HomeScreenActivity.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             PnrActivity.this.finish();
+                            i = new Intent(PnrActivity.this, HomeScreenActivity.class);
+                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                            //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                            //PnrActivity.this.finish();
                             PnrActivity.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            //overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                            overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
             });
 
@@ -139,7 +142,7 @@ public class PnrActivity extends AppCompatActivity{
                 StringBuilder smsBuilder = new StringBuilder();
                 sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 String ss = sharedpreferences.getString("fload",null);
-                if (ss!=null && cur.moveToFirst()) {
+                if (ss!=null && !ss.contains("NA") && cur!=null && cur.moveToFirst()) {
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("fload", "NA");
                     editor.commit();
@@ -179,8 +182,11 @@ public class PnrActivity extends AppCompatActivity{
                                 Log.d("FFF",dat1.toString()+"~~"+date.toString()+"~~~"+dat1.after(date));
                                 if(!dat1.after(date))
                                 {
-
-                                    smsBuilder.append(pnrstr.substring(matcher.start(1),matcher.start(1)+10)+",");
+                                    String pntunique = pnrstr.substring(matcher.start(1), matcher.start(1) + 10);
+                                    if(!smsBuilder.toString().contains(pntunique)) {
+                                        smsBuilder.append(pntunique);
+                                        smsBuilder.append(",");
+                                    }
                                 }
 
                             }catch (Exception e)
@@ -192,7 +198,7 @@ public class PnrActivity extends AppCompatActivity{
                         } catch (Exception e)
                             {
                                 Log.d("DDDD",e.getMessage());
-                                continue;
+                                //continue;
                             }
                     } while (cur.moveToNext());
                     if (!cur.isClosed()) {
@@ -201,7 +207,7 @@ public class PnrActivity extends AppCompatActivity{
                     }
                 }
                 String pnrall=null;
-                if(smsBuilder != null && smsBuilder.toString().length()>0) {
+                if(smsBuilder.toString().length()>0) {
                     pnrall = smsBuilder.toString().substring(0, smsBuilder.toString().length() - 1);
                 }
                 else {
@@ -238,28 +244,30 @@ public class PnrActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         // your code.
-        splashTimer = new Timer();
-        splashTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        //splashTimer = new Timer();
+        //splashTimer.schedule(new TimerTask() {
+            //@Override
+            //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.commit();*/
+                PnrActivity.this.finish();
                 Intent i;
                 i = new Intent(PnrActivity.this, HomeScreenActivity.class);
-                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                PnrActivity.this.finish();
+                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                //PnrActivity.this.finish();
                 PnrActivity.this.startActivity(i);
                 // This makes the new screen slide up as it fades in
                 // while the current screen slides up as it fades out.
-                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-            }
-        }, DELAY);
-        scheduled = true;
-        return;
+                //overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+            //}
+        //}, DELAY);
+        //scheduled = true;
+        //return;
     }
 
     @Override
@@ -350,7 +358,7 @@ public class PnrActivity extends AppCompatActivity{
                 StringBuilder smsBuilder = new StringBuilder();
                 sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 String ss = sharedpreferences.getString("fload",null);
-                if (ss!=null && cur.moveToFirst()) {
+                if (ss!=null && cur!=null && cur.moveToFirst()) {
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("fload", "NA");
                     editor.commit();
@@ -390,8 +398,11 @@ public class PnrActivity extends AppCompatActivity{
                                 Log.d("FFF",dat1.toString()+"~~"+date.toString()+"~~~"+dat1.after(date));
                                 if(!dat1.after(date))
                                 {
-
-                                    smsBuilder.append(pnrstr.substring(matcher.start(1),matcher.start(1)+10)+",");
+                                    String uniquestr = pnrstr.substring(matcher.start(1), matcher.start(1) + 10);
+                                    if(!smsBuilder.toString().contains(uniquestr)) {
+                                        smsBuilder.append(uniquestr);
+                                        smsBuilder.append(",");
+                                    }
                                 }
 
                             }catch (Exception e)
@@ -403,7 +414,7 @@ public class PnrActivity extends AppCompatActivity{
                         } catch (Exception e)
                         {
                             Log.d("DDDD",e.getMessage());
-                            continue;
+                            //continue;
                         }
                     } while (cur.moveToNext());
                     if (!cur.isClosed()) {
@@ -412,7 +423,7 @@ public class PnrActivity extends AppCompatActivity{
                     }
                 }
                 String pnrall=null;
-                if(smsBuilder != null && smsBuilder.toString().length()>0) {
+                if(smsBuilder.toString().length()>0) {
                     pnrall = smsBuilder.toString().substring(0, smsBuilder.toString().length() - 1);
                 }
                 else {
@@ -506,7 +517,7 @@ public class PnrActivity extends AppCompatActivity{
                         JSONArray jaray = jsonobj.getJSONArray("pnrdetails");
                         if(jaray.length()>0) {
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                    ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             params.leftMargin = 5;
                             params.rightMargin = 5;
                             params.topMargin = 5;
@@ -533,10 +544,10 @@ public class PnrActivity extends AppCompatActivity{
                                 ll[i].setId(((i + 1) * 10000) + 1);
                                 ll[i].setBackgroundResource(R.drawable.pnrdiv);
                                 //table lay out 1
-                                TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableLayoutParams.setMargins(0, 0, 0, 10);
                                 TableLayout tableLayout = new TableLayout(getApplicationContext());
-                                TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableRow tableRow = new TableRow(getApplicationContext());
                                 tableRow.setPadding(5, 5, 5, 5);
 
@@ -559,11 +570,11 @@ public class PnrActivity extends AppCompatActivity{
 
 
                                 //table lay out 2
-                                TableLayout.LayoutParams tableLayoutParams1 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableLayout.LayoutParams tableLayoutParams1 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableLayoutParams1.setMargins(0, 0, 0, 5);
                                 TableLayout tableLayout1 = new TableLayout(getApplicationContext());
                                 tableLayout1.setStretchAllColumns(true);
-                                TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableRow tableRow1 = new TableRow(getApplicationContext());
                                 tableRow1.setPadding(10, 0, 0, 0);
 
@@ -576,7 +587,7 @@ public class PnrActivity extends AppCompatActivity{
                                 tv2[i].setText(jaray.getJSONObject(i).getString("doj"));
                                 tableRow1.addView(tv2[i], tableRowParams1);
 
-                                TableRow.LayoutParams tableRowParams2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableRowParams2.setMargins(0, 0, 40, 0);
                                 tv3[i] = new TextView(getApplicationContext());
                                 tv3[i].setTextSize(15);
@@ -594,11 +605,11 @@ public class PnrActivity extends AppCompatActivity{
 
 
                                 //table lay out 3
-                                TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableLayout tableLayout2 = new TableLayout(getApplicationContext());
-                                tableLayout2.setColumnStretchable(2, true);
+                                //tableLayout2.setColumnStretchable(2, true);
                                 tableLayout2.setColumnStretchable(1, true);
-                                TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableRow tableRow2 = new TableRow(getApplicationContext());
                                 tableRow2.setPadding(10, 0, 0, 0);
 
@@ -626,6 +637,8 @@ public class PnrActivity extends AppCompatActivity{
                                 img3[i] = new ImageView(getApplicationContext());
                                 img3[i].setId(i + 1);
                                 img3[i].setImageResource(R.drawable.pnrinfo);
+                                img3[i].setPadding(2,2,2,2);
+                                img3[i].setBackground(getResources().getDrawable(R.drawable.button));
                                 registerForContextMenu(img3[i]);
                                 img3[i].setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -633,7 +646,7 @@ public class PnrActivity extends AppCompatActivity{
                                         openContextMenu(v);
                                     }
                                 });
-                                TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableRowParams7.setMargins(0, 0, 40, 0);
                                 tableRow2.addView(img3[i], tableRowParams7);
 
@@ -642,17 +655,17 @@ public class PnrActivity extends AppCompatActivity{
 
 
                                 //table lay out 4
-                                TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableLayout tableLayout3 = new TableLayout(getApplicationContext());
                                 tableLayout3.setColumnStretchable(2, true);
                                 //tableLayout3.setColumnStretchable (3, true);
-                                TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableRow tableRow3 = new TableRow(getApplicationContext());
                                 tableRow3.setPadding(10, 0, 0, 0);
 
                                 img2[i] = new ImageView(getApplicationContext());
                                 img2[i].setImageResource(R.drawable.pnrchair);
-                                TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableRowParams5.setMargins(0, 0, 4, 0);
                                 tableRow3.addView(img2[i], tableRowParams5);
 
@@ -702,7 +715,7 @@ public class PnrActivity extends AppCompatActivity{
                                 tv7[i].setTypeface(null, Typeface.BOLD);
                                 tv7[i].setText("lst Upd : " + jaray.getJSONObject(i).getString("lastupdate").split(" ")[1]);
 
-                                TableRow.LayoutParams tableRowParams6 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams6 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableRowParams6.setMargins(0, 0, 20, 20);
                                 tableRow3.addView(tv7[i], tableRowParams6);
 
@@ -1017,7 +1030,7 @@ public class PnrActivity extends AppCompatActivity{
                                 }
                                 adp.setText(String.valueOf(i+1));
                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                        ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 params.leftMargin=5;
                                 params.rightMargin=5;
                                 params.topMargin=5;
@@ -1041,10 +1054,10 @@ public class PnrActivity extends AppCompatActivity{
                                 ll.setId(((i+1)*10000)+1);
                                 ll.setBackgroundResource(R.drawable.pnrdiv);
                                 //table lay out 1
-                                TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableLayoutParams.setMargins(0, 0, 0, 10);
                                 TableLayout tableLayout = new TableLayout(getApplicationContext());
-                                TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableRow tableRow = new TableRow(getApplicationContext());
                                 tableRow.setPadding(5,5,5,5);
 
@@ -1068,11 +1081,11 @@ public class PnrActivity extends AppCompatActivity{
 
 
                                 //table lay out 2
-                                TableLayout.LayoutParams tableLayoutParams1 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableLayout.LayoutParams tableLayoutParams1 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableLayoutParams1.setMargins(0, 0, 0, 5);
                                 TableLayout tableLayout1 = new TableLayout(getApplicationContext());
                                 tableLayout1.setStretchAllColumns (true);
-                                TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableRow tableRow1 = new TableRow(getApplicationContext());
                                 tableRow1.setPadding(10,0,0,0);
 
@@ -1085,7 +1098,7 @@ public class PnrActivity extends AppCompatActivity{
                                 tv2.setId(((i + 1) * 1000) + 8);
                                 tableRow1.addView(tv2, tableRowParams1);
 
-                                TableRow.LayoutParams tableRowParams2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableRowParams2.setMargins(0, 0, 40, 0);
                                 tv3 = new TextView(getApplicationContext());
                                 tv3.setTextSize(15);
@@ -1103,11 +1116,11 @@ public class PnrActivity extends AppCompatActivity{
 
 
                                 //table lay out 3
-                                TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableLayout tableLayout2 = new TableLayout(getApplicationContext());
-                                tableLayout2.setColumnStretchable (2, true);
+                                //tableLayout2.setColumnStretchable (2, true);
                                 tableLayout2.setColumnStretchable (1, true);
-                                TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableRow tableRow2 = new TableRow(getApplicationContext());
                                 tableRow2.setPadding(10,0,0,0);
 
@@ -1134,7 +1147,9 @@ public class PnrActivity extends AppCompatActivity{
 
                                 img3 = new ImageView(getApplicationContext());
                                 img3.setId(i + 1);
+                                img3.setPadding(2,2,2,2);
                                 img3.setImageResource(R.drawable.pnrinfo);
+                                img3.setBackground(getResources().getDrawable(R.drawable.button));
                                 registerForContextMenu(img3);
                                 img3.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -1142,7 +1157,7 @@ public class PnrActivity extends AppCompatActivity{
                                         openContextMenu(v);
                                     }
                                 });
-                                TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableRowParams7.setMargins(0, 0, 40, 0);
                                 tableRow2.addView(img3, tableRowParams7);
 
@@ -1152,17 +1167,17 @@ public class PnrActivity extends AppCompatActivity{
 
 
                                 //table lay out 4
-                                TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableLayout.LayoutParams tableLayoutParams3 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableLayout tableLayout3 = new TableLayout(getApplicationContext());
                                 tableLayout3.setColumnStretchable (2, true);
                                 //tableLayout3.setColumnStretchable (3, true);
-                                TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams4 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 TableRow tableRow3= new TableRow(getApplicationContext());
                                 tableRow3.setPadding(10,0,0,0);
 
                                 img2 = new ImageView(getApplicationContext());
                                 img2.setImageResource(R.drawable.pnrchair);
-                                TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams5 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableRowParams5.setMargins(0, 0, 4, 0);
                                 tableRow3.addView(img2, tableRowParams5);
                                 tv6 = new TextView(getApplicationContext());
@@ -1210,7 +1225,7 @@ public class PnrActivity extends AppCompatActivity{
                                 tv7.setId(((i + 1) * 1000) + 2);
                                 tv7.setTypeface(null, Typeface.BOLD);
                                 tv7.setText("lst Upd : " + jsonobj.getString("lastupdate").split(" ")[1]);
-                                TableRow.LayoutParams tableRowParams6 = new TableRow.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                TableRow.LayoutParams tableRowParams6 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                 tableRowParams6.setMargins(0, 0, 20, 20);
                                 tableRow3.addView(tv7,tableRowParams6);
 
@@ -1299,7 +1314,7 @@ public class PnrActivity extends AppCompatActivity{
                     }
 
                     Notification notify = builder.getNotification();
-                    notif.notify(R.drawable.pnrinfo, notify);
+                    notif.notify(R.drawable.ngrailsmlogo, notify);
                 }
 
                 //sendSMSMessage(text.toString());

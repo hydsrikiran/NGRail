@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,17 +35,11 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-
-/**
- * Created by kiran on 11-12-2015.
- */
 public class SpotTrainMainActivity extends AppCompatActivity{
-    static final LatLng TutorialsPoint = new LatLng(21 , 57);
-    private static final long DELAY = 500;
-    private boolean scheduled = false;
-    private Timer splashTimer;
+    //static final LatLng TutorialsPoint = new LatLng(21 , 57);
+    //private static final long DELAY = 500;
+    //private boolean scheduled = false;
+    //private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
@@ -54,12 +49,12 @@ public class SpotTrainMainActivity extends AppCompatActivity{
     private String source=null;
     private String destination=null;
     private String dateofjourney=null;
-    private String dateval=null;
+    //private String dateval=null;
     public JSONObject routejson=null;
-    int selectedid = 0;
-    String Pnrstr = null;
+    //int selectedid = 0;
+    //String Pnrstr = null;
     SharedPreferences sharedpreferences;
-    private GoogleMap mMap;
+    //private GoogleMap mMap;
     private String  refreshstat=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,27 +70,28 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.commit();*/
                             Intent i;
-                            i = new Intent(SpotTrainMainActivity.this, HomeScreenActivity.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             SpotTrainMainActivity.this.finish();
+                            i = new Intent(SpotTrainMainActivity.this, HomeScreenActivity.class);
+                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                            //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+
                             SpotTrainMainActivity.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
             });
 
@@ -122,7 +118,12 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                         loadigText.setVisibility(View.GONE);
 
                         loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        }
+                        else {
+                            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        }
                         loadigIcon.setVisibility(View.GONE);
                         loadigIcon.post(new Starter("http://api.ngrail.in/trainroute/trainnumber/"+srcst.getText()));
                     }
@@ -206,7 +207,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
 
                 Spinner spo1 = (Spinner) findViewById(R.id.spinner1);
                 SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-                Date date = new Date();
+                //Date date = new Date();
                 Calendar cal = Calendar.getInstance();
                 if(spo1.getSelectedItemId()==0)
                 {
@@ -246,7 +247,12 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                 loadigText.setVisibility(View.GONE);
 
                 loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                if (Build.VERSION.SDK_INT >= 23) {
+                    loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }
+                else {
+                    loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }
                 loadigIcon.setVisibility(View.GONE);
                 refreshstat = "http://api.ngrail.in/trainlivestat1/trainnum/" + source + "/doj/" + dateofjourney;
                 loadigIcon.post(new Starter_live("http://api.ngrail.in/trainlivestat1/trainnum/" + source + "/doj/" + dateofjourney));
@@ -325,10 +331,10 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                     JSONObject jsonobj = new JSONObject(result);
                     if(jsonobj.getInt("response_code")==200) {
                         JSONArray jarr = jsonobj.getJSONArray("route");
-                        StringBuilder valstr = new StringBuilder();
+                        //StringBuilder valstr = new StringBuilder();
                         StringBuilder ggg = new StringBuilder();
-                        String prevstop = null;
-                        String nextstop = null;
+                        String prevstop;
+                        String nextstop;
                         int t = 0;
                         int prevdist = Integer.parseInt(jarr.getJSONObject(jarr.length() - 1).getString("distance"));
                         int needdest = 0;
@@ -343,16 +349,39 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                         for (int j = jarr.length()-1; j >=0; j--) {
                             int distobetravel = needdest - Integer.parseInt(jarr.getJSONObject(j).getString("distance"));
                             //Log.d("ASASS","~~"+needdest+"~~~"+Integer.parseInt(jarr.getJSONObject(j).getString("distance"))+"~~~"+distobetravel);
-                            valstr.append(jarr.getJSONObject(j).getString("lat") + ",");
-                            valstr.append(jarr.getJSONObject(j).getString("lng") + ",");
-                            valstr.append(jarr.getJSONObject(j).getString("name") + ",");
-                            valstr.append(jarr.getJSONObject(j).getString("sarr") + "/" + jarr.getJSONObject(j).getString("sdep") + "-" + jarr.getJSONObject(j).getString("aarr") + "/" + jarr.getJSONObject(j).getString("adep") + ",");
-                            valstr.append(jarr.getJSONObject(j).getString("name") + "(" + jarr.getJSONObject(j).getString("code") + ")\n");
-                            valstr.append(jarr.getJSONObject(j).getString("sarr") + "/" + jarr.getJSONObject(j).getString("sdep") + "\t");
-                            valstr.append(jarr.getJSONObject(j).getString("aarr") + "/" + jarr.getJSONObject(j).getString("adep") + "\n");
-                            valstr.append(jarr.getJSONObject(j).getString("status") + "\t Distance to travel : " + distobetravel + "\n");
-                            valstr.append("Current Position : " + jsonobj.getString("currpos"));
+                            /*valstr.append(jarr.getJSONObject(j).getString("lat") );
                             valstr.append(",");
+                            valstr.append(jarr.getJSONObject(j).getString("lng") );
+                            valstr.append(",");
+                            valstr.append(jarr.getJSONObject(j).getString("name") );
+                            valstr.append(",");
+                            valstr.append(jarr.getJSONObject(j).getString("sarr") );
+                            valstr.append("/" );
+                            valstr.append(jarr.getJSONObject(j).getString("sdep") );
+                            valstr.append("-" );
+                            valstr.append(jarr.getJSONObject(j).getString("aarr") );
+                            valstr.append("/" );
+                            valstr.append(jarr.getJSONObject(j).getString("adep") );
+                            valstr.append(",");
+                            valstr.append(jarr.getJSONObject(j).getString("name") );
+                            valstr.append("(" );
+                            valstr.append(jarr.getJSONObject(j).getString("code") );
+                            valstr.append(")\n");
+                            valstr.append(jarr.getJSONObject(j).getString("sarr") );
+                            valstr.append("/" );
+                            valstr.append(jarr.getJSONObject(j).getString("sdep") );
+                            valstr.append("\t");
+                            valstr.append(jarr.getJSONObject(j).getString("aarr") );
+                            valstr.append("/" );
+                            valstr.append(jarr.getJSONObject(j).getString("adep") );
+                            valstr.append("\n");
+                            valstr.append(jarr.getJSONObject(j).getString("status") );
+                            valstr.append("\t Distance to travel : " );
+                            valstr.append(distobetravel );
+                            valstr.append("\n");
+                            valstr.append("Current Position : " );
+                            valstr.append(jsonobj.getString("currpos"));
+                            valstr.append(",");*/
 
                             if (jarr.getJSONObject(j).getInt("isreached") == 1 && t == 0) {
                                 prevstop = jarr.getJSONObject(j).getString("name") + "(" + jarr.getJSONObject(j).getString("code") + ")";
@@ -362,33 +391,65 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                                     nextstop = jarr.getJSONObject(j+1).getString("name") + "(" + jarr.getJSONObject(j+1).getString("code") + ")";
                                 else
                                     nextstop = "reached destination";
-                                ggg.append(jsonobj.getString("train")+"\t"+jarr.getJSONObject(0).getString("name")+"==>"+jarr.getJSONObject(jarr.length()-1).getString("name")+"\n");
-                                ggg.append("Current Position : " + jsonobj.getString("currpos") + "\n");
-                                ggg.append("Previous: " + prevstop + "\t");
-                                ggg.append("Next : " + nextstop + "\n");
+                                ggg.append(jsonobj.getString("train"));
+                                ggg.append("\t");
+                                ggg.append(jarr.getJSONObject(0).getString("name"));
+                                ggg.append("==>");
+                                ggg.append(jarr.getJSONObject(jarr.length()-1).getString("name"));
+                                ggg.append("\n");
+                                ggg.append("Current Position : ");
+                                ggg.append(jsonobj.getString("currpos") );
+                                ggg.append("\n");
+                                ggg.append("Previous: " );
+                                ggg.append(prevstop );
+                                ggg.append("\t");
+                                ggg.append("Next : " );
+                                ggg.append(nextstop );
+                                ggg.append("\n");
                                 if(distobetravel<0) {
-                                    ggg.append("Distance a head : " + distobetravel*-1 + "\n");
+                                    ggg.append("Distance a head : " );
+                                    ggg.append(distobetravel*-1 );
+                                    ggg.append("\n");
                                 }
                                 else {
-                                    ggg.append("Distance to travel : " + distobetravel + "\n");
+                                    ggg.append("Distance to travel : " );
+                                    ggg.append(distobetravel );
+                                    ggg.append("\n");
                                 }
                                 t = 1;
                             }
-                            if(t==0)
-                                valstr.append(jarr.getJSONObject(j).getInt("isreached") + ",");
-                            else
-                                valstr.append(1 + ",");
-                            valstr.append("#");
+                            /*if(t==0) {
+                                valstr.append(jarr.getJSONObject(j).getInt("isreached"));
+                                valstr.append(",");
+                            }
+                            else {
+                                valstr.append("1" );
+                                valstr.append(",");
+                            }
+                            valstr.append("#");*/
                             prevdist = distobetravel;
                         }
 
                         if (t == 0) {
                             nextstop = prevstop = "Train is at source station";
-                            ggg.append(jsonobj.getString("train")+"\t"+jarr.getJSONObject(0).getString("name")+"==>"+jarr.getJSONObject(jarr.length()-1).getString("name")+"\n");
-                            ggg.append("Current Position : " + jsonobj.getString("currpos") + "\n");
-                            ggg.append("Previous: " + prevstop + "\t");
-                            ggg.append("Next : " + nextstop + "\n");
-                            ggg.append("Distance to travel : " + prevdist + "\n");
+                            ggg.append(jsonobj.getString("train"));
+                            ggg.append("\t");
+                            ggg.append(jarr.getJSONObject(0).getString("name"));
+                            ggg.append("==>");
+                            ggg.append(jarr.getJSONObject(jarr.length()-1).getString("name"));
+                            ggg.append("\n");
+                            ggg.append("Current Position : " );
+                            ggg.append(jsonobj.getString("currpos") );
+                            ggg.append("\n");
+                            ggg.append("Previous: " );
+                            ggg.append(prevstop );
+                            ggg.append("\t");
+                            ggg.append("Next : " );
+                            ggg.append(nextstop );
+                            ggg.append("\n");
+                            ggg.append("Distance to travel : " );
+                            ggg.append(prevdist );
+                            ggg.append("\n");
                         }
                         TextView tv = (TextView)findViewById(R.id.currentstatus);
                         if(tv!=null)
@@ -427,40 +488,34 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             }
         }
 
-        private View.OnClickListener ClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selected_item = (Integer) v.getId();
-                //Log.d("OUT END", String.valueOf(selected_item));
-            }
-        };
     }
 
     @Override
     public void onBackPressed() {
         // your code.
-        splashTimer = new Timer();
-        splashTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        //splashTimer = new Timer();
+        //splashTimer.schedule(new TimerTask() {
+            //@Override
+            //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.commit();*/
                 Intent i;
-                i = new Intent(SpotTrainMainActivity.this, HomeScreenActivity.class);
-                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                 SpotTrainMainActivity.this.finish();
+                i = new Intent(SpotTrainMainActivity.this, HomeScreenActivity.class);
+                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+
                 SpotTrainMainActivity.this.startActivity(i);
                 // This makes the new screen slide up as it fades in
                 // while the current screen slides up as it fades out.
-                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-            }
-        }, DELAY);
-        scheduled = true;
-        return;
+                overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+            //}
+        //}, DELAY);
+        //scheduled = true;
+        //return;
     }
 
     @Override
@@ -490,7 +545,12 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             loadigText.setVisibility(View.GONE);
 
             loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+            if (Build.VERSION.SDK_INT >= 23) {
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+            }
+            else {
+                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+            }
             refreshstat = "http://api.ngrail.in/trainlivestat1/trainnum/" + source + "/doj/" + dateofjourney;
             loadigIcon.post(new Starter_live(refreshstat));
             return true;
@@ -565,7 +625,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                             paths[i]=arr.getJSONObject(i).getString("fullname")+" ("+arr.getJSONObject(i).getString("code")+")";
                         }
                         final Spinner sp = (Spinner)findViewById(R.id.spinner);
-                        ArrayAdapter<String>adapter = new ArrayAdapter<String>(SpotTrainMainActivity.this,
+                        ArrayAdapter<String>adapter = new ArrayAdapter<>(SpotTrainMainActivity.this,
                                 R.layout.spinner_item,paths);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         sp.setAdapter(adapter);
@@ -574,10 +634,10 @@ public class SpotTrainMainActivity extends AppCompatActivity{
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 //sp.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                                 try {
-                                    JSONArray arr = routejson.getJSONArray("route");
+                                    //JSONArray arr = routejson.getJSONArray("route");
                                     destination = parent.getItemAtPosition(position).toString().split("\\(")[1];
                                     destination = destination.substring(0, destination.length() - 1);
-                                }catch (JSONException e)
+                                }catch (Exception e)
                                 {
                                     //Log.d("PPP",e.getMessage());
                                 }
@@ -592,7 +652,7 @@ public class SpotTrainMainActivity extends AppCompatActivity{
 
                         String [] paths1={"Yesterday","Today","Tomorrow"};
                         final Spinner sp1 = (Spinner)findViewById(R.id.spinner1);
-                        ArrayAdapter<String>adapter1 = new ArrayAdapter<String>(SpotTrainMainActivity.this,
+                        ArrayAdapter<String>adapter1 = new ArrayAdapter<>(SpotTrainMainActivity.this,
                                 R.layout.spinner_item,paths1);
                         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         sp1.setAdapter(adapter1);
@@ -643,13 +703,6 @@ public class SpotTrainMainActivity extends AppCompatActivity{
             }
         }
 
-        private View.OnClickListener ClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selected_item = (Integer) v.getId();
-                //Log.d("OUT END", String.valueOf(selected_item));
-            }
-        };
     }
     @Override
 
@@ -683,11 +736,11 @@ public class SpotTrainMainActivity extends AppCompatActivity{
         if (mRegisterTask != null) {
             mRegisterTask.cancel(true);
         }
-        try {*/
+        try {
         if (scheduled)
             splashTimer.cancel();
         if(splashTimer!=null)
-            splashTimer.purge();
+            splashTimer.purge();*/
             /*// Unregister Broadcast Receiver
             unregisterReceiver(mHandleMessageReceiver);
 

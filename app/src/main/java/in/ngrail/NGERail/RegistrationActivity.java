@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,16 +19,12 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Timer;
 
-/**
- * Created by kiran on 11-12-2015.
- */
 public class RegistrationActivity extends AppCompatActivity {
 
-    private static final long DELAY = 1000;
-    private boolean scheduled = false;
-    private Timer splashTimer;
+    //private static final long DELAY = 1000;
+    //private boolean scheduled = false;
+    //private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
@@ -43,7 +40,9 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
+
         }
+
         setContentView(R.layout.registration_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("NGRail");
@@ -88,7 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 email = email1.getText().toString();
                 phone = phone1.getText().toString();
                 Context context = getApplicationContext();
-                CharSequence text=null;
+                CharSequence text;
                 if(email.length() == 0 || phone.length() != 10)
                 {
                     text = "All fields are mandatory.!!";
@@ -108,7 +107,12 @@ public class RegistrationActivity extends AppCompatActivity {
                 String regid = sharedpreferences.getString("regid", null);
 
                 loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-                loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                if (Build.VERSION.SDK_INT >= 23) {
+                    loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }
+                else {
+                    loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }
                 loadigIcon.setVisibility(View.GONE);
                 if(regid==null) {
                     regid = "NA";
@@ -173,14 +177,16 @@ public class RegistrationActivity extends AppCompatActivity {
                         else
                             editor.putString(Type, jsonobj.getString("type"));
 
-                        editor.commit();
+                        //editor.commit();
+                        editor.apply();
                         CharSequence text = jsonobj.getString("error");
                         int duration = Toast.LENGTH_LONG;
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
-                        Intent i = new Intent(RegistrationActivity.this, MainScreen.class);
                         RegistrationActivity.this.finish();
+                        Intent i = new Intent(RegistrationActivity.this, MainScreen.class);
                         RegistrationActivity.this.startActivity(i);
+                        overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
                         loadingLayout.setVisibility(View.GONE);
                         loadigText.setVisibility(View.GONE);
                         loadigIcon.setVisibility(View.GONE);
@@ -213,7 +219,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     loadingLayout.setVisibility(View.GONE);
                     loadigText.setVisibility(View.GONE);
                     loadigIcon.setVisibility(View.GONE);
-                }catch (Exception e){
+                }
+                catch (Exception e){
                     CharSequence text = "Registration failed. Please contact admin";
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, text, duration);
@@ -227,16 +234,16 @@ public class RegistrationActivity extends AppCompatActivity {
             }
             catch (Exception e)
             {
-                ;
+                CharSequence text = "Registration failed. Please contact admin";
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                toast.show();
+                loadingLayout.setVisibility(View.GONE);
+                loadigText.setVisibility(View.GONE);
+                loadigIcon.setVisibility(View.GONE);
             }
         }
 
-        private View.OnClickListener ClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selected_item = (Integer) v.getId();
-            }
-        };
     }
     @Override
     protected void onDestroy() {
@@ -245,11 +252,11 @@ public class RegistrationActivity extends AppCompatActivity {
         if (mRegisterTask != null) {
             mRegisterTask.cancel(true);
         }
-        try {*/
+        try {
         if (scheduled)
             splashTimer.cancel();
         if(splashTimer!=null)
-            splashTimer.purge();
+            splashTimer.purge();*/
             /*// Unregister Broadcast Receiver
             unregisterReceiver(mHandleMessageReceiver);
 

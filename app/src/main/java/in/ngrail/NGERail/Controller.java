@@ -1,8 +1,5 @@
 package in.ngrail.NGERail;
 
-/**
- * Created by kiran on 15-12-2015.
- */
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -33,19 +30,19 @@ public class Controller extends Application{
     public static final String Mail = "email";
     public static final String Phone = "name";
     SharedPreferences sharedpreferences;
-    private  final int MAX_ATTEMPTS = 5;
-    private  final int BACKOFF_MILLI_SECONDS = 2000;
+
     private  final Random random = new Random();
 
 
     // Register this account with the server.
     void register(final Context context, String name, String email, final String regId) {
-
+        int MAX_ATTEMPTS = 5;
+        int BACKOFF_MILLI_SECONDS = 2000;
         Log.i(Config.TAG, "registering device (regId = " + regId + ")");
 
         String serverUrl = Config.YOUR_SERVER_URL;
 
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put("regId", regId);
         params.put("name", name);
         params.put("email", email);
@@ -119,7 +116,7 @@ public class Controller extends Application{
         Log.i(Config.TAG, "unregistering device (regId = " + regId + ")");
 
         String serverUrl = Config.YOUR_SERVER_URL1;
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put("regId", regId);
 
         try {
@@ -255,7 +252,7 @@ public class Controller extends Application{
 
         if(status != null)
             // Set alert dialog icon
-            alertDialog.setIcon((status) ? R.drawable.pnrchair : R.drawable.pnrinfo);
+            alertDialog.setIcon((status) ? R.drawable.ngrailsmlogo : R.drawable.ngrailsmlogo);
 
         // Set OK Button
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {

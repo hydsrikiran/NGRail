@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,16 +23,10 @@ import com.google.android.gms.ads.AdView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-/**
- * Created by kiran on 11-12-2015.
- */
 public class HomeScreenActivity extends AppCompatActivity{
-    private static final long DELAY = 500;
-    private boolean scheduled = false;
-    private Timer splashTimer;
+    //private static final long DELAY = 500;
+    //private boolean scheduled = false;
+    //private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
@@ -72,30 +67,31 @@ public class HomeScreenActivity extends AppCompatActivity{
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                splashTimer = new Timer();
-                splashTimer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
+                //splashTimer = new Timer();
+                //splashTimer.schedule(new TimerTask() {
+                    //@Override
+                    //public void run() {
                         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.putString(Type, "NA");
                         editor.putString("fload", "1");
-                        editor.commit();
+                        //editor.commit();
+                        editor.apply();
 
                         Intent i1;
                         i1 = new Intent(HomeScreenActivity.this, MainScreen.class);
-                        i1.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                        i1.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                        //i1.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                        //i1.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                         HomeScreenActivity.this.finish();
                         HomeScreenActivity.this.startActivity(i1);
                         // This makes the new screen slide up as it fades in
                         // while the current screen slides up as it fades out.
-                        overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                    }
-                }, DELAY);
-                scheduled = true;
+                        overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+                    //}
+                //}, DELAY);
+                //scheduled = true;
             }
         });
 
@@ -115,27 +111,29 @@ public class HomeScreenActivity extends AppCompatActivity{
                         showToast("Please valide your mobile number By entering OTP/ Contact Admin");
                     }
                     else {
-                        splashTimer = new Timer();
-                        splashTimer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
+                        //splashTimer = new Timer();
+                        //splashTimer.schedule(new TimerTask() {
+                            //@Override
+                            //public void run() {
                             /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(Mail, "NA");
                             editor.putString(Phone, "NA");
                             editor.commit();*/
+                                HomeScreenActivity.this.finish();
                                 Intent i;
                                 i = new Intent(HomeScreenActivity.this, PnrActivity.class);
-                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                                HomeScreenActivity.this.finish();
+                                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                //HomeScreenActivity.this.finish();
                                 HomeScreenActivity.this.startActivity(i);
                                 // This makes the new screen slide up as it fades in
                                 // while the current screen slides up as it fades out.
-                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                            }
-                        }, DELAY);
-                        scheduled = true;
+                                //overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                                overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                            //}
+                        //}, DELAY);
+                        //scheduled = true;
                     }
                 }
             });
@@ -155,27 +153,28 @@ public class HomeScreenActivity extends AppCompatActivity{
                     }
                     else
                     {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                             /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(Mail, "NA");
                             editor.putString(Phone, "NA");
                             editor.commit();*/
                             Intent i;
+                            HomeScreenActivity.this.finish();
                             i = new Intent(HomeScreenActivity.this, TrainsBetweenTwoStations.class);
                             i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
                             i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                            HomeScreenActivity.this.finish();
+                            //HomeScreenActivity.this.finish();
                             HomeScreenActivity.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
                 }
             });
@@ -196,27 +195,28 @@ public class HomeScreenActivity extends AppCompatActivity{
                     }
                     else
                     {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                             /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(Mail, "NA");
                             editor.putString(Phone, "NA");
                             editor.commit();*/
                             Intent i;
+                        HomeScreenActivity.this.finish();
                             i = new Intent(HomeScreenActivity.this, TrainRouteActivity.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                            HomeScreenActivity.this.finish();
+                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                        //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                            //HomeScreenActivity.this.finish();
                             HomeScreenActivity.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
                 }
             });
@@ -237,27 +237,28 @@ public class HomeScreenActivity extends AppCompatActivity{
                         showToast("Please valide your mobile number By entering OTP/ Contact Admin");
                     }
                     else {
-                        splashTimer = new Timer();
-                        splashTimer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
+                        //splashTimer = new Timer();
+                        //splashTimer.schedule(new TimerTask() {
+                            //@Override
+                            //public void run() {
                             /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(Mail, "NA");
                             editor.putString(Phone, "NA");
                             editor.commit();*/
                                 Intent i;
+                        HomeScreenActivity.this.finish();
                                 i = new Intent(HomeScreenActivity.this, SpotTrainMainActivity.class);
-                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                                HomeScreenActivity.this.finish();
+                                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                //HomeScreenActivity.this.finish();
                                 HomeScreenActivity.this.startActivity(i);
                                 // This makes the new screen slide up as it fades in
                                 // while the current screen slides up as it fades out.
-                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                            }
-                        }, DELAY);
-                        scheduled = true;
+                                overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                            //}
+                        //}, DELAY);
+                        //scheduled = true;
                     }
                 }
             });
@@ -278,27 +279,28 @@ public class HomeScreenActivity extends AppCompatActivity{
                         showToast("Please valide your mobile number By entering OTP/ Contact Admin");
                     }
                     else {
-                        splashTimer = new Timer();
-                        splashTimer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
+                        //splashTimer = new Timer();
+                        //splashTimer.schedule(new TimerTask() {
+                            //@Override
+                            //public void run() {
                             /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(Mail, "NA");
                             editor.putString(Phone, "NA");
                             editor.commit();*/
                                 Intent i;
+                        HomeScreenActivity.this.finish();
                                 i = new Intent(HomeScreenActivity.this, TrainsAtStation.class);
-                                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                                HomeScreenActivity.this.finish();
+                                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                        //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                //HomeScreenActivity.this.finish();
                                 HomeScreenActivity.this.startActivity(i);
                                 // This makes the new screen slide up as it fades in
                                 // while the current screen slides up as it fades out.
-                                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                            }
-                        }, DELAY);
-                        scheduled = true;
+                                overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                            //}
+                        //}, DELAY);
+                        //scheduled = true;
                     }
                 }
             });
@@ -347,7 +349,12 @@ public class HomeScreenActivity extends AppCompatActivity{
                         loadigText.setVisibility(View.GONE);
 
                         loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac, getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        }
+                        else {
+                            loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                        }
                         loadigIcon.setVisibility(View.GONE);
                         loadigIcon.post(new Starter("http://api.ngrail.in/regotp/user/" + sharedpreferences.getString(Mail, null) + "/mobnum/"+sharedpreferences.getString(Phone,null)+"/otp/"+rt.getText()+"/"));
 
@@ -373,7 +380,12 @@ public class HomeScreenActivity extends AppCompatActivity{
                         loadigText.setVisibility(View.GONE);
 
                         loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    }
+                    else {
                         loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    }
                         loadigIcon.setVisibility(View.GONE);
                         loadigIcon.post(new Starter("http://api.ngrail.in/nootp/user/" + sharedpreferences.getString(Mail, null) + "/mobnum/"+sharedpreferences.getString(Phone,null)+"/"));
                 }
@@ -388,22 +400,23 @@ public class HomeScreenActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v)
                 {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                             Intent i;
-                            i = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             HomeScreenActivity.this.finish();
+                            i = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
+                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                            //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                            //HomeScreenActivity.this.finish();
                             HomeScreenActivity.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
             });
         }
@@ -419,7 +432,7 @@ public class HomeScreenActivity extends AppCompatActivity{
         public void run() {
             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-            final String phonenum = sharedpreferences.getString("name", null);
+            //final String phonenum = sharedpreferences.getString("name", null);
             //EditText et1 = (EditText) findViewById(R.id.qqqq);
             //et1.setText("QQQ"+url+"/key/"+phonenum+"/");
             //start Asyn Task here
@@ -474,7 +487,6 @@ public class HomeScreenActivity extends AppCompatActivity{
                         if (jsonobj.getString("error").equals("NOOTP"))
                         {
                             showToast("Request Sent To Admin. Will get back to you.");
-                            return;
                         }
                         else {
                             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -482,22 +494,23 @@ public class HomeScreenActivity extends AppCompatActivity{
                             editor.putString(Type, "NA");
                             editor.commit();
 
-                            splashTimer = new Timer();
-                            splashTimer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
+                            //splashTimer = new Timer();
+                            //splashTimer.schedule(new TimerTask() {
+                                //@Override
+                                //public void run() {
                                     Intent i;
+                            HomeScreenActivity.this.finish();
                                     i = new Intent(HomeScreenActivity.this, HomeScreenActivity.class);
-                                    i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                                    i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                                    HomeScreenActivity.this.finish();
+                                    //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                                    //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                                    //HomeScreenActivity.this.finish();
                                     HomeScreenActivity.this.startActivity(i);
                                     // This makes the new screen slide up as it fades in
                                     // while the current screen slides up as it fades out.
-                                    overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                                }
-                            }, DELAY);
-                            scheduled = true;
+                                    overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                                //}
+                            //}, DELAY);
+                            //scheduled = true;
                         }
                     }
                     else
@@ -505,7 +518,7 @@ public class HomeScreenActivity extends AppCompatActivity{
                         if (jsonobj.getString("error").equals("NOOTP"))
                         {
                             showToast("Error while Sending to Admin.");
-                            return;
+                            //return;
                         }
                         else {
                             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -532,7 +545,7 @@ public class HomeScreenActivity extends AppCompatActivity{
                         }, DELAY);
                         scheduled = true;*/
 
-                        return;
+                        //return;
                     }
                 }catch (JSONException j)
                 {
@@ -554,13 +567,6 @@ public class HomeScreenActivity extends AppCompatActivity{
             }
         }
 
-        private View.OnClickListener ClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selected_item = (Integer) v.getId();
-                //Log.d("OUT END", String.valueOf(selected_item));
-            }
-        };
     }
 
     public void showToast(String message) {
@@ -579,10 +585,10 @@ public class HomeScreenActivity extends AppCompatActivity{
             mRegisterTask.cancel(true);
         }
         try {*/
-            if (scheduled)
+            /*if (scheduled)
                 splashTimer.cancel();
         if(splashTimer!=null)
-            splashTimer.purge();
+            splashTimer.purge();*/
             /*// Unregister Broadcast Receiver
             unregisterReceiver(mHandleMessageReceiver);
 

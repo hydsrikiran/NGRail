@@ -27,23 +27,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.maps.GoogleMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
-/**
- * Created by kiran on 15-12-2015.
- */
 public class TrainsAtStation extends AppCompatActivity { //implements OnMapReadyCallback, OnMarkerClickListener{
-    private GoogleMap mMap;
-    private static final long DELAY = 500;
-    private boolean scheduled = false;
-    private Timer splashTimer;
+    //private static final long DELAY = 500;
+    //private boolean scheduled = false;
+    //private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
@@ -68,27 +61,28 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    splashTimer = new Timer();
-                    splashTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
+                    //splashTimer = new Timer();
+                    //splashTimer.schedule(new TimerTask() {
+                        //@Override
+                        //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.commit();*/
                             Intent i;
-                            i = new Intent(TrainsAtStation.this, HomeScreenActivity.class);
-                            i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             TrainsAtStation.this.finish();
+                            i = new Intent(TrainsAtStation.this, HomeScreenActivity.class);
+                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                            //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                            //TrainsAtStation.this.finish();
                             TrainsAtStation.this.startActivity(i);
                             // This makes the new screen slide up as it fades in
                             // while the current screen slides up as it fades out.
-                            overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-                        }
-                    }, DELAY);
-                    scheduled = true;
+                            overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+                        //}
+                    //}, DELAY);
+                    //scheduled = true;
                 }
             });
 
@@ -139,7 +133,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                     loadigText.setVisibility(View.GONE);
 
                     loadigIcon = (ProgressBar) findViewById(R.id.imageView111);
-                    loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac,getApplicationContext().getTheme()), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    }else {
+                        loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    }
                     loadigIcon.setVisibility(View.GONE);
                     loadigIcon.post(new Starter("http://api.ngrail.in/trainsatstation/station/"+srcst.getText().toString().split(" -")[0]));
                 }
@@ -267,7 +265,7 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
 
                         int totalcnt = jsnarr.length();
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.FILL_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         params.leftMargin=5;
                         params.rightMargin=5;
                         params.topMargin=5;
@@ -290,11 +288,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             ll[i].setPadding(3, 3, 3, 3);
                             //ll.setId(((i + 1) * 10000) + 1);
                             ll[i].setBackgroundResource(R.drawable.pnrdiv);
-                            TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, 	TableLayout.LayoutParams.WRAP_CONTENT);
+                            TableLayout.LayoutParams tableLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, 	TableLayout.LayoutParams.WRAP_CONTENT);
                             tableLayoutParams.setMargins(0, 0, 0, 10);
                             TableLayout tableLayout = new TableLayout(getApplicationContext());
                             tableLayout.setStretchAllColumns(true);
-                            TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
+                            TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 	TableRow.LayoutParams.WRAP_CONTENT,1.0f);
                             TableRow tableRow = new TableRow(getApplicationContext());
                             tableRow.setPadding(5, 5, 5, 5);
                             if(i==0)
@@ -305,17 +303,25 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                                 ll1.setBackgroundResource(R.drawable.pnrdiv);
                                 TableLayout tableLayout1 = new TableLayout(getApplicationContext());
                                 tableLayout1.setStretchAllColumns(true);
-                                TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT,1.0f);
+                                TableRow.LayoutParams tableRowParams1 = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,1.0f);
                                 TableRow tableRow1 = new TableRow(getApplicationContext());
                                 tableRow1.setPadding(5, 5, 5, 5);
-                                tableRow1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                                if (Build.VERSION.SDK_INT >= 23) {
+                                    tableRow1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark,getApplicationContext().getTheme()));
+                                }else {
+                                    tableRow1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                                }
 
                                 tv1[i] = new TextView(getApplicationContext());
                                 tv1[i].setTextSize(10);
                                 if (Build.VERSION.SDK_INT >= 17)
                                     tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-                                tv1[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                                if (Build.VERSION.SDK_INT >= 23) {
+                                    tv1[i].setTextColor(getResources().getColor(R.color.colorAccent,getApplicationContext().getTheme()));
+                                }else {
+                                    tv1[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                                }
                                 tv1[i].setText("Name\nNumber");
                                 tv1[i].setMinWidth(300);
                                 tableRow1.addView(tv1[i], tableRowParams);
@@ -329,7 +335,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                                 if (Build.VERSION.SDK_INT >= 17)
                                     tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-                                tv2[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                                if (Build.VERSION.SDK_INT >= 23) {
+                                    tv2[i].setTextColor(getResources().getColor(R.color.colorAccent,getApplicationContext().getTheme()));
+                                }else {
+                                    tv2[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                                }
                                 tv2[i].setText("Sch Arrival\nAct Arrival");
                                 tv2[i].setMinWidth(50);
                                 tableRow1.addView(tv2[i], tableRowParams);
@@ -342,7 +352,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                                 if (Build.VERSION.SDK_INT >= 17)
                                     tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-                                tv3[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                                if (Build.VERSION.SDK_INT >= 23) {
+                                    tv3[i].setTextColor(getResources().getColor(R.color.colorAccent,getApplicationContext().getTheme()));
+                                }else {
+                                    tv3[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                                }
                                 tv3[i].setText("Sch Departure\nAct Departure");
                                 tv3[i].setMinWidth(50);
                                 tableRow1.addView(tv3[i],tableRowParams);
@@ -355,7 +369,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                                 if (Build.VERSION.SDK_INT >= 17)
                                     tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-                                tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                                if (Build.VERSION.SDK_INT >= 23) {
+                                    tv4[i].setTextColor(getResources().getColor(R.color.colorAccent,getApplicationContext().getTheme()));
+                                }else {
+                                    tv4[i].setTextColor(getResources().getColor(R.color.colorAccent));
+                                }
                                 tv4[i].setText("Arr Delay\nDep Delay");
                                 tv4[i].setMinWidth(50);
                                 //tv4[i].setId(((i + 1) * 1000) + 4);
@@ -372,7 +390,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             if (Build.VERSION.SDK_INT >= 17)
                                 tv1[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv1[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-                            tv1[i].setTextColor(getResources().getColor(rrg1));
+                            if (Build.VERSION.SDK_INT >= 23) {
+                                tv1[i].setTextColor(getResources().getColor(rrg1,getApplicationContext().getTheme()));
+                            }else {
+                                tv1[i].setTextColor(getResources().getColor(rrg1));
+                            }
                             tv1[i].setText(jsnarr.getJSONObject(i).getString("name") + "\n" + jsnarr.getJSONObject(i).getString("number"));
                             //tv1[i].setId(((i + 1) * 1000) + 1);
                             tableRow.addView(tv1[i], tableRowParams);
@@ -387,7 +409,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             if (Build.VERSION.SDK_INT >= 17)
                                 tv2[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv2[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-                            tv2[i].setTextColor(getResources().getColor(rrg1));
+                            if (Build.VERSION.SDK_INT >= 23) {
+                                tv2[i].setTextColor(getResources().getColor(rrg1,getApplicationContext().getTheme()));
+                            }else {
+                                tv2[i].setTextColor(getResources().getColor(rrg1));
+                            }
                             tv2[i].setText(jsnarr.getJSONObject(i).getString("scharr") + "\n" + jsnarr.getJSONObject(i).getString("actarr"));
                             //tv2[i].setId(((i + 1) * 1000) + 2);
                             tableRow.addView(tv2[i], tableRowParams);
@@ -401,7 +427,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             if (Build.VERSION.SDK_INT >= 17)
                                 tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-                            tv3[i].setTextColor(getResources().getColor(rrg1));
+                            if (Build.VERSION.SDK_INT >= 23) {
+                                tv3[i].setTextColor(getResources().getColor(rrg1,getApplicationContext().getTheme()));
+                            }else {
+                                tv3[i].setTextColor(getResources().getColor(rrg1));
+                            }
                             tv3[i].setText(jsnarr.getJSONObject(i).getString("schdep") + "\n" + jsnarr.getJSONObject(i).getString("number"));
                             //tv3[i].setId(((i + 1) * 1000) + 3);
                             tableRow.addView(tv3[i],tableRowParams);
@@ -415,7 +445,11 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
                             if (Build.VERSION.SDK_INT >= 17)
                                 tv4[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             tv4[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-                            tv4[i].setTextColor(getResources().getColor(rrg));
+                            if (Build.VERSION.SDK_INT >= 23) {
+                                tv4[i].setTextColor(getResources().getColor(rrg,getApplicationContext().getTheme()));
+                            }else {
+                                tv4[i].setTextColor(getResources().getColor(rrg));
+                            }
                             tv4[i].setText(jsnarr.getJSONObject(i).getString("delayarr") + "\n" + jsnarr.getJSONObject(i).getString("delaydep"));
                             //tv4[i].setId(((i + 1) * 1000) + 4);
                             tableRow.addView(tv4[i], tableRowParams);
@@ -469,28 +503,29 @@ public class TrainsAtStation extends AppCompatActivity { //implements OnMapReady
     @Override
     public void onBackPressed() {
         // your code.
-        splashTimer = new Timer();
-        splashTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        //splashTimer = new Timer();
+        //splashTimer.schedule(new TimerTask() {
+            //@Override
+            //public void run() {
                         /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString(Mail, "NA");
                         editor.putString(Phone, "NA");
                         editor.commit();*/
                 Intent i;
-                i = new Intent(TrainsAtStation.this, HomeScreenActivity.class);
-                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                 TrainsAtStation.this.finish();
+                i = new Intent(TrainsAtStation.this, HomeScreenActivity.class);
+                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                //TrainsAtStation.this.finish();
                 TrainsAtStation.this.startActivity(i);
                 // This makes the new screen slide up as it fades in
                 // while the current screen slides up as it fades out.
-                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
-            }
-        }, DELAY);
-        scheduled = true;
-        return;
+                overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
+            //}
+        //}, DELAY);
+        //scheduled = true;
+        //return;
     }
 
     public void showToast(String message) {

@@ -6,46 +6,39 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.google.android.gcm.GCMRegistrar;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-/**
- * Created by kiran on 10-12-2015.
- */
 public class MainScreen extends FragmentActivity{
-    private static final long DELAY = 500;
-    private boolean scheduled = false;
-    private Timer splashTimer;
+    //private static final long DELAY = 500;
+    //private boolean scheduled = false;
+    //private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
     SharedPreferences sharedpreferences;
-    TextView lblMessage;
+    private Handler handler;
+    private Runnable delayRunnable;
+    //TextView lblMessage;
     Controller aController;
-    private TextView loadigText = null;
+    /*private TextView loadigText = null;
     private ProgressBar loadigIcon = null;
     private LinearLayout loadingLayout = null;
 
     private final int CHECK_CODE = 0x1;
     private final int LONG_DURATION = 5000;
-    private final int SHORT_DURATION = 1200;
+    private final int SHORT_DURATION = 1200;*/
 
     //private Speaker speaker;
 
-    private ToggleButton toggle;
-    private RadioGroup.OnCheckedChangeListener toggleListener;
+    //private ToggleButton toggle;
+    //private RadioGroup.OnCheckedChangeListener toggleListener;
 
 
     // Asyntask
@@ -60,13 +53,26 @@ public class MainScreen extends FragmentActivity{
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         if (savedInstanceState == null) {
         }
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        if (Build.VERSION.SDK_INT >= 19)
+        {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        }
+        else
+        {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
+
         final String email = sharedpreferences.getString("email", null);
         final String phonenum = sharedpreferences.getString("name", null);
 
@@ -87,9 +93,11 @@ public class MainScreen extends FragmentActivity{
         }
 
         // Check if GCM configuration is set
-        if (Config.YOUR_SERVER_URL == null
+        /*if (Config.YOUR_SERVER_URL == null
                 || Config.GOOGLE_SENDER_ID == null
                 || Config.YOUR_SERVER_URL.length() == 0
+                || Config.GOOGLE_SENDER_ID.length() == 0) {*/
+        if (Config.YOUR_SERVER_URL.length() == 0
                 || Config.GOOGLE_SENDER_ID.length() == 0) {
 
             // GCM sernder id / server url is missing
@@ -123,7 +131,8 @@ public class MainScreen extends FragmentActivity{
                 sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("regid", regId);
-                editor.commit();
+                //editor.commit();
+                editor.apply();
                 /*Toast.makeText(getApplicationContext(),
                         "Already registered with GCM Server",
                         Toast.LENGTH_LONG).
@@ -148,7 +157,8 @@ public class MainScreen extends FragmentActivity{
                         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("regid", regId);
-                        editor.commit();
+                        //editor.commit();
+                        editor.apply();
                         return null;
                     }
 
@@ -166,9 +176,14 @@ public class MainScreen extends FragmentActivity{
 
 
 
-        splashTimer = new Timer();
+        //splashTimer = new Timer();
 
-        splashTimer.schedule(new TimerTask() {
+        //splashTimer.schedule(new TimerTask() {
+            //@Override
+            //public void run() {
+        handler = new Handler();
+        delayRunnable = new Runnable() {
+
             @Override
             public void run() {
                 Intent i;
@@ -177,16 +192,20 @@ public class MainScreen extends FragmentActivity{
                 } else {
                     i = new Intent(MainScreen.this, HomeScreenActivity.class);
                 }
-                i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                 MainScreen.this.finish();
+                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
+                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
+                //MainScreen.this.finish();
                 MainScreen.this.startActivity(i);
                 // This makes the new screen slide up as it fades in
                 // while the current screen slides up as it fades out.
-                overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
+                overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
             }
-        }, DELAY);
-        scheduled = true;
+        };
+        handler.postDelayed(delayRunnable, 1000);
+            //}
+        //}, DELAY);
+        //scheduled = true;
 
     }
 
@@ -226,10 +245,10 @@ public class MainScreen extends FragmentActivity{
             mRegisterTask.cancel(true);
         }
         try {
-            if (scheduled)
+            /*if (scheduled)
                 splashTimer.cancel();
             if(splashTimer!=null)
-                splashTimer.purge();
+                splashTimer.purge();*/
             // Unregister Broadcast Receiver
             unregisterReceiver(mHandleMessageReceiver);
             //unregisterReceiver(smsReceiver);

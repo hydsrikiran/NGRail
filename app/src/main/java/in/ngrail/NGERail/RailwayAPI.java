@@ -10,27 +10,23 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-/**
- * Created by kiran on 05-11-2015.
- */
 public class RailwayAPI{
     /*public static void main(String[] args){
         System.out.println(getPnrStatus("4114157403"));
     }*/
 
 
-    public static String getRegister(String pnr) {
+    public String getRegister(String pnr) {
         if(pnr == null){ //PNR has length 10
             return "Invalid Search.";
         }
-        String APIKEY="72436";  //Your API key
-        String endpoint = pnr;
+        //String endpoint = pnr;
         //Log.d("endpoint",endpoint);
         BufferedReader rd = null;
         StringBuilder response = null;
         HttpURLConnection request=null;
         try{
-            URL endpointUrl = new URL(endpoint);
+            URL endpointUrl = new URL(pnr);
             request = (HttpURLConnection)endpointUrl.openConnection();
 
             request.setReadTimeout(100000 /* milliseconds */);
@@ -41,9 +37,10 @@ public class RailwayAPI{
             request.connect();
             rd  = new BufferedReader(new InputStreamReader(request.getInputStream()));
             response = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = rd.readLine()) != null){
-                response.append(line + "\n");
+                response.append(line);
+                response.append("\n");
             }
             request.disconnect();
             //System.out.println("response : "+response);
@@ -66,7 +63,8 @@ public class RailwayAPI{
         } finally {
             try{
                 request.disconnect();
-            } catch(Exception e){
+            } catch(NullPointerException e){
+                //;
             }
 
             if(rd != null){
@@ -74,18 +72,18 @@ public class RailwayAPI{
                     rd.close();
                 } catch(IOException ex){
                 }
-                rd = null;
+                //rd = null;
             }
         }
 
         return response != null ? response.toString() : "Back-end Server issue. Please try again.!!!";
     }
 
-    public static String getPnrStatus(String pnr) {
+    public String getPnrStatus(String pnr) {
         if(pnr == null){ //PNR has length 10
             return "Invalid REQUEST.";
         }
-        String APIKEY="72436";  //Your API key
+        //String APIKEY="72436";  //Your API key
         //String endpoint = pnr;
         String endpoint = "http://api.ngrail.in/pnrstatus/pnr/"+pnr;
         BufferedReader rd = null;
@@ -105,7 +103,7 @@ public class RailwayAPI{
             request.connect();
             rd  = new BufferedReader(new InputStreamReader(request.getInputStream()));
             response = new StringBuilder();
-            String line = "";
+            String line;
             while ((line = rd.readLine()) != null){
                 response.append(line);
             }
@@ -142,7 +140,7 @@ public class RailwayAPI{
                     rd.close();
                 } catch(IOException ex){
                 }
-                rd = null;
+                //rd = null;
             }
         }
 
