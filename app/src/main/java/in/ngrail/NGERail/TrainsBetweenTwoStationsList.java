@@ -182,7 +182,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                         //table lay out 3
                         TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableLayout tableLayout2 = new TableLayout(getApplicationContext());
-                        tableLayout2.setColumnStretchable(1, false);
+                        //tableLayout2.setColumnStretchable(1, false);
                         tableLayout2.setColumnStretchable(0, true);
                         TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                         TableRow tableRow2 = new TableRow(getApplicationContext());
@@ -221,7 +221,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                             }
                         });
                         TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
-                        tableRowParams7.setMargins(0, 0, 10, 0);
+                        tableRowParams7.setMargins(0, 0, 40, 0);
                         tableRow2.addView(img3[i], tableRowParams7);
 
                         tableLayout2.addView(tableRow2, tableRowParams3);
@@ -842,7 +842,7 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                     TableLayout.LayoutParams tableLayoutParams2 = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     TableLayout tableLayout2 = new TableLayout(getApplicationContext());
                                     tableLayout2.setColumnStretchable(0, true);
-                                    tableLayout2.setColumnStretchable(1, true);
+                                    //tableLayout2.setColumnStretchable(1, true);
                                     TableRow.LayoutParams tableRowParams3 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     TableRow tableRow2 = new TableRow(getApplicationContext());
                                     tableRow2.setPadding(10, 0, 0, 0);
@@ -882,6 +882,22 @@ public class TrainsBetweenTwoStationsList extends AppCompatActivity{
                                     TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
                                     tableRowParams7.setMargins(0, 0, 40, 0);
                                     tableRow2.addView(img3[i], tableRowParams7);
+
+
+                                    /*img3[i] = new ImageView(getApplicationContext());
+                                    img3[i].setId(i + 1);
+                                    img3[i].setImageResource(R.drawable.pnrinfo);
+                                    img3[i].setBackground(getResources().getDrawable(R.drawable.button));
+                                    registerForContextMenu(img3[i]);
+                                    img3[i].setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            openContextMenu(v);
+                                        }
+                                    });
+                                    TableRow.LayoutParams tableRowParams7 = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 	ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    tableRowParams7.setMargins(0, 0, 40, 0);
+                                    tableRow2.addView(img3[i], tableRowParams7);*/
 
                                     tableLayout2.addView(tableRow2, tableRowParams3);
                                     ll[i].addView(tableLayout2, tableLayoutParams2);
