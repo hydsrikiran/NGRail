@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginRight="10dp"
-                android:text="Developers"/>
+                android:text="Credits"/>
                     <!-- view android:layout_width="0dp"
                         android:layout_height="0dp" /-->
                     <TextView
@@ -115,7 +115,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
                 ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-5505631954730373/3949867249">
+                ads:adUnitId="ca-app-pub-5505631954730373/5990698847">
             </com.google.android.gms.ads.AdView>
             </LinearLayout>
 

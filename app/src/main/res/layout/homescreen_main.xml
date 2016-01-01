@@ -26,6 +26,67 @@
                 android:layout_height="match_parent"
                 android:stretchColumns="1,2"
                 android:padding="1dp">
+
+                <TableRow android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_textbox"
+                    android:id="@+id/regid"
+                    android:visibility="gone"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:paddingRight="10dp">
+                    <ImageView
+                        android:src="@drawable/otp"
+                        android:layout_marginRight="3dp"
+                        >
+                    </ImageView>
+                    <EditText
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:id="@+id/otp1"
+                        android:hint="Enter OTP">
+                    </EditText>
+                    <ImageView
+                        android:src="@drawable/arrowgood"
+                        android:id="@+id/otp"
+                        >
+                    </ImageView>
+                </TableRow>
+
+                <TableRow android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_textbox"
+                    android:id="@+id/regid1"
+                    android:visibility="gone"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:paddingRight="10dp">
+                    <ImageView
+                        android:src="@drawable/otp"
+                        android:layout_marginRight="3dp"
+                        >
+                    </ImageView>
+                    <TextView
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:id="@+id/otp2"
+                        android:text="OTP Not Received">
+                    </TextView>
+                    <ImageView
+                        android:src="@drawable/arrowgood"
+                        android:id="@+id/otpnot"
+                        >
+                    </ImageView>
+                </TableRow>
+
                 <TableRow android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
@@ -180,65 +241,6 @@
                     </ImageView>
                 </TableRow>
 
-                <TableRow android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/layout_textbox"
-                    android:id="@+id/regid"
-                    android:visibility="gone"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:paddingRight="10dp">
-                    <ImageView
-                        android:src="@drawable/otp"
-                        android:layout_marginRight="3dp"
-                        >
-                    </ImageView>
-                    <EditText
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:inputType="number"
-                        android:maxLength="5"
-                        android:id="@+id/otp1"
-                        android:hint="Enter OTP">
-                    </EditText>
-                    <ImageView
-                        android:src="@drawable/arrowgood"
-                        android:id="@+id/otp"
-                        >
-                    </ImageView>
-                </TableRow>
-
-                <TableRow android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/layout_textbox"
-                    android:id="@+id/regid1"
-                    android:visibility="gone"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:paddingRight="10dp">
-                    <ImageView
-                        android:src="@drawable/otp"
-                        android:layout_marginRight="3dp"
-                        >
-                    </ImageView>
-                    <TextView
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:id="@+id/otp2"
-                        android:text="OTP Not Received">
-                    </TextView>
-                    <ImageView
-                        android:src="@drawable/arrowgood"
-                        android:id="@+id/otpnot"
-                        >
-                    </ImageView>
-                </TableRow>
 
             </TableLayout>
         </LinearLayout>
@@ -271,8 +273,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Searching..."
-                android:textColor="#ffffff"
+                android:text="Please Wait..."
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
@@ -284,7 +286,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-5505631954730373/3949867249">
+            ads:adUnitId="ca-app-pub-5505631954730373/3037232443">
         </com.google.android.gms.ads.AdView>
     </RelativeLayout>
 </LinearLayout>

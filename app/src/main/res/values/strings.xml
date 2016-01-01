@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">NGRail - One Stop Train Enquiry Hub</string>
-    <string name="interstitial_ad_unit_id">ca-app-pub-5505631954730373/2473134042</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-5505631954730373/4513965649</string>
+    <string name="signed_in_fmt">Signed in as: %s</string>
+    <string name="loading">Loading…</string>
+    <string name="signed_out">Signed out</string>
+    <string name="server_client_id">69677279630-v7u9eouf7l65p2dqqbcltc5eel5b5dth.apps.googleusercontent.com</string>
+    <string name="auth_code_fmt">Auth Code: %s</string>
+    <string name="signed_in">Signed in</string>
 </resources>

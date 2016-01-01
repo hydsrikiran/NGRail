@@ -46,6 +46,7 @@ public class AdvSeatAvail extends AppCompatActivity{
     private LinearLayout loadingLayout = null;
     public String dateval = null;
     public String jsonvalue = "";
+    public String jsonval = "";
     //int selectedid = 0;
     //String Pnrstr = null;
     private String source_fina = null;
@@ -61,7 +62,7 @@ public class AdvSeatAvail extends AppCompatActivity{
         setContentView(R.layout.advseatavail);
         Bundle bundle = getIntent().getExtras();
         jsonvalue = bundle.getString("jsonvalue");
-        String jsonval = bundle.getString("jsonval");
+        jsonval = bundle.getString("jsonval");
         dateval = bundle.getString("dateval");
         try {
             Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -83,8 +84,9 @@ public class AdvSeatAvail extends AppCompatActivity{
                         editor.putString(Phone, "NA");
                         editor.commit();*/
                             Intent i;
+                            AdvSeatAvail.this.finish();
                             i = new Intent(AdvSeatAvail.this, TrainsBetweenTwoStationsList.class);
-                    AdvSeatAvail.this.finish();
+
                             //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
                             //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
                             i.putExtra("jsonvalue", jsonvalue);
@@ -279,18 +281,55 @@ public class AdvSeatAvail extends AppCompatActivity{
                         tv3[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     tv3[i].setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
                     tv3[i].setTextColor(getResources().getColor(rrg1));
-                    tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
+
                     String stat = jsnarr.getJSONObject(i).getString("status");
                     if(stat.contains("AVA") && !stat.contains("NOT")) {
                         AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
                                 R.animator.animator);
                         set.setTarget(tv3[i]);
+                        tv3[i].setText(jsnarr.getJSONObject(i).getString("status")+"\n"+"Book Now");
                         set.start();
+                        tv3[i].setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i1;
+                                AdvSeatAvail.this.finish();
+                                i1 = new Intent(AdvSeatAvail.this, WebViewActivity.class);
+                                i1.putExtra("jsonvalue", jsonvalue);
+                                i1.putExtra("dateval", dateval);
+                                i1.putExtra("jsonval", jsonval);
+                                //AdvSeatAvail.this.finish();
+                                AdvSeatAvail.this.startActivity(i1);
+                                // This makes the new screen slide up as it fades in
+                                // while the current screen slides up as it fades out.
+                                overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                            }
+                        });
+
                     }else if(stat.contains("RAC")) {
                         AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
                                 R.animator.property_animator);
                         set.setTarget(tv3[i]);
+                        tv3[i].setText(jsnarr.getJSONObject(i).getString("status") + "\n" + "Book Now");
                         set.start();
+                        tv3[i].setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i1;
+                                AdvSeatAvail.this.finish();
+                                i1 = new Intent(AdvSeatAvail.this, WebViewActivity.class);
+                                i1.putExtra("jsonvalue", jsonvalue);
+                                i1.putExtra("dateval", dateval);
+                                i1.putExtra("jsonval", jsonval);
+                                //AdvSeatAvail.this.finish();
+                                AdvSeatAvail.this.startActivity(i1);
+                                // This makes the new screen slide up as it fades in
+                                // while the current screen slides up as it fades out.
+                                overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                            }
+                        });
+                    }else{
+                        tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
                     }
                     //tv3[i].setId(((i + 1) * 1000) + 3);
                     tableRow.addView(tv3[i], tableRowParams);
@@ -468,8 +507,9 @@ public class AdvSeatAvail extends AppCompatActivity{
             //@Override
             //public void run() {
                 Intent i;
-                i = new Intent(AdvSeatAvail.this, TrainsBetweenTwoStationsList.class);
         AdvSeatAvail.this.finish();
+                i = new Intent(AdvSeatAvail.this, TrainsBetweenTwoStationsList.class);
+
                 i.putExtra("jsonvalue", jsonvalue);
                 i.putExtra("dateval", dateval);
                 //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
@@ -616,6 +656,7 @@ public class AdvSeatAvail extends AppCompatActivity{
                     return;
                 } else {
                     try{
+                        jsonval = result;
                         JSONObject jsn = new JSONObject(result);
                         TextView trheader = (TextView)findViewById(R.id.trheader);
                         trheader.setText(jsn.getString("source")+" > "+jsn.getString("destination"));
@@ -788,12 +829,48 @@ public class AdvSeatAvail extends AppCompatActivity{
                                 AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
                                         R.animator.animator);
                                 set.setTarget(tv3[i]);
+                                tv3[i].setText(jsnarr.getJSONObject(i).getString("status") + "\n" + "Book Now");
                                 set.start();
+                                tv3[i].setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i1;
+                                        AdvSeatAvail.this.finish();
+                                        i1 = new Intent(AdvSeatAvail.this, WebViewActivity.class);
+                                        i1.putExtra("jsonvalue", jsonvalue);
+                                        i1.putExtra("dateval", dateval);
+                                        i1.putExtra("jsonval", jsonval);
+                                        //AdvSeatAvail.this.finish();
+                                        AdvSeatAvail.this.startActivity(i1);
+                                        // This makes the new screen slide up as it fades in
+                                        // while the current screen slides up as it fades out.
+                                        overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                                    }
+                                });
                             }else if(stat.contains("RAC")) {
                                 AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(),
                                         R.animator.property_animator);
                                 set.setTarget(tv3[i]);
+                                tv3[i].setText(jsnarr.getJSONObject(i).getString("status")+"\n"+"Book Now");
                                 set.start();
+                                tv3[i].setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i1;
+                                        AdvSeatAvail.this.finish();
+                                        i1 = new Intent(AdvSeatAvail.this, WebViewActivity.class);
+                                        i1.putExtra("jsonvalue", jsonvalue);
+                                        i1.putExtra("dateval", dateval);
+                                        i1.putExtra("jsonval", jsonval);
+                                        //AdvSeatAvail.this.finish();
+                                        AdvSeatAvail.this.startActivity(i1);
+                                        // This makes the new screen slide up as it fades in
+                                        // while the current screen slides up as it fades out.
+                                        overridePendingTransition(R.anim.slide_in_f, R.anim.slide_out_f);
+                                    }
+                                });
+                            }else{
+                                tv3[i].setText(jsnarr.getJSONObject(i).getString("status"));
                             }
                             //tv3[i].setId(((i + 1) * 1000) + 3);
                             tableRow.addView(tv3[i],tableRowParams);

@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Please Wait..."
-                android:textColor="#ffffff"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"
                 android:visibility="gone" />
 

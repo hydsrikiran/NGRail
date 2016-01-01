@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -49,18 +48,10 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by kiran on 11-12-2015.
- */
 public class PnrActivity extends AppCompatActivity{
-    private static final long DELAY = 500;
-    private boolean scheduled = false;
-    private Timer splashTimer;
     public static final String MyPREFERENCES = "NGRailPrefs" ;
     public static final String Mail = "email";
     public static final String Phone = "name";
@@ -104,39 +95,20 @@ public class PnrActivity extends AppCompatActivity{
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //splashTimer = new Timer();
-                    //splashTimer.schedule(new TimerTask() {
-                        //@Override
-                        //public void run() {
-                        /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString(Mail, "NA");
-                        editor.putString(Phone, "NA");
-                        editor.commit();*/
                             Intent i;
                             PnrActivity.this.finish();
                             i = new Intent(PnrActivity.this, HomeScreenActivity.class);
-                            //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                            //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                            //PnrActivity.this.finish();
                             PnrActivity.this.startActivity(i);
-                            // This makes the new screen slide up as it fades in
-                            // while the current screen slides up as it fades out.
-                            //overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
                             overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
-                        //}
-                    //}, DELAY);
-                    //scheduled = true;
                 }
             });
 
             //myToolbar.setSubtitle("One Stop Train Enquiry Hub");
             myToolbar.setLogo(R.mipmap.ngrailsmlogo);
             myToolbar.inflateMenu(R.menu.main);
-            final LinearLayout lm = (LinearLayout) findViewById(R.id.pnrstatusnum);
+            //final LinearLayout lm = (LinearLayout) findViewById(R.id.pnrstatusnum);
             try{
                 Uri uri = Uri.parse("content://sms/");
-                StringBuilder pnrstring = new StringBuilder();
                 String[] projection = new String[] { "_id", "address", "person", "body", "date", "type" };
                 Cursor cur = getContentResolver().query(uri, projection, "body like '%Pnr%' and body like '%doj%'", null, "date desc");
                 StringBuilder smsBuilder = new StringBuilder();
@@ -145,12 +117,8 @@ public class PnrActivity extends AppCompatActivity{
                 if (ss!=null && !ss.contains("NA") && cur!=null && cur.moveToFirst()) {
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("fload", "NA");
-                    editor.commit();
-                    int index_Address = cur.getColumnIndex("address");
-                    int index_Person = cur.getColumnIndex("person");
+                    editor.apply();
                     int index_Body = cur.getColumnIndex("body");
-                    int index_Date = cur.getColumnIndex("date");
-                    int index_Type = cur.getColumnIndex("type");
                     do {
                         String strbody = cur.getString(index_Body);
                         try {
@@ -159,10 +127,9 @@ public class PnrActivity extends AppCompatActivity{
                             Matcher matcher = pattern.matcher(pnrstr);
                             matcher.find();
                             String pnrddoj = strbody.substring(strbody.toLowerCase().indexOf("DOJ".toLowerCase()) + 3);
-                            Log.d("AAAA",pnrddoj+"~~~"+pnrstr.substring(matcher.start(1),matcher.start(1)+10));
                             Matcher matcher1 = pattern.matcher(pnrddoj);
                             matcher1.find();
-                            Date date=null;
+                            Date date;
                             try {
 
                                 String dateInString = pnrddoj.substring(matcher1.start(1), matcher1.start(1) + 10);
@@ -191,7 +158,7 @@ public class PnrActivity extends AppCompatActivity{
 
                             }catch (Exception e)
                             {
-                                ;
+
                             }
 
 
@@ -203,7 +170,6 @@ public class PnrActivity extends AppCompatActivity{
                     } while (cur.moveToNext());
                     if (!cur.isClosed()) {
                         cur.close();
-                        cur = null;
                     }
                 }
                 String pnrall=null;
@@ -243,31 +209,11 @@ public class PnrActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        // your code.
-        //splashTimer = new Timer();
-        //splashTimer.schedule(new TimerTask() {
-            //@Override
-            //public void run() {
-                        /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString(Mail, "NA");
-                        editor.putString(Phone, "NA");
-                        editor.commit();*/
                 PnrActivity.this.finish();
                 Intent i;
                 i = new Intent(PnrActivity.this, HomeScreenActivity.class);
-                //i.putExtra("anim id in", R.anim.fragment_slide_right_enter);
-                //i.putExtra("anim id out", R.anim.fragment_slide_left_exit);
-                //PnrActivity.this.finish();
                 PnrActivity.this.startActivity(i);
-                // This makes the new screen slide up as it fades in
-                // while the current screen slides up as it fades out.
-                //overridePendingTransition(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit);
                 overridePendingTransition(R.anim.slide_in_b, R.anim.slide_out_b);
-            //}
-        //}, DELAY);
-        //scheduled = true;
-        //return;
     }
 
     @Override
@@ -284,7 +230,6 @@ public class PnrActivity extends AppCompatActivity{
         int id = item.getItemId();
 
         if (id == R.id.action_status) {
-            final Button adpnr = (Button) findViewById(R.id.addpnr);
             LayoutInflater layoutInflater
                     = (LayoutInflater) getBaseContext()
                     .getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -312,7 +257,7 @@ public class PnrActivity extends AppCompatActivity{
                         if(pnedit!=null) {
                             pneditt = pnedit.getText().toString();
                         }
-                        if(pneditt.length()!=10)
+                        if(pneditt!=null && pneditt.length()!=10)
                         {
                             showToast("Enter valid Pnr."+pneditt.length());
                             return;
@@ -352,7 +297,6 @@ public class PnrActivity extends AppCompatActivity{
         else if (id == R.id.action_status1) {
             try{
                 Uri uri = Uri.parse("content://sms/");
-                StringBuilder pnrstring = new StringBuilder();
                 String[] projection = new String[] { "_id", "address", "person", "body", "date", "type" };
                 Cursor cur = getContentResolver().query(uri, projection, "body like '%Pnr%' and body like '%doj%'", null, "date desc");
                 StringBuilder smsBuilder = new StringBuilder();
@@ -361,12 +305,8 @@ public class PnrActivity extends AppCompatActivity{
                 if (ss!=null && cur!=null && cur.moveToFirst()) {
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("fload", "NA");
-                    editor.commit();
-                    int index_Address = cur.getColumnIndex("address");
-                    int index_Person = cur.getColumnIndex("person");
+                    editor.apply();
                     int index_Body = cur.getColumnIndex("body");
-                    int index_Date = cur.getColumnIndex("date");
-                    int index_Type = cur.getColumnIndex("type");
                     do {
                         String strbody = cur.getString(index_Body);
                         try {
@@ -375,10 +315,9 @@ public class PnrActivity extends AppCompatActivity{
                             Matcher matcher = pattern.matcher(pnrstr);
                             matcher.find();
                             String pnrddoj = strbody.substring(strbody.toLowerCase().indexOf("DOJ".toLowerCase()) + 3);
-                            Log.d("AAAA",pnrddoj+"~~~"+pnrstr.substring(matcher.start(1),matcher.start(1)+10));
                             Matcher matcher1 = pattern.matcher(pnrddoj);
                             matcher1.find();
-                            Date date=null;
+                            Date date;
                             try {
 
                                 String dateInString = pnrddoj.substring(matcher1.start(1), matcher1.start(1) + 10);
@@ -395,7 +334,6 @@ public class PnrActivity extends AppCompatActivity{
                                 }
 
                                 Date dat1 = new Date();
-                                Log.d("FFF",dat1.toString()+"~~"+date.toString()+"~~~"+dat1.after(date));
                                 if(!dat1.after(date))
                                 {
                                     String uniquestr = pnrstr.substring(matcher.start(1), matcher.start(1) + 10);
@@ -407,7 +345,7 @@ public class PnrActivity extends AppCompatActivity{
 
                             }catch (Exception e)
                             {
-                                ;
+
                             }
 
 
@@ -419,10 +357,9 @@ public class PnrActivity extends AppCompatActivity{
                     } while (cur.moveToNext());
                     if (!cur.isClosed()) {
                         cur.close();
-                        cur = null;
                     }
                 }
-                String pnrall=null;
+                String pnrall;
                 if(smsBuilder.toString().length()>0) {
                     pnrall = smsBuilder.toString().substring(0, smsBuilder.toString().length() - 1);
                 }
@@ -462,8 +399,6 @@ public class PnrActivity extends AppCompatActivity{
             sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
             final String phonenum = sharedpreferences.getString("name", null);
-            //EditText et1 = (EditText) findViewById(R.id.qqqq);
-            //et1.setText("QQQ"+url+"/key/"+phonenum+"/");
             //start Asyn Task here
             Log.d("ASAS",url+"/key/"+phonenum+"/");
             new DownloadTask().execute(url+"/key/"+phonenum+"/");
@@ -686,10 +621,10 @@ public class PnrActivity extends AppCompatActivity{
                                         pnrstr.append("|");
                                 }
                                 tv6[i].setTypeface(null, Typeface.BOLD);
-                                if (statuspnr != null) {
-                                    if (statuspnr.indexOf("W") != -1) {
+                                if (statuspnr.length() >0 ) {
+                                    if (statuspnr.contains("W")) {
                                         tv6[i].setTextColor(getResources().getColor(R.color.colorPnrWl));
-                                    } else if (statuspnr.indexOf("RAC") != -1) {
+                                    } else if (statuspnr.contains("RAC")) {
                                         tv6[i].setTextColor(getResources().getColor(R.color.colorPnrRac));
                                     } else {
                                         tv6[i].setTextColor(getResources().getColor(R.color.colorPnrCnf));
@@ -728,7 +663,6 @@ public class PnrActivity extends AppCompatActivity{
                             }
                             Animation slideL = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
                             Animation slideR = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
-                            int y = 1000 / jaray.length();
                             for (int i = 0; i < jaray.length(); i++) {
                                 if (ll[i].getVisibility() == View.INVISIBLE) {
 
@@ -770,13 +704,6 @@ public class PnrActivity extends AppCompatActivity{
             }
         }
 
-        private View.OnClickListener ClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selected_item = (Integer) v.getId();
-                //Log.d("OUT END", String.valueOf(selected_item));
-            }
-        };
     }
     @Override
 
@@ -788,12 +715,9 @@ public class PnrActivity extends AppCompatActivity{
         //
         if(v.getId()>0) {
             selectedid = v.getId();
-            int pnr = (selectedid * 1000) + 3;
             int id1 = (selectedid * 1000) + 4;
             int id2 = (selectedid * 1000) + 5;
             int id3 = (selectedid * 1000) + 6;
-            TextView tt = (TextView) findViewById(pnr);
-            String pnrval = tt.getText().toString();
             menu.setHeaderTitle("Select Option");
             menu.setHeaderIcon(R.drawable.ngrailsmlogo);
             menu.add(0, id1, 0, "Refresh");
@@ -990,10 +914,8 @@ public class PnrActivity extends AppCompatActivity{
                                     TextView ll = (TextView)findViewById((i*1000)+3);
                                     if(ll!=null && ll.getText().equals(addserpnr))
                                     {
-                                        int pnr = (selectedid * 1000) + 3;
                                         int status = (selectedid * 1000) + 1;
                                         int lastupd = (selectedid * 1000) + 2;
-                                        TextView pnrid = (TextView) findViewById(pnr);
                                         TextView statusid = (TextView) findViewById(status);
                                         TextView lastupdid = (TextView) findViewById(lastupd);
                                         String statusval = jsonobj.getString("status");
@@ -1008,10 +930,10 @@ public class PnrActivity extends AppCompatActivity{
                                             else
                                                 pnrstr.append("|");
                                         }
-                                        if (statusval != null) {
-                                            if (statusval.indexOf("W") != -1) {
+                                        if (statusval.length() > 0) {
+                                            if (statusval.contains("W")) {
                                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrWl));
-                                            } else if (statusval.indexOf("RAC") != -1) {
+                                            } else if (statusval.contains("RAC")) {
                                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrRac));
                                             } else {
                                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrCnf));
@@ -1197,10 +1119,10 @@ public class PnrActivity extends AppCompatActivity{
                                     else
                                         pnrstr.append("|");
                                 }
-                                if (statuspnr != null) {
-                                    if (statuspnr.indexOf("W") != -1) {
+                                if (statuspnr.length() >0) {
+                                    if (statuspnr.contains("W")) {
                                         tv6.setTextColor(getResources().getColor(R.color.colorPnrWl));
-                                    } else if (statuspnr.indexOf("RAC") != -1) {
+                                    } else if (statuspnr.contains("RAC")) {
                                         tv6.setTextColor(getResources().getColor(R.color.colorPnrRac));
                                     } else {
                                         tv6.setTextColor(getResources().getColor(R.color.colorPnrCnf));
@@ -1268,10 +1190,10 @@ public class PnrActivity extends AppCompatActivity{
                             else
                                 pnrstr.append("|");
                         }
-                        if (statusval != null) {
-                            if (statusval.indexOf("W") != -1) {
+                        if (statusval.length() >0) {
+                            if (statusval.contains("W")) {
                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrWl));
-                            } else if (statusval.indexOf("RAC") != -1) {
+                            } else if (statusval.contains("RAC")) {
                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrRac));
                             } else {
                                 statusid.setTextColor(getResources().getColor(R.color.colorPnrCnf));
@@ -1293,28 +1215,50 @@ public class PnrActivity extends AppCompatActivity{
                     //notif.notify(0, notify);
                     String notify1 = jsonobj.getString("pnr")+" ("+jsonobj.getString("doj")+")";
                     String notify2 = jsonobj.getString("trainnum")+" "+jsonobj.getString("status");
-                    Notification.Builder builder = new Notification.Builder(PnrActivity.this);
+
+                    //Notification.Builder builder = new Notification.Builder(PnrActivity.this);
                     if (Build.VERSION.SDK_INT >= 21) {
-                        builder.setSmallIcon(R.drawable.ngrailsmlogo)
+                        Notification notify = new Notification.Builder(PnrActivity.this)
+                                .setSmallIcon(R.drawable.ngrailsmlogo)
+                                .setContentTitle(notify1)
+                                .setColor(getResources().getColor(R.color.colorPrimary))
+                                .setContentInfo("NGRail")
+                                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                                .setLights(Color.RED, 3000, 3000)
+                                .setContentText(notify2)
+                                .setContentIntent(pending)
+                                .build();
+                        /*builder.setSmallIcon(R.drawable.ngrailsmlogo)
                                 .setContentTitle(notify1)
                                 .setColor(getResources().getColor(R.color.colorPrimary))
                                 .setContentInfo("NGRail")
                                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                                 .setLights(Color.RED, 3000, 3000)
                                 .setContentText(notify2)
-                                .setContentIntent(pending);
+                                .setContentIntent(pending);*/
+                        notif.notify(R.drawable.ngrailsmlogo, notify);
                     }else{
-                        builder.setSmallIcon(R.drawable.ngrailsmlogo)
+                        Notification notify = new Notification.Builder(PnrActivity.this)
+                                .setSmallIcon(R.drawable.ngrailsmlogo)
+                                .setContentTitle(notify1)
+                                .setContentInfo("NGRail")
+                                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                                .setLights(Color.RED, 3000, 3000)
+                                .setContentText(notify2)
+                                .setContentIntent(pending)
+                                .build();
+                        /*builder.setSmallIcon(R.drawable.ngrailsmlogo)
                                 .setContentTitle(notify1)
                                 .setContentInfo("NGRail")
                                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                                 .setLights(Color.RED, 3000, 3000)
                                 .setContentText(notify2)
-                                .setContentIntent(pending);
+                                .setContentIntent(pending);*/
+                        notif.notify(R.drawable.ngrailsmlogo, notify);
                     }
 
-                    Notification notify = builder.getNotification();
-                    notif.notify(R.drawable.ngrailsmlogo, notify);
+                    //Notification notify = builder.getNotification();
+                    //notif.notify(R.drawable.ngrailsmlogo, notify);
                 }
 
                 //sendSMSMessage(text.toString());
@@ -1330,36 +1274,10 @@ public class PnrActivity extends AppCompatActivity{
             }
         }
 
-        private View.OnClickListener ClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selected_item = (Integer) v.getId();
-                //Log.d("OUT END", String.valueOf(selected_item));
-            }
-        };
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        /*// Cancel AsyncTask
-        if (mRegisterTask != null) {
-            mRegisterTask.cancel(true);
-        }
-        try {*/
-        if (scheduled)
-            splashTimer.cancel();
-        if(splashTimer!=null)
-            splashTimer.purge();
-            /*// Unregister Broadcast Receiver
-            unregisterReceiver(mHandleMessageReceiver);
-
-            //Clear internal resources.
-            GCMRegistrar.onDestroy(this);
-
-        } catch (Exception e) {
-            Log.d("UnRegister ", e.getMessage());
-        }*/
-
     }
 }

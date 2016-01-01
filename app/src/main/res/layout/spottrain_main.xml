@@ -134,8 +134,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Searching..."
-                android:textColor="#ffffff"
+                android:text="Please Wait..."
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
