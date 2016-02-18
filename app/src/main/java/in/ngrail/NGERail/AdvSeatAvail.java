@@ -409,16 +409,16 @@ public class AdvSeatAvail extends AppCompatActivity{
                     switch (quota_fina)
                     {
                         case "GN":
-                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina+"/nrp/P"));
                             break;
                         case "LB":
-                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina+"/nrp/P"));
                             break;
                         case "LD":
-                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina+"/nrp/P"));
                             break;
                         case "SS":
-                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina));
+                            loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/"+source_fina+"/destination/"+dest_fina+"/doj/"+doj_fina+"/train/"+train_fina+"/class/"+class_fina+"/nrp/P"));
                             break;
                     }
                     /*if (quota_fina.equals("GN")) {
@@ -475,13 +475,13 @@ public class AdvSeatAvail extends AppCompatActivity{
                     loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                     //loadigIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPnrRac), android.graphics.PorterDuff.Mode.MULTIPLY);
                     if (quota_fina.equals("GN")) {
-                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina));
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearch/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina+"/nrp/N"));
                     } else if (quota_fina.equals("LB")) {
-                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina));
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina+"/nrp/N"));
                     } else if (quota_fina.equals("LD")) {
-                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina));
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchlb/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina+"/nrp/N"));
                     } else if (quota_fina.equals("SS")) {
-                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina));
+                        loadigIcon.post(new Starter("http://api.ngrail.in/advsearchss/source/" + source_fina + "/destination/" + dest_fina + "/doj/" + doj_fina + "/train/" + train_fina + "/class/" + class_fina+"/nrp/N"));
                     }
                     loadigIcon.setVisibility(View.GONE);
 
@@ -656,8 +656,24 @@ public class AdvSeatAvail extends AppCompatActivity{
                     return;
                 } else {
                     try{
-                        jsonval = result;
                         JSONObject jsn = new JSONObject(result);
+                        if(jsn.getString("responsecode").equals("206"))
+                        {
+                            CharSequence text = "Train not running on this day";
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                            //return;
+                        }
+                        else if(!jsn.getString("responsecode").equals("200"))
+                        {
+                            CharSequence text = "Back-End server issue. Please try again.";
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                            //return;
+                        }
+                        jsonval = result;
                         TextView trheader = (TextView)findViewById(R.id.trheader);
                         trheader.setText(jsn.getString("source")+" > "+jsn.getString("destination"));
                         try {
